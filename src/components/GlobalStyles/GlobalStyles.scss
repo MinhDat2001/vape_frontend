@@ -1,0 +1,19 @@
+@import 'normalize.css';
+
+:root {
+    --primary-color: #04aa6d;
+    --secondary-color: #000000;
+    --notice: #f44336;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 70%;
+}
+
+body {
+    font-size: 1.6rem;
+}
