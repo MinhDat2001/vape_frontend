@@ -1,0 +1,145 @@
+.container {
+    max-width: 1000px;
+    margin: auto;
+}
+
+.header {
+    width: 100%;
+}
+
+.header .top {
+    background-color: var(--secondary-color);
+}
+
+.top .container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.container .info {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-size: small;
+
+}
+
+.info .logo {
+    display: block;
+    width: 80px;
+    height: 60px;
+    padding: 12px;
+}
+
+.info .time {
+    display: inline-block;
+    margin-left: 12px;
+    justify-content: center;
+    align-items: center;
+    padding-right: 10px;
+}
+
+.info .time::after {
+    content: "";
+    height: 100%;
+    margin-left: 8px;
+    border-right: 1px solid #555;
+}
+
+.info .time:hover {
+
+}
+
+.time i {
+    padding-right: 8px;
+    color: var(--primary-color);
+}
+
+.info .phone {
+    display: inline-block;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    color: white;
+}
+
+.phone i {
+    padding-right: 8px;
+    color: var(--primary-color);
+}
+
+.social {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.social ul {
+    list-style: none;
+}
+
+.social li {
+    display: inline-block;
+}
+
+.social a {
+    display: block;
+    text-decoration: none;
+    color: white;
+}
+
+.header .navbar {
+    background-color: var(--primary-color);
+}
+
+.navbar ul {
+    list-style-type: none;
+    display: flex;
+}
+
+.navbar ul li {
+    display: inline-block;
+}
+
+.navbar li:last-child {
+    margin-left: auto;
+}
+
+.navbar .navItem {
+    
+    display: inline-block;
+    height: 100%;
+    box-sizing: border-box;
+    padding: 20px 16px;
+    text-decoration: none;
+    color: var(--secondary-color);
+    transition: all 0.2s;
+    font-size: small;
+}
+
+.navbar .navItem:hover {
+    background-color: var(--secondary-color);
+    color: white; 
+}
+
+.nav-item i {
+    font-size: smaller;
+    color: #555;
+}
+
+.navbar .nav-item:hover i {
+    color: white;
+}
+
+.search i {
+    font-size: medium;
+}
+
+.search i{
+    color: var(--secondary-color);
+}
+.aTag{
+    margin-left: 5px;
+    margin-right: 5px;
+}

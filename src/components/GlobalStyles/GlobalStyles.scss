@@ -6,14 +6,30 @@
     --notice: #f44336;
 }
 
-* {
-    box-sizing: border-box;
+#root{
+    width: 100%;
+
 }
 
+
+* { 
+    margin: 0;
+    padding: 0;
+    border: 0;
+    box-sizing: border-box;
+    /* font-family: 'Average Sans', sans-serif; */
+    font-family: 'Roboto', sans-serif;
+}
+
+.container {
+    max-width: 1000px;
+    margin: auto;
+}
 html {
     font-size: 70%;
 }
 
 body {
     font-size: 1.6rem;
+    margin: 0;
 }
