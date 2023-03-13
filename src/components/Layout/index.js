@@ -1,2 +1,3 @@
-export { DefaultLayout } from './DefaultLayout'
-export { AuthenLayout } from './AuthenLayout'
+export { default as DefaultLayout } from './DefaultLayout'
+export { default as AuthenLayout } from './AuthenLayout'
+

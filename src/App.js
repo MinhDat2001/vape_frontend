@@ -13,7 +13,7 @@ import { DefaultLayout, AuthenLayout } from './components/Layout'
 function App() {
     return (
         <Router>
-            <div className="App">
+            <div className="App">       
                 <Routes>
                     <Route
                         path="/login"
@@ -72,7 +72,7 @@ function App() {
                         }
                     />
                     <Route
-                        path="/catgory"
+                        path="/category"
                         element={
                             <DefaultLayout>
                                 <Category />
