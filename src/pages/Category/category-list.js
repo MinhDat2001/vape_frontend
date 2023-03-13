@@ -1,29 +1,18 @@
-import { useState, useEffect } from "react";
-import axios from 'axios';
+function CategoryList({ data }) {
+  const amount = 5;
 
-function CategoryList() {
-    const [categories, setCategories] = useState([]);
+  const categories = data.slice(0, amount);
 
-    useEffect(() => {
-        axios.get('https://626d69e8034ec185d332c052.mockapi.io/categories')
-          .then(response => {
-            setCategories(response.data);
-          })
-          .catch(error => {
-            console.log(error);
-          });
-      }, []);
-
-    return (
-        <div className="option categories">
-            <div className="title">DANH MỤC SẢN PHẨM</div>
-            <ul>
-                {
-                    categories.map((item, index) => (<li key={index}><a href={item.link}>{item.name}</a></li>))
-                }
-            </ul>
-        </div>
-    );
+  return (
+    <div className="option categories">
+      <div className="title">DANH MỤC SẢN PHẨM</div>
+      <ul>
+        {
+          categories.map((item, index) => (<li key={index}><a href={"/category/" + item.id}>{item.name}</a></li>))
+        }
+      </ul>
+    </div>
+  );
 }
 
 export default CategoryList

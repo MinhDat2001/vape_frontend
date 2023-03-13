@@ -4,7 +4,7 @@ function ProductCard({ product }) {
     return (
         <div className="product-item col-md-4 col-6">
             <div className="card">
-                <a href={product.link}>
+                <a href={"/product/" + product.id}>
                     <div className="img">
                         <img className="card-img"
                             src={product.avatar}
