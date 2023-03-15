@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 function CategoryList({ data }) {
   const amount = 5;
 
@@ -8,7 +9,7 @@ function CategoryList({ data }) {
       <div className="title">DANH MỤC SẢN PHẨM</div>
       <ul>
         {
-          categories.map((item, index) => (<li key={index}><a href={"/category/" + item.id}>{item.name}</a></li>))
+          categories.map((item, index) => (<li key={index}><Link to={"/category/" + item.id}>{item.name}</Link></li>))
         }
       </ul>
     </div>

@@ -1,10 +1,12 @@
+import { Link } from "react-router-dom";
+
 function ProductCard({ product }) {
 
     const formattedPrice = Number(product.price).toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
     return (
         <div className="product-item col-md-4 col-6">
             <div className="card">
-                <a href={"/product/" + product.id}>
+                <Link to={"/product/" + product.id}>
                     <div className="img">
                         <img className="card-img"
                             src={product.avatar}
@@ -16,7 +18,7 @@ function ProductCard({ product }) {
                         </div>
                         <div className="price">{formattedPrice}</div>
                     </div>
-                </a>
+                </Link>
 
             </div>
         </div>
