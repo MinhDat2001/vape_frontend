@@ -21,7 +21,7 @@ function App() {
                                     </Layout>
                                 }
                             />
-                        );
+                        )
                     })}
                     {userRoute.map((route, index) => {
                         const Layout =
@@ -37,7 +37,7 @@ function App() {
                                     </Layout>
                                 }
                             />
-                        );
+                        )
                     })}
                 </Routes>
             </div>

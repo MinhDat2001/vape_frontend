@@ -4,15 +4,16 @@
     --primary-color: #04aa6d;
     --secondary-color: #000000;
     --notice: #f44336;
+    --text-color-w: white;
+    --text-color-b: black;
+    --pagination-button-bg: #ffc800;
 }
 
-#root{
+#root {
     width: 100%;
-
 }
 
-
-* { 
+* {
     margin: 0;
     padding: 0;
     border: 0;
@@ -32,4 +33,12 @@ html {
 body {
     font-size: 1.6rem;
     margin: 0;
+}
+.page-active {
+    background-color: var(--pagination-button-bg) !important;
+    color: var(--text-color-w) !important;
+}
+
+.active {
+    color: var(--notice) !important;
 }
