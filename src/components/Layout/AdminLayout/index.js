@@ -1,7 +1,7 @@
 import AdminFooter from './Footer'
 import AdminHeader from './Header'
 import Navbar from './Navbar'
-function AdminLayout({children}) {
+function AdminLayout({ children }) {
     return (
         <div>
             <AdminHeader />
