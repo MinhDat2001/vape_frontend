@@ -5,12 +5,28 @@ const cx = classNames.bind(styles);
 
 function Tag({ status }) {
     switch (status) {
-        case 'new':
-            return <div className={cx(['tag'])}>New</div>;
         case 'hot':
             return <div className={cx(['tag'])}>Hot</div>;
+        case 'new':
+            return (
+                <div
+                    className={cx(['tag'])}
+                    style={{ backgroundColor: 'green' }}
+                >
+                    New
+                </div>
+            );
         default:
-            break;
+            return (
+                <div
+                    className={cx(['tag'])}
+                    style={{
+                        display: 'none',
+                    }}
+                >
+                    Hot
+                </div>
+            );
     }
 }
 
