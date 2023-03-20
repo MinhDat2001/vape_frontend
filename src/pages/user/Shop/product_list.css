@@ -1,0 +1,141 @@
+body {
+    background-color: #f5f5f5;
+}
+/* layout cho nội dung */
+.content {
+    padding-top: 12px;
+}
+
+/* style cho đống options bên trái */
+.options {
+    /* padding: 0; */
+}
+
+.option {
+    padding: 12px;
+    border-radius: 10px;
+    background-color: white;
+    box-shadow: 0px 4px 30px rgb(19 28 25 / 10%);
+    margin-bottom: 16px;
+}
+
+.title {
+    font-weight: bold;
+    border-bottom: solid 1px #e8e6e2;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+}
+
+.categories ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.categories a {
+    text-decoration: none;
+    color: var(--text-color-b);
+    display: inline-block;
+    padding: 4px 0;
+    text-transform: uppercase;
+    font-size: 16px;
+}
+
+.categories a:hover {
+    color: var(--notice);
+}
+
+/* style cho danh sách sản phẩm */
+.productList {
+}
+
+.productList .top {
+    display: flex;
+    justify-content: space-between;
+}
+
+.product-list .title {
+    border: 0;
+}
+
+.sort {
+}
+
+.productItem {
+    margin: 12px 0;
+}
+
+.productItem:hover .card {
+    border: 1px solid var(--notice);
+    position: relative;
+    top: -2px;
+}
+
+.productItem:hover .card-body .name {
+    color: var(--notice);
+}
+
+.card {
+    padding: 8px;
+    box-shadow: 0px 4px 30px rgb(19 28 25 / 10%);
+    transition: all 0.2s;
+}
+
+.card > a {
+    text-decoration: none;
+    color: var(--text-color-b);
+}
+
+.card .img {
+    height: fit-content;
+}
+
+.cardBody {
+    padding: 0;
+}
+
+.cardBody .name {
+    padding: 8px 0;
+    font-size: 12px;
+    font-weight: 500;
+    min-height: 52px;
+    max-height: 64px;
+    overflow: hidden;
+}
+
+/* 
+.card-body a:hover {
+    color: var(--notice);
+} */
+
+.cardBody .price {
+    color: var(--notice);
+}
+
+.paginationBox {
+    display: flex;
+    justify-content: center;
+}
+
+.pagination {
+}
+
+.pagination li {
+}
+
+.pagination a {
+    display: inline-block;
+    text-decoration: none;
+    color: var(--text-color-b);
+    padding: 8px 12px;
+    background-color: white;
+    border-radius: 5px;
+    margin: 0 4px;
+    border: solid 1px #ebebeb;
+    box-sizing: border-box;
+}
+
+.pagination a:hover {
+    background-color: var(--pagination-button-bg);
+    color: var(--text-color-w);
+}
