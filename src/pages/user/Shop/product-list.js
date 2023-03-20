@@ -1,4 +1,4 @@
-import styles from './product_list.module.scss'
+import './product_list.css'
 import ProductCard from './product-card'
 function ProductList({ data, page }) {
     const currentPage = 1
@@ -17,9 +17,9 @@ function ProductList({ data, page }) {
 
     return (
         <div className="col-md-8 product-list">
-            <div className={styles.top}>
-                <div className={styles.title}>Sản phẩm mới</div>
-                <div className={styles.sort}>
+            <div className="top">
+                <div className="title">Sản phẩm mới</div>
+                <div className="sort">
                     <label htmlFor="">Sắp xếp theo:</label>
                     <div className=""></div>
                 </div>
@@ -34,13 +34,13 @@ function ProductList({ data, page }) {
                         <ProductCard key={index} product={item} />
                     ))}
             </div>
-            <div className={styles.paginationBox}>
-                <ul className={styles.pagination}>
+            <div className="paginationBox">
+                <ul className="pagination">
                     {pageArray.map((page, index) => {
                         if (page == currentPage)
                             return (
                                 <li key={index}>
-                                    <a href="" className={styles.pageActive}>
+                                    <a href="" className="pageActive">
                                         {page}
                                     </a>
                                 </li>

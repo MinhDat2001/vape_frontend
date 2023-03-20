@@ -18,8 +18,8 @@ import { DefaultLayout, AuthenLayout, AdminLayout } from '~/components/Layout'
 
 const userRoute = [
     { path: '', component: userHome, Layout: DefaultLayout },
-    { path: '/login', component: userLogin, Layout: AuthenLayout },
-    { path: '/register', component: userRegister, Layout: AuthenLayout },
+    { path: '/login', component: userLogin, Layout: DefaultLayout },
+    { path: '/register', component: userRegister, Layout: DefaultLayout },
     { path: '/product', component: Shop, Layout: DefaultLayout },
     {
         path: '/product/{product-slug}',

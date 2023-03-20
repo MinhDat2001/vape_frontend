@@ -1,0 +1,89 @@
+.container{
+    min-height: 500px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.auth-form{
+    margin: 48px 0 48px 0;
+    border-radius: 3px;
+    border: 0;
+    background-color: #d7d7d7;
+    width: 550px;
+    min-width: 300px;
+    padding: 30px 60px 30px 60px;
+}
+.contain-title{
+    display: flex;
+    justify-content: center;
+    margin-bottom: 16px;
+}
+.contain-title label{
+    font-size: 24px;
+    margin: 8px;
+}
+.contain{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 12px;
+}
+.label{
+    width: 72px;
+    font-size: 12px;
+}
+.input{
+    font-size: 16px;
+    padding: 4px 0px 4px 16px;
+    outline: none;
+    border-radius: 3px;
+    line-height: 24px;
+    width: 325px;
+    min-width: 200px;
+    height: 36px;
+}
+.button{
+    border-radius: 3px;
+}
+.primary-btn{
+    background-color: var(--primary-color);
+    height: 36px;
+    width: 120px;
+    font-size: 20px;
+    margin-top: 8px;
+}
+
+.warnning{
+    color: red;
+    font-size: 14px;
+}
+/* login */
+.social-btn{
+    font-size: 14px;
+    background-color: black;
+    color: white;
+    margin: 8px;
+    padding: 4px 0 4px 0;
+    width: 160px;
+}
+.social-icon{
+    margin-right: 4px;
+}
+.hidden-password{
+    cursor: pointer;
+}
+.forgot-password{
+    text-decoration: none;
+    color: black;
+}
+
+/* register */
+
+.address-select{
+    width: 46px;
+    line-height: 24px;
+    height: 24px;
+    outline: none;
+    border-radius: 3px;
+}
