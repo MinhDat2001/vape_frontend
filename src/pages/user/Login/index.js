@@ -63,7 +63,7 @@ function loginFB(){
 }
 
 function validate(){
-    console.log("validate");
+    document.getElementById("warnning").innerHTML="";
     var email = document.getElementById("username");
     var password = document.getElementById("password");
     if(email.value===""||password.value==="" ){
