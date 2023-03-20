@@ -1,6 +1,9 @@
-function ProductContentHeader() {
+import React from 'react';
+import './styles.css';
+
+function ProductContentHeader(props) {
     return (
-        <div></div>
+        <h2>{props.name}</h2>
     )
 }
 

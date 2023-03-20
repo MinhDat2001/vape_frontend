@@ -1,0 +1,58 @@
+h2 {
+  padding-top: 6px;
+  padding-bottom: 6px;
+}
+
+.main {
+    display: grid;
+    grid-template-columns: 1fr 7fr;
+    grid-gap: 10px;
+}
+
+.mota.mota1 {
+    padding-top: 8px;
+    padding-bottom: 8px;
+}
+
+.img-des {
+    width: 100%; /* độ rộng của ảnh là 100% */
+    max-width: 100%;
+    padding-top: 6px;
+}
+
+.thanh-phan {
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  padding: 10px;
+}
+
+p span {
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+p span br {
+  display: block;
+  margin-top: 10px;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+th, td {
+  text-align: left;
+  padding: 8px;
+  border-bottom: 1px solid #ddd;
+}
+
+th {
+  background-color: #4CAF50;
+  color: white;
+}
+
+tr:nth-child(even) {
+  background-color: #f2f2f2;
+}

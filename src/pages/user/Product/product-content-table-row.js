@@ -1,11 +1,12 @@
+import React from 'react'
+import './styles.css'
+
 function ProductContentTableRow(props) {
     return (
-        <div className="item">
-            <div>
-                <span>{props.name}</span>
-                <span>   {props.value}</span>
-            </div>
-        </div>
+        <tr>
+            <td>{props.name}</td>
+            <td>{props.value}</td>
+        </tr>
     )
 }
 
