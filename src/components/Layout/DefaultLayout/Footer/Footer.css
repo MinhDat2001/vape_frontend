@@ -1,39 +1,39 @@
-.row{
+.row {
     padding-top: 20px;
 }
-.containCoppyRight{
+.containCoppyRight {
     background-color: black;
     display: flex;
     justify-content: center;
 }
-.containfooterContent{
+.containfooterContent {
     background-color: var(--primary-color);
     display: flex;
     justify-content: center;
 }
-.footerContent{
+.footerContent {
     width: 80%;
 }
-.coppyRight{
+.coppyRight {
     display: flex;
     justify-content: space-between;
-    min-width:80%;
+    min-width: 80%;
     color: white;
     font-size: 18px;
 }
-.footerIcon{
+.footerIcon {
     width: 200px;
     height: 150px;
 }
-.footerCol ul{
+.footerCol ul {
     list-style-type: none;
     margin: 0;
     padding: 0;
 }
-.footerTitle{
+.footerTitle {
     font-size: 16px;
     font-weight: 600;
 }
-.footerCol ul li{
+.footerCol ul li {
     font-size: 14px;
 }

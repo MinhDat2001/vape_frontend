@@ -145,7 +145,7 @@
     margin-left: 5px;
     margin-right: 5px;
 }
-.authenButton{
+.authenButton {
     width: 100px;
     height: 36px;
     color: white;
@@ -155,34 +155,34 @@
     margin-left: 10px;
     font-size: 14px;
 }
-.hidden{
+.hidden {
     display: none;
 }
-.display{
+.display {
     display: block;
 }
-.aTag{
+.aTag {
     font-size: 14px;
 }
-.maR{
+.maR {
     margin-right: 5px;
 }
-.avatar{
+.avatar {
     width: 40px;
     height: 40px;
     cursor: pointer;
     border-radius: 100%;
 }
-.icon{
+.icon {
     font-size: 24px;
     margin: 5px;
 }
-.icon img{
+.icon img {
     width: 30px;
     height: 30px;
     border-radius: 100%;
     margin-top: -5px;
 }
-.icon img:hover{
+.icon img:hover {
     border: 1px solid #a8a8a8;
 }
