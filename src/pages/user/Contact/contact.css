@@ -1,0 +1,32 @@
+.title {
+    font-size: 24px;
+}
+.input {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 24px;
+}
+.input input {
+    width: 80%;
+    height: 36px;
+    outline: none;
+    font-size: 18px;
+    padding: 4px 0 4px 8px;
+    border: 1px solid #555;
+    border-radius: 3px;
+}
+.input button {
+    width: 128px;
+    height: 36px;
+    outline: none;
+    font-size: 18px;
+    border: 1px solid #555;
+    border-radius: 3px;
+    background-color: var(--primary-color);
+    margin-top: -32px;
+}
+#warnning {
+    color: red;
+}

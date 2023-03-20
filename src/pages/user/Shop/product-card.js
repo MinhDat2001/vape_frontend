@@ -1,4 +1,4 @@
-import styles from './product_list.module.scss'
+import './product_list.css'
 import { Link } from 'react-router-dom'
 
 function ProductCard({ product }) {

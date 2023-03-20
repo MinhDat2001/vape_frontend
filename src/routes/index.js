@@ -15,11 +15,12 @@ import { default as adminCategory } from '~/pages/admin/Category'
 import Setting from '~/pages/admin/Setting'
 
 import { DefaultLayout, AuthenLayout, AdminLayout } from '~/components/Layout'
+import Contact from '~/pages/user/Contact'
 
 const userRoute = [
     { path: '', component: userHome, Layout: DefaultLayout },
-    { path: '/login', component: userLogin, Layout: AuthenLayout },
-    { path: '/register', component: userRegister, Layout: AuthenLayout },
+    { path: '/login', component: userLogin, Layout: DefaultLayout },
+    { path: '/register', component: userRegister, Layout: DefaultLayout },
     { path: '/product', component: Shop, Layout: DefaultLayout },
     {
         path: '/product/{product-slug}',
@@ -27,6 +28,7 @@ const userRoute = [
         Layout: DefaultLayout,
     },
     { path: '/profile', component: Profile, Layout: DefaultLayout },
+    { path: '/contact', component: Contact, Layout: DefaultLayout },
     { path: '/category', component: Category, Layout: DefaultLayout },
     { path: '/cart', component: Cart, Layout: DefaultLayout },
     { path: '/payment', component: Payment, Layout: DefaultLayout },
