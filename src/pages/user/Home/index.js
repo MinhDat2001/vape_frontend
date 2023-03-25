@@ -17,7 +17,7 @@ function Home() {
     return (
         <main className={cx(['home'])}>
             <section className={cx(['section-product', 'top-seller'])}>
-                <Container>
+                <Container className={cx(['d-block', 'mh-0'])}>
                     <div className={cx(['top'])}>
                         <Link className={cx(['title'])}>Sản phẩm nổi bật</Link>
                         <Link className={cx(['more'])}>
@@ -132,7 +132,7 @@ function Home() {
                 </Container>
             </section>
             <section className={cx(['section-product', 'popular-categories'])}>
-                <Container>
+                <Container className={cx(['d-block', 'mh-0'])}>
                     <div className={cx(['top'])}>
                         <Link className={cx(['title'])}>Danh mục phổ biến</Link>
                         <Link className={cx(['more'])}>
@@ -199,7 +199,7 @@ function Home() {
                 </Container>
             </section>
             <section className={cx(['section-product', 'sales'])}>
-                <Container>
+                <Container className={cx(['d-block', 'mh-0'])}>
                     <div className={cx(['top'])}>
                         <Link className={cx(['title'])}>Khuyến mãi</Link>
                         <Link className={cx(['more'])}>
@@ -302,7 +302,7 @@ function Home() {
                 </Container>
             </section>
             <section className={cx(['section-product', 'category'])}>
-                <Container>
+                <Container className={cx(['d-block', 'mh-0'])}>
                     <div className={cx(['top'])}>
                         <Link className={cx(['title'])}>Tinh dầu</Link>
                         <Link className={cx(['more'])}>
