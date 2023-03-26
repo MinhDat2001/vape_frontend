@@ -5,34 +5,34 @@ function Contact() {
     return (
         <div className="contain row">
             <div className="form-contact col-md-4">
-                <div className="input">
+                <div className="contact-input">
                     <div className="title">Liên hệ với chúng tôi</div>
                 </div>
-                <div className="input">
+                <div className="contact-input">
                     <input
                         id="email"
                         type="text"
                         placeholder="Nhập email của bạn"
                     />
                 </div>
-                <div className="input">
+                <div className="contact-input">
                     <input
                         id="phone"
                         type="text"
                         placeholder="Nhập số điện thoại của bạn"
                     />
                 </div>
-                <div className="input">
+                <div className="contact-input">
                     <input
                         id="name"
                         type="text"
                         placeholder="Nhập họ tên của bạn"
                     />
                 </div>
-                <div className="input">
+                <div className="contact-input">
                     <label id="warnning"></label>
                 </div>
-                <div className="input">
+                <div className="contact-input">
                     <button onClick={sendRequest}>Gửi</button>
                 </div>
             </div>

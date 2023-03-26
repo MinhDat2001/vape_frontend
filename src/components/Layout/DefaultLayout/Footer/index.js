@@ -1,7 +1,7 @@
 import './Footer.css'
 import logo from '~/static/images/logo.png'
 function Footer() {
-    return (
+    var ResponseHTML = (
         <footer className="footerContainer">
             <div className="containfooterContent">
                 <div className="row footerContent">
@@ -35,6 +35,6 @@ function Footer() {
             </div>
         </footer>
     )
+    return ResponseHTML
 }
-
-export default Footer;
+export default Footer

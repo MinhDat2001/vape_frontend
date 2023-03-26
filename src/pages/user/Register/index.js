@@ -1,9 +1,15 @@
 import '../Login/authen.css'
-import { Link } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
+import { CallRegister } from './api.js'
 
 const host = 'https://provinces.open-api.vn/api/'
 function Register() {
+    const navigate = useNavigate();
+    var cookie = document.cookie;
+    if(cookie !== null && cookie !==""){
+        navigate('/')
+    }
     var callAPI = (api) => {
         return axios.get(api).then((response) => {
             renderData(response.data, 'city')
@@ -159,12 +165,30 @@ async function callWard(e) {
     removeAllChild(document.getElementById('ward'))
     callApiWard(host + 'd/' + option.getAttribute('data-id') + '?depth=2')
 }
-function register() {
+async function register() {
     document.getElementById('warnning').innerHTML = ''
-    validate()
+    if(await validate()===0){
+        return
+    }
+    var email = document.getElementById("username");
+    document.cookie = "email="+email.value+";";
+    var fullname = document.getElementById("name");
+    var phone = document.getElementById("phone");
+    var city = document.getElementById("city");
+    var district = document.getElementById("district");
+    var ward = document.getElementById("ward");
+    var addressDetail = document.getElementById("house");
+    var password = document.getElementById("password");
+    var registerForm = {
+        email: email.value,
+        name : fullname.value,
+        phone : phone.value,
+        address : addressDetail.value +', '+ward.options[ward.selectedIndex].text +', '+ district.options[district.selectedIndex].text+', '+city.options[city.selectedIndex].text,
+        password : password.value
+    }
+    CallRegister(registerForm);
 }
-function validate() {
-    console.log('validate')
+async function validate() {
     var email = document.getElementById('username')
     var name = document.getElementById('name')
     var phone = document.getElementById('phone')
@@ -179,21 +203,24 @@ function validate() {
     ) {
         document.getElementById('warnning').innerHTML =
             'Các trường * không được để trống!'
-        return
+        return 0
     }
     if (!/^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[A-Za-z]+$/.test(email.value)) {
         document.getElementById('warnning').innerHTML =
             'Nhập đúng định dạng email!'
-        return
+        return 0
     }
     if (!/(84|0[3|5|7|8|9])+([0-9]{8})\b/.test(phone.value)) {
         document.getElementById('warnning').innerHTML =
             'Nhập đúng định dạng số điện thoại!'
-        return
+        return 0
     }
-    if (password != re_password) {
+    if (password.value !== re_password.value) {
+        console.log(password);
+        console.log(re_password);
         document.getElementById('warnning').innerHTML = 'Mật khẩu không trùng!'
-        return
+        return 0
     }
+    return 1;
 }
 export default Register
