@@ -4,6 +4,14 @@ import user from '~/static/images/user.png'
 import { Link, useNavigate } from 'react-router-dom'
 
 function Header() {
+    const token = document.cookie.split("; ").find((row) => row.startsWith("token="))?.split("=")[1];
+    if(token === null || token === undefined){
+        var guestClass="loginInfo display";
+        var userClass = "loginInfo";
+    }else{
+        guestClass="loginInfo";
+        userClass = "loginInfo display";
+    }
     const navigate = useNavigate()
 
     const navigateLogin = () => {
@@ -13,7 +21,7 @@ function Header() {
     const navigateRegister = () => {
         navigate('/register')
     }
-    return (
+    var responseHTML = (
         <div className="header">
             <div className="top">
                 <div className="header_container">
@@ -29,6 +37,7 @@ function Header() {
                                 <a
                                     href="https://www.youtube.com/"
                                     target="_blank"
+                                    rel="noreferrer"
                                     className="aTag"
                                 >
                                     <i className="fa-brands fa-youtube maR"></i>
@@ -39,6 +48,7 @@ function Header() {
                                 <a
                                     href="https://www.minhdat.dev/"
                                     target="_blank"
+                                    rel="noreferrer"
                                     className="aTag"
                                 >
                                     <i className="fa-brands fa-facebook maR"></i>
@@ -70,28 +80,26 @@ function Header() {
                         </li>
                     </ul>
                     <div>
-                        <div id="guest" className="">
+                        <div id="guest" className={guestClass}>
                             <button
-                                id="login_google"
                                 onClick={navigateLogin}
                                 className="authenButton"
                             >
                                 Đăng nhập
                             </button>
                             <button
-                                id="login_facebook"
                                 onClick={navigateRegister}
                                 className="authenButton"
                             >
                                 Đăng ký
                             </button>
                         </div>
-                        <div id="user" className="hidden">
+                        <div id="user" className={userClass}>
                             <Link to={'/cart'} className="icon">
                                 <i className="fa-solid fa-cart-shopping"></i>
                             </Link>
                             <Link to={'/profile'} className="icon">
-                                <img src={user} alt="user image" />
+                                <img src={user} alt="user" />
                             </Link>
                         </div>
                     </div>
@@ -99,6 +107,6 @@ function Header() {
             </div>
         </div>
     )
+    return responseHTML
 }
-
 export default Header

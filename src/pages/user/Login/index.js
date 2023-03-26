@@ -1,8 +1,13 @@
 import './authen.css'
-import { Link } from 'react-router-dom'
-
+import { Link, useNavigate } from 'react-router-dom'
+import { CallLogin } from './api';
 function Login() {
-    return (
+    const navigate = useNavigate();
+    var cookie = document.cookie;
+    if(cookie !== null && cookie !==""){
+        navigate('/')
+    }
+    var ResponseHTML = (
         <div className="container">
             <div className="auth-form">
                 <div className="contain-title">
@@ -76,6 +81,7 @@ function Login() {
             </div>
         </div>
     )
+    return ResponseHTML
 }
 function hiddenPassword() {
     var passwordInput = document.getElementById('password')
@@ -90,24 +96,38 @@ function hiddenPassword() {
         hiddenPassword.classList.add('fa-eye')
     }
 }
-function login() {
-    validate()
+
+
+async function login() {
+    var email = document.getElementById('username')
+    var password = document.getElementById('password')
+    if(await validate() === -1){
+        return
+    }
+    var loginForm = {
+        username : email ? email.value : "",
+        password : password ? password.value:""
+    }
+    CallLogin(loginForm)
 }
 function loginGG() {}
 function loginFB() {}
 
-function validate() {
+async function validate() {
     document.getElementById('warnning').innerHTML = ''
     var email = document.getElementById('username')
     var password = document.getElementById('password')
     if (email.value === '' || password.value === '') {
         document.getElementById('warnning').innerHTML = 'Không được để trống!'
-        return
+        return -1
     }
     if (!/^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[A-Za-z]+$/.test(email.value)) {
         document.getElementById('warnning').innerHTML =
             'Nhập đúng định dạng email!'
-        return
+        return -1
     }
+    return 0;
 }
+
+
 export default Login
