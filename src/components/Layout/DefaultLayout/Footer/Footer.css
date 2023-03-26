@@ -37,3 +37,7 @@
 .footerCol ul li {
     font-size: 14px;
 }
+.footer-link{
+    color: var(--bs-body-color);
+    text-decoration: none;
+}
