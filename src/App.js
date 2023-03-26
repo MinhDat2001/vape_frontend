@@ -1,7 +1,7 @@
-import { Fragment } from 'react'
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import { Fragment } from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
-import { adminRoute, userRoute } from '~/routes/index'
+import { adminRoute, userRoute } from '~/routes/index';
 function App() {
     return (
         <Router>
@@ -9,8 +9,8 @@ function App() {
                 <Routes>
                     {adminRoute.map((route, index) => {
                         const Layout =
-                            route.Layout === null ? Fragment : route.Layout
-                        const Page = route.component
+                            route.Layout === null ? Fragment : route.Layout;
+                        const Page = route.component;
                         return (
                             <Route
                                 key={index}
@@ -21,12 +21,12 @@ function App() {
                                     </Layout>
                                 }
                             />
-                        )
+                        );
                     })}
                     {userRoute.map((route, index) => {
                         const Layout =
-                            route.Layout === null ? Fragment : route.Layout
-                        const Page = route.component
+                            route.Layout === null ? Fragment : route.Layout;
+                        const Page = route.component;
                         return (
                             <Route
                                 key={index}
@@ -37,12 +37,12 @@ function App() {
                                     </Layout>
                                 }
                             />
-                        )
+                        );
                     })}
                 </Routes>
             </div>
         </Router>
-    )
+    );
 }
 
-export default App
+export default App;

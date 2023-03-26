@@ -26,6 +26,7 @@
     max-width: 1000px;
     margin: auto;
 }
+
 html {
     font-size: 70%;
 }
@@ -33,7 +34,9 @@ html {
 body {
     font-size: 1.6rem;
     margin: 0;
+    line-height: 1.5;
 }
+
 .page-active {
     background-color: var(--pagination-button-bg) !important;
     color: var(--text-color-w) !important;
