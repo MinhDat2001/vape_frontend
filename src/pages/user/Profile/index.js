@@ -1,8 +1,5 @@
 import classNames from 'classnames/bind';
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
-
 import { Container, Row, Col } from 'react-bootstrap';
 
 import styles from './css/user-profile.module.scss';

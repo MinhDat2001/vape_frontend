@@ -2,8 +2,8 @@ import classNames from 'classnames/bind';
 
 import styles from './css/cart.module.scss';
 
-import { Container, Row, Col } from 'react-bootstrap';
-import { useEffect, useState } from 'react';
+import { Row, Col } from 'react-bootstrap';
+import { useState } from 'react';
 
 const cx = classNames.bind(styles);
 

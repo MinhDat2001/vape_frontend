@@ -1,13 +1,16 @@
 import './Header.css'
 import logo from '~/static/images/logo.png'
 import user from '~/static/images/user.png'
+import logOut from '~/static/images/log-out.png'
 import { Link, useNavigate } from 'react-router-dom'
 
 function Header() {
     const token = document.cookie.split("; ").find((row) => row.startsWith("token="))?.split("=")[1];
-    if(token === null || token === undefined){
-        var guestClass="loginInfo display";
-        var userClass = "loginInfo";
+    var guestClass="";
+    var userClass="";
+    if(token === "" || token === null || token === undefined){
+        guestClass="loginInfo display";
+        userClass = "loginInfo";
     }else{
         guestClass="loginInfo";
         userClass = "loginInfo display";
@@ -16,6 +19,11 @@ function Header() {
 
     const navigateLogin = () => {
         navigate('/login')
+    }
+
+    const LogOut = () => {
+        document.cookie="token=;";
+        window.location.reload();
     }
 
     const navigateRegister = () => {
@@ -101,6 +109,9 @@ function Header() {
                             <Link to={'/profile'} className="icon">
                                 <img src={user} alt="user" />
                             </Link>
+                            <div id="log-out" onClick={LogOut} className="icon">
+                                <img src={logOut} alt="Log Out" />
+                            </div>
                         </div>
                     </div>
                 </div>

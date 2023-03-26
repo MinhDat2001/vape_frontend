@@ -1,13 +1,8 @@
 import classNames from 'classnames/bind';
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
-
 import { Container, Row, Col } from 'react-bootstrap';
 
 import styles from './css/cart.module.scss';
-
-import { Link } from 'react-router-dom';
 import CartItem from './cart-item';
 
 const cx = classNames.bind(styles);

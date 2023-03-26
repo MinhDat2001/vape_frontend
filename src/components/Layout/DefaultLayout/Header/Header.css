@@ -159,7 +159,7 @@
     display: none;
 }
 .display {
-    display: block;
+    display: flex;
 }
 .aTag {
     font-size: 14px;
@@ -176,6 +176,7 @@
 .icon {
     font-size: 24px;
     margin: 5px;
+    cursor: pointer;
 }
 .icon img {
     width: 30px;
