@@ -5,6 +5,9 @@ import Profile from '~/pages/user/Profile'
 import Payment from '~/pages/user/Payment'
 import Category from '~/pages/user/Category'
 import Cart from '~/pages/user/Cart'
+import ForgotPassword from '~/pages/user/ForgotPassword'
+import ForgotPasswordAuth from '~/pages/user/ForgotPasswordAuth'
+import ResetPassword from '~/pages/user/ResetPassword'
 import { default as userLogin } from '~/pages/user/Login'
 import { default as userRegisterAuth } from '~/pages/user/RegisterAuth'
 import { default as userRegister } from '~/pages/user/Register'
@@ -24,6 +27,9 @@ const userRoute = [
     { path: '/register', component: userRegister, Layout: DefaultLayout },
     { path: '/register/auth', component: userRegisterAuth, Layout: DefaultLayout },
     { path: '/product', component: Shop, Layout: DefaultLayout },
+    { path: '/forgot-password', component: ForgotPassword, Layout: DefaultLayout },
+    { path: '/forgot-password/auth', component: ForgotPasswordAuth, Layout: DefaultLayout },
+    { path: '/reset-password', component: ResetPassword, Layout: DefaultLayout },
     {
         path: '/product/{product-slug}',
         component: Product,
