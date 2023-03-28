@@ -89,4 +89,31 @@
             }
         }
     }
+    .total-bill {
+        padding: 16px 0;
+        .total-price {
+            display: flex;
+            justify-content: space-between;
+            .price {
+                color: #f45c43;
+                font-size: 1.5rem;
+                font-weight: bold;
+            }
+        }
+        .pay-button {
+            margin-top: 12px;
+            a {
+                text-decoration: none;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                color: white;
+                padding: 12px 0;
+                background-color: rgb(35, 35, 35);
+                &:hover {
+                    opacity: 0.8;
+                }
+            }
+        }
+    }
 }
