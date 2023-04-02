@@ -5,6 +5,7 @@ import { Container, Row, Col } from 'react-bootstrap';
 import styles from './css/cart.module.scss';
 import CartItem from './cart-item';
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 const cx = classNames.bind(styles);
 
@@ -77,7 +78,7 @@ function Cart() {
                                 </span>
                             </div>
                             <div className={cx(['pay-button'])}>
-                                <Link>Thanh toán</Link>
+                                <Link to={'/payment'}>Thanh toán</Link>
                             </div>
                         </Col>
                     </Row>
