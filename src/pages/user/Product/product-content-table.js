@@ -37,7 +37,7 @@ function ProductContentTable() {
 
     return (
         <div className="thongso">
-            <h3 className="text-center">Thông số kỹ thuật</h3>
+            <h3 className="text-center" style={{paddingTop: 12, paddingBottom: 12}}>Thông số kỹ thuật</h3>
 
             <table>
                 <tbody>{dataComponents}</tbody>

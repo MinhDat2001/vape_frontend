@@ -6,7 +6,6 @@ function ProductContentDes1(props) {
         <div className="mota mota1 thanh-phan">
             <p style={{ textAlign: 'justify' }}>
                 <span style={{ fontSize: 14 }}>
-                    {/* <div  className="thanh-phan"></div> */}
                     {props.data}
                 </span>
             </p>

@@ -5,6 +5,7 @@ h2 {
 
 .main {
     display: grid;
+    width: 100%;
     grid-template-columns: 1fr 7fr;
     grid-gap: 10px;
 }
@@ -12,12 +13,13 @@ h2 {
 .mota.mota1 {
     padding-top: 8px;
     padding-bottom: 8px;
+    font-size: 16px;
 }
 
 .img-des {
     width: 100%; /* độ rộng của ảnh là 100% */
     max-width: 100%;
-    padding-top: 6px;
+    padding-top: 12px;
 }
 
 .thanh-phan {
@@ -45,6 +47,7 @@ table {
 th, td {
   text-align: left;
   padding: 8px;
+  font-size: 14px;
   border-bottom: 1px solid #ddd;
 }
 
@@ -55,4 +58,108 @@ th {
 
 tr:nth-child(even) {
   background-color: #f2f2f2;
+}
+
+.product-reviews {
+  background-color: #ffff;
+  padding: 20px;
+  border-radius: 5px;
+}
+
+.product-reviews h2 {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.review {
+  display: flex;
+  margin-bottom: 20px;
+}
+
+.avatar {
+  width: 50px;
+  height: 50px;
+  margin-right: 10px;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+}
+
+.name {
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.rating {
+  display: flex;
+  align-items: center;
+  margin-bottom: 5px;
+}
+
+.star {
+  display: inline-block;
+  width: 15px;
+  height: 15px;
+  margin-right: 5px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M20.743 9.296l-6.293-.872L12.82 2.4c-.35-.665-1.239-.665-1.589 0l-1.633 6.023-6.293.872c-.783.108-1.093 1.078-.495 1.626l4.793 4.118-1.424 6.078c-.242.802.62 1.424 1.277 1.015L12 18.32l5.434 3.269c.657.395 1.52-.213 1.277-1.015l-1.424-6.078 4.793-4.118c.598-.548.288-1.518-.495-1.626z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+.comment {
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.product-review {
+  background-color: #ffff;
+  padding: 20px;
+  border-radius: 5px;
+}
+
+.product-review h2 {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.product-review label {
+  display: block;
+  font-size: 16px;
+  margin-bottom: 5px;
+}
+
+.product-review select,
+.product-review textarea {
+  font-size: 16px;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.product-review button[type="submit"] {
+  background-color: #008000;
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 5px;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.product-review button[type="submit"]:hover {
+  background-color: #006400;
 }

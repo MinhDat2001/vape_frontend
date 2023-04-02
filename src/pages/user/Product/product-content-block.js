@@ -3,6 +3,7 @@ import ProductContentDes2 from './product-content-des2'
 import ProductContentHeader from './product-content-header'
 import React from 'react'
 import './styles.css'
+import ProductReview from './product-review'
 
 function ProductContentBlock() {
     const name = 'VAPOR STORM ARES SE POD KIT'
@@ -27,8 +28,7 @@ function ProductContentBlock() {
             <ProductContentHeader name={name} />
             <ProductContentDes1 data={dataForDes1} />
             <ProductContentDes2 img={img} data={dataForDes2} />
-
-            <h3>Đánh giá sản phẩm</h3>
+            <ProductReview />
         </div>
     )
 }
