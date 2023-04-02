@@ -5,3 +5,16 @@
 .mh-0 {
     min-height: 0 !important;
 }
+
+.active {
+    color: #f45c43 !important;
+}
+
+.history {
+    box-sizing: border-box;
+    ul {
+        list-style: none;
+    }
+    padding: 20px 0;
+    font-size: 1.5rem;
+}

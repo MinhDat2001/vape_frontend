@@ -37,11 +37,12 @@ function ChangeInfo() {
                 break;
         }
     };
+
     const StatusValidate = useMemo(() => {
         return (status, message) => {
             return { status: status, message: message };
         };
-    });
+    }, []);
 
     const validateEmail = useMemo(() => {
         return (email) => {
@@ -59,10 +60,10 @@ function ChangeInfo() {
 
     const validate = () => {
         if (
-            data.name == '' ||
-            data.email == '' ||
-            data.address == '' ||
-            data.phone == ''
+            data.name === '' ||
+            data.email === '' ||
+            data.address === '' ||
+            data.phone === ''
         ) {
             return StatusValidate(false, 'Các trường cần nhập đầy đủ');
         }
