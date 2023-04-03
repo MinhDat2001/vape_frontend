@@ -125,7 +125,7 @@ body {
 .pagination li {
 }
 
-.pagination a {
+.pagination .button-page {
     display: inline-block;
     text-decoration: none;
     color: var(--text-color-b);
@@ -137,12 +137,13 @@ body {
     box-sizing: border-box;
 }
 
-.pagination a:hover {
+.pagination .button-page:hover {
     background-color: var(--pagination-button-bg);
     color: var(--text-color-w);
+    cursor: pointer;
 }
 
-.sort-options {
+.pagination .button-page .sort-options {
     display: inline-block;
     width: 100px;
 }
@@ -154,4 +155,9 @@ body {
 .input-group-text:hover {
     opacity: 0.8;
     cursor: pointer;
+}
+
+.button-page.pageActive {
+    background-color: var(--pagination-button-bg);
+    color: var(--text-color-w);
 }
