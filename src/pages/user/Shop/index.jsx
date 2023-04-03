@@ -1,35 +1,35 @@
-import CategoryList from './category-list'
-import ProductList from './product-list'
-import { useEffect, useState } from 'react'
-import { CATEGORY_API, PRODUCT_API } from './api'
-import axios from 'axios'
+import CategoryList from './category-list';
+import ProductList from './product-list';
+import { useEffect, useState } from 'react';
+import { CATEGORY_API, PRODUCT_API } from './api';
+import axios from 'axios';
 function Shop() {
-    const categoryId = 1
+    const categoryId = 1;
 
-    const [categories, setCategory] = useState([])
-    const [products, setProduct] = useState([])
+    const [categories, setCategory] = useState([]);
+    const [products, setProduct] = useState([]);
 
     useEffect(() => {
         // lấy categories
         axios
             .get(CATEGORY_API)
             .then((response) => {
-                setCategory(response.data)
+                setCategory(response.data);
             })
             .catch((error) => {
-                console.log(error)
-            })
+                console.log(error);
+            });
 
         // lấy products
         axios
             .get(PRODUCT_API)
             .then((response) => {
-                setProduct(response.data)
+                setProduct(response.data);
             })
             .catch((error) => {
-                console.log(error)
-            })
-    }, [])
+                console.log(error);
+            });
+    }, []);
 
     return (
         <div className="main">
@@ -42,7 +42,7 @@ function Shop() {
                 </div>
             </div>
         </div>
-    )
+    );
 }
 
-export default Shop
+export default Shop;

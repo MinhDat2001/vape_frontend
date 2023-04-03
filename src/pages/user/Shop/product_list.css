@@ -79,6 +79,7 @@ body {
     padding: 8px;
     box-shadow: 0px 4px 30px rgb(19 28 25 / 10%);
     transition: all 0.2s;
+    margin-top: 12px;
 }
 
 .card > a {
@@ -113,6 +114,7 @@ body {
 }
 
 .paginationBox {
+    margin-top: 8px;
     display: flex;
     justify-content: center;
 }
@@ -123,7 +125,7 @@ body {
 .pagination li {
 }
 
-.pagination a {
+.pagination .button-page {
     display: inline-block;
     text-decoration: none;
     color: var(--text-color-b);
@@ -135,7 +137,27 @@ body {
     box-sizing: border-box;
 }
 
-.pagination a:hover {
+.pagination .button-page:hover {
+    background-color: var(--pagination-button-bg);
+    color: var(--text-color-w);
+    cursor: pointer;
+}
+
+.pagination .button-page .sort-options {
+    display: inline-block;
+    width: 100px;
+}
+
+.input-group-text {
+    height: 100%;
+}
+
+.input-group-text:hover {
+    opacity: 0.8;
+    cursor: pointer;
+}
+
+.button-page.pageActive {
     background-color: var(--pagination-button-bg);
     color: var(--text-color-w);
 }
