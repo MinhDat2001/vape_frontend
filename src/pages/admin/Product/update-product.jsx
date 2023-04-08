@@ -1,13 +1,250 @@
 import classNames from 'classnames/bind';
 
-import { Container, Row, Col } from 'react-bootstrap';
+import { useState } from 'react';
+import { useParams } from 'react-router-dom';
 
 import styles from './css/update-product.module.scss';
 
 const cx = classNames.bind(styles);
 
 function UpdateProduct() {
-    return <div className={cx(['update-product'])}></div>;
+    const { productId } = useParams();
+
+    //call api gọi sản phẩm
+    const [formData, setFormData] = useState({
+        name: '',
+        descripstion: '',
+        avatar: '',
+        categories: [],
+        quantity: 0,
+        price: 0,
+    });
+
+    //call api gọi category
+    const [categogies, setCategogies] = useState([
+        {
+            id: 1,
+            name: 'Sách',
+        },
+        {
+            id: 2,
+            name: 'Đồ chơi',
+        },
+        {
+            id: 3,
+            name: 'Đồ ăn',
+        },
+        {
+            id: 4,
+            name: 'Thuốc phiện',
+        },
+    ]);
+
+    const [valid, setValid] = useState({ status: true, message: '' });
+
+    const handleOnChange = (e) => {
+        const targetId = e.target.id;
+        let targerValue = e.target.value;
+        switch (targetId) {
+            case 'name':
+                setFormData({ ...formData, name: targerValue });
+                break;
+            case 'description':
+                setFormData({ ...formData, descripstion: targerValue });
+                break;
+            case 'price':
+                //validate giá
+
+                if (targerValue === '') {
+                    setFormData({ ...formData, price: 0 });
+                } else {
+                    targerValue = Number.parseFloat(targerValue);
+                    setFormData({ ...formData, price: targerValue });
+                }
+
+                break;
+            case 'quantity':
+                //validate số lượng
+                if (targerValue === '') {
+                    setFormData({ ...formData, price: 0 });
+                } else {
+                    targerValue = Number.parseInt(targerValue);
+                    setFormData({ ...formData, price: targerValue });
+                }
+
+                break;
+            case 'avatar':
+                //validate ảnh
+                setFormData({ ...formData, avatar: targerValue });
+                break;
+            default:
+                break;
+        }
+    };
+
+    const handleSelectCategory = (e) => {
+        const targetId = Number.parseInt(e.target.id);
+        const targetName = e.target.innerHTML.trim();
+        const obj = { id: targetId, name: targetName };
+
+        if (!formData.categories.some((item) => item.id === obj.id)) {
+            setFormData({
+                ...formData,
+                categories: [...formData.categories, obj],
+            });
+        } else {
+            setFormData({
+                ...formData,
+                categories: formData.categories.filter(
+                    (item) => item.id !== obj.id
+                ),
+            });
+        }
+    };
+
+    const validate = () => {
+        if (
+            formData.name === '' ||
+            formData.descripstion === '' ||
+            formData.avatar === ''
+        ) {
+            setValid({
+                status: false,
+                message: 'Các trường "Tên", "Mô tả, " cần nhập đầy đủ',
+            });
+            return false;
+        } else {
+            if (formData.categories.length === 0) {
+                setValid({
+                    status: false,
+                    message: 'Phải chọn ít nhất 1 tag chứ',
+                });
+                return false;
+            }
+        }
+        setValid({
+            status: true,
+            message: '',
+        });
+        return true;
+    };
+
+    const handleSubmit = (e) => {
+        if (validate()) {
+            // call api
+        }
+    };
+    return (
+        <div className={cx(['add-product'])}>
+            <div className={cx(['content'])}>
+                <div className={cx(['input-feature'])}>
+                    <div className={cx(['label'])}>Name:</div>
+                    <input
+                        id="name"
+                        placeholder="Tên"
+                        type="text"
+                        className={cx(['input-text'])}
+                        value={formData.name}
+                        onChange={handleOnChange}
+                    />
+                </div>
+                <div className={cx(['input-feature'])}>
+                    <div className={cx(['label'])}>Mô tả:</div>
+                    <input
+                        id="description"
+                        placeholder="Mô tả"
+                        type="text"
+                        className={cx(['input-text'])}
+                        value={formData.descripstion}
+                        onChange={handleOnChange}
+                    />
+                </div>
+                <div className={cx(['input-feature'])}>
+                    <div className={cx(['label'])}>Giá:</div>
+                    <input
+                        id="price"
+                        placeholder="Giá"
+                        type="number"
+                        min="0"
+                        pattern="\d+"
+                        className={cx(['input-text'])}
+                        value={formData.price}
+                        onChange={handleOnChange}
+                    />
+                </div>
+                <div className={cx(['input-feature'])}>
+                    <div className={cx(['label'])}>Số lượng:</div>
+                    <input
+                        id="quantity"
+                        placeholder="Số lượng"
+                        type="number"
+                        min="0"
+                        pattern="\d+"
+                        className={cx(['input-text'])}
+                        value={formData.quantity}
+                        onChange={handleOnChange}
+                    />
+                </div>
+                <div className={cx(['input-feature'])}>
+                    <div className={cx(['label'])}>Hình đại diện:</div>
+                    <input
+                        id="avatar"
+                        placeholder="link"
+                        type="text"
+                        className={cx(['input-text'])}
+                        value={formData.avatar}
+                        onChange={handleOnChange}
+                    />
+                    <img
+                        src={formData.avatar}
+                        alt=""
+                        width="150"
+                        height="150"
+                    />
+                </div>
+                <div className={cx(['input-feature'])}>
+                    <div className={cx(['label'])}>Thể loại:</div>
+                    <div className={cx(['categories-box'])}>
+                        {categogies.map((item, index) => {
+                            if (
+                                formData.categories.some(
+                                    (item1) => item1.id === item.id
+                                )
+                            ) {
+                                return (
+                                    <div
+                                        id={item.id}
+                                        key={index}
+                                        className={cx(['tag', 'selected'])}
+                                        onClick={handleSelectCategory}
+                                    >
+                                        {item.name}
+                                    </div>
+                                );
+                            } else {
+                                return (
+                                    <div
+                                        id={item.id}
+                                        key={index}
+                                        className={cx(['tag'])}
+                                        onClick={handleSelectCategory}
+                                    >
+                                        {item.name}
+                                    </div>
+                                );
+                            }
+                        })}
+                    </div>
+                </div>
+                {!valid.status && (
+                    <div className={cx(['warning'])}>{valid.message}</div>
+                )}
+                <div className={cx(['btn-submit'])} onClick={handleSubmit}>
+                    Lưu
+                </div>
+            </div>
+        </div>
+    );
 }
 
 export default UpdateProduct;

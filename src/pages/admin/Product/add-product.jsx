@@ -91,7 +91,7 @@ function AddProduct() {
             setFormData({
                 ...formData,
                 categories: formData.categories.filter(
-                    (item) => item.id != obj.id
+                    (item) => item.id !== obj.id
                 ),
             });
         }
