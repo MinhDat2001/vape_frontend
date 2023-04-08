@@ -17,6 +17,10 @@ import Setting from '~/pages/admin/Setting';
 
 import { DefaultLayout, AdminLayout } from '~/components/Layout';
 import Contact from '~/pages/user/Contact';
+import AddProduct from '~/pages/admin/Product/add-product';
+import UpdateProduct from '~/pages/admin/Product/update-product';
+import AddCategory from '~/pages/admin/Category/add-category';
+import UpdateCategory from '~/pages/admin/Category/update-category';
 
 const userRoute = [
     { path: '', component: userHome, Layout: DefaultLayout },
@@ -45,23 +49,23 @@ const adminRoute = [
     { path: '/admin/product', component: adminProduct, Layout: AdminLayout },
     {
         path: '/admin/product/:productId',
-        component: adminProduct,
+        component: UpdateProduct,
         Layout: AdminLayout,
     },
     {
         path: '/admin/product/add',
-        component: adminProduct,
+        component: AddProduct,
         Layout: AdminLayout,
     },
     { path: '/admin/category', component: adminCategory, Layout: AdminLayout },
     {
         path: '/admin/category/:categoryId',
-        component: adminCategory,
+        component: UpdateCategory,
         Layout: AdminLayout,
     },
     {
         path: '/admin/category/add',
-        component: adminCategory,
+        component: AddCategory,
         Layout: AdminLayout,
     },
     { path: '/admin/setting', component: Setting, Layout: AdminLayout },
