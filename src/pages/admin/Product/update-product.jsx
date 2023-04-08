@@ -1,5 +1,13 @@
-import React from 'react';
+import classNames from 'classnames/bind';
 
-export default function UpdateProduct() {
-    return <div>UpdateProduct</div>;
+import { Container, Row, Col } from 'react-bootstrap';
+
+import styles from './css/update-product.module.scss';
+
+const cx = classNames.bind(styles);
+
+function UpdateProduct() {
+    return <div className={cx(['update-product'])}></div>;
 }
+
+export default UpdateProduct;
