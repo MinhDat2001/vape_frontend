@@ -147,7 +147,13 @@ function AddProduct() {
     };
     return (
         <div className={cx(['add-product'])}>
-            <h1>Thêm sản phẩm</h1>
+            <h1
+                style={{
+                    fontWeight: 'bold',
+                }}
+            >
+                Thêm sản phẩm
+            </h1>
             <div className={cx(['content'])}>
                 <div className={cx(['input-feature'])}>
                     <div className={cx(['label'])}>Name:</div>
