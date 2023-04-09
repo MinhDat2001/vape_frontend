@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="0965f42d-c04e-4347-a499-e906de81d74b" name="Changes" comment="thêm ảnh, bình luận" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <favorite-branches>
+      <branch-storage>
+        <map>
+          <entry type="LOCAL">
+            <value>
+              <list>
+                <branch-info repo="$PROJECT_DIR$" source="ProductDetail" />
+              </list>
+            </value>
+          </entry>
+        </map>
+      </branch-storage>
+    </favorite-branches>
+    <option name="PUSH_TAGS">
+      <GitPushTagMode>
+        <option name="argument" value="--follow-tags" />
+        <option name="title" value="Current Branch" />
+      </GitPushTagMode>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="2N2HqkqdnVvgxb611vdSmQBA4s3" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/comch/Downloads/vape_frontend&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;yarn&quot;
+  }
+}</component>
+  <component name="RunManager">
+    <configuration default="true" type="JetRunConfigurationType">
+      <module name="vape_frontend" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
+      <module name="vape_frontend" />
+      <option name="filePath" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="0965f42d-c04e-4347-a499-e906de81d74b" name="Changes" comment="" />
+      <created>1678855450244</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1678855450244</updated>
+      <workItem from="1678855452539" duration="20000" />
+      <workItem from="1678855583532" duration="1877000" />
+      <workItem from="1678859586460" duration="235000" />
+      <workItem from="1678861425262" duration="95000" />
+      <workItem from="1678958252970" duration="22000" />
+      <workItem from="1679063114313" duration="6287000" />
+      <workItem from="1679214469344" duration="1458000" />
+      <workItem from="1679321459795" duration="59000" />
+      <workItem from="1679331024869" duration="401000" />
+      <workItem from="1680403752484" duration="1058000" />
+      <workItem from="1681050900860" duration="563000" />
+    </task>
+    <task id="LOCAL-00001" summary="giao diện react chưa có css">
+      <created>1679068156626</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1679068156626</updated>
+    </task>
+    <task id="LOCAL-00002" summary="giao diện react thêm tí css">
+      <created>1679331290262</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1679331290262</updated>
+    </task>
+    <task id="LOCAL-00003" summary="giao diện part 2, thêm đánh giá và bình luận">
+      <created>1680403863771</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1680403863771</updated>
+    </task>
+    <task id="LOCAL-00004" summary="thêm ảnh, bình luận">
+      <created>1681051007554</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1681051007554</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="RECENT_FILTERS">
+      <map>
+        <entry key="Branch">
+          <value>
+            <list>
+              <RecentGroup>
+                <option name="FILTER_VALUES">
+                  <option value="origin/ProductDetail" />
+                </option>
+              </RecentGroup>
+              <RecentGroup>
+                <option name="FILTER_VALUES">
+                  <option value="ProductDetail" />
+                </option>
+              </RecentGroup>
+            </list>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="giao diện react chưa có css" />
+    <MESSAGE value="giao diện react thêm tí css" />
+    <MESSAGE value="giao diện part 2, thêm đánh giá và bình luận" />
+    <MESSAGE value="thêm ảnh, bình luận" />
+    <option name="LAST_COMMIT_MESSAGE" value="thêm ảnh, bình luận" />
+  </component>
+</project>
