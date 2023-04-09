@@ -117,7 +117,7 @@ function UpdateProduct() {
         ) {
             setValid({
                 status: false,
-                message: 'Các trường "Tên", "Mô tả, " cần nhập đầy đủ',
+                message: 'Các trường "Tên", "Mô tả" cần nhập đầy đủ',
             });
             return false;
         } else {

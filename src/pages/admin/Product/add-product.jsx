@@ -105,14 +105,10 @@ function AddProduct() {
     };
 
     const validate = () => {
-        if (
-            formData.name === '' ||
-            formData.descripstion === '' ||
-            formData.avatar === ''
-        ) {
+        if (formData.name === '' || formData.descripstion === '') {
             setValid({
                 status: false,
-                message: 'Các trường "Tên", "Mô tả, " cần nhập đầy đủ',
+                message: 'Các trường "Tên", "Mô tả", cần nhập đầy đủ',
             });
             return false;
         } else {
@@ -151,6 +147,7 @@ function AddProduct() {
     };
     return (
         <div className={cx(['add-product'])}>
+            <h1>Thêm sản phẩm</h1>
             <div className={cx(['content'])}>
                 <div className={cx(['input-feature'])}>
                     <div className={cx(['label'])}>Name:</div>
@@ -258,7 +255,7 @@ function AddProduct() {
                     <div className={cx(['warning'])}>{valid.message}</div>
                 )}
                 <div className={cx(['btn-submit'])} onClick={handleSubmit}>
-                    Thêm sản phẩn
+                    Thêm sản phẩm
                 </div>
             </div>
         </div>
