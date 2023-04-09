@@ -1,0 +1,55 @@
+.product_content {
+    margin-top: 20px;
+}
+.product_img {
+    width: 50px;
+    height: 50px;
+}
+.contain_add {
+    display: flex;
+    justify-content: flex-end;
+    cursor: pointer;
+    font-size: 18px;
+}
+.contain_add button {
+    width: 120px;
+    height: 36px;
+    background-color: var(--primary-color);
+    border-radius: 5px;
+}
+.product_table {
+    width: 100%;
+    border: 1px;
+    font-size: 14px;
+    margin: 20px 10px 10px 10px;
+    box-sizing: inherit;
+}
+.product_table tbody tr td button {
+    width: 100px;
+    height: 30px;
+    background-color: var(--primary-color);
+    border-radius: 5px;
+}
+.product_table tbody tr td input {
+    min-width: 50px;
+    outline: none;
+    width: 100%;
+}
+
+.admin-page-btn {
+    display: flex;
+    justify-content: center;
+    box-sizing: border-box;
+    width: 100px;
+    color: black;
+    transition: all 0.7s;
+    text-decoration: none;
+    background-color: var(--primary-color);
+    padding: 8px;
+    border-radius: 8px;
+}
+
+.admin-page-btn:hover {
+    opacity: 0.8;
+    color: black;
+}

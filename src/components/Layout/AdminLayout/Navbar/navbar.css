@@ -1,0 +1,25 @@
+.admin_navbar{
+    background-color: var(--primary-color);
+    min-height: 700px;
+    display: flex;
+    justify-content: center;
+    align-items: first baseline;
+}
+.contain_controll{
+    width: 60%;
+    margin-top: 5px;
+}
+.controll{
+    font-size: 16px;
+    cursor: pointer;
+    padding: 15px 0 15px 10px;
+    width: 100%;
+    color: black;
+    text-decoration: none;
+    font-weight: 700;
+}
+.controll:hover{
+    background-color: black;
+    color: white;
+    
+}
