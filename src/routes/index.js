@@ -13,6 +13,7 @@ import { default as adminHome } from '~/pages/admin/Home';
 import { default as adminLogin } from '~/pages/admin/Login';
 import { default as adminProduct } from '~/pages/admin/Product';
 import { default as adminCategory } from '~/pages/admin/Category';
+import { default as adminUser } from '~/pages/admin/User';
 import Setting from '~/pages/admin/Setting';
 
 import { DefaultLayout, AdminLayout } from '~/components/Layout';
@@ -21,6 +22,8 @@ import AddProduct from '~/pages/admin/Product/add-product';
 import UpdateProduct from '~/pages/admin/Product/update-product';
 import AddCategory from '~/pages/admin/Category/add-category';
 import UpdateCategory from '~/pages/admin/Category/update-category';
+import UpdateUser from '~/pages/admin/User/update-user';
+import AddUser from '~/pages/admin/User/add-user';
 
 const userRoute = [
     { path: '', component: userHome, Layout: DefaultLayout },
@@ -66,6 +69,17 @@ const adminRoute = [
     {
         path: '/admin/category/add',
         component: AddCategory,
+        Layout: AdminLayout,
+    },
+    { path: '/admin/user', component: adminUser, Layout: AdminLayout },
+    {
+        path: '/admin/user/:userId',
+        component: UpdateUser,
+        Layout: AdminLayout,
+    },
+    {
+        path: '/admin/user/add',
+        component: AddUser,
         Layout: AdminLayout,
     },
     { path: '/admin/setting', component: Setting, Layout: AdminLayout },
