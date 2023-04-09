@@ -6,6 +6,9 @@ import styles from './css/add-product.module.scss';
 
 const cx = classNames.bind(styles);
 
+const LOADING_IMG =
+    'https://media3.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.gif';
+
 function AddProduct() {
     const [formData, setFormData] = useState({
         name: '',
@@ -37,6 +40,10 @@ function AddProduct() {
 
     const [valid, setValid] = useState({ status: true, message: '' });
 
+    const [imageSrc, setImageSrc] = useState(LOADING_IMG);
+
+    const [inputSrc, setInputSrc] = useState('');
+
     const handleOnChange = (e) => {
         const targetId = e.target.id;
         let targerValue = e.target.value;
@@ -49,7 +56,6 @@ function AddProduct() {
                 break;
             case 'price':
                 //validate giá
-
                 if (targerValue === '') {
                     setFormData({ ...formData, price: 0 });
                 } else {
@@ -70,7 +76,8 @@ function AddProduct() {
                 break;
             case 'avatar':
                 //validate ảnh
-                setFormData({ ...formData, avatar: targerValue });
+                setInputSrc(targerValue);
+                setImageSrc(targerValue);
                 break;
             default:
                 break;
@@ -130,13 +137,16 @@ function AddProduct() {
         }
     };
 
-    const imageLoaded = (e) => {};
+    const imageLoaded = (e) => {
+        if (imageSrc !== LOADING_IMG)
+            setFormData({ ...formData, avatar: imageSrc });
+    };
 
     const imageError = (e) => {
-        console.log('đasa');
+        setImageSrc(LOADING_IMG);
         setFormData({
             ...formData,
-            avatar: 'https://khoinguonsangtao.vn/wp-content/uploads/2022/07/anh-avatar-facebook-nu-toc-dai-buoc-no.jpg',
+            avatar: '',
         });
     };
     return (
@@ -197,11 +207,12 @@ function AddProduct() {
                         placeholder="link"
                         type="text"
                         className={cx(['input-text'])}
-                        value={formData.avatar}
+                        value={inputSrc}
                         onChange={handleOnChange}
                     />
                     <img
-                        src={formData.avatar}
+                        id="image"
+                        src={imageSrc}
                         alt=""
                         width="150"
                         height="150"

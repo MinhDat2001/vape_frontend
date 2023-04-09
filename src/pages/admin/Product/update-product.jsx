@@ -142,7 +142,7 @@ function UpdateProduct() {
         }
     };
 
-    console.log(formData);
+    // console.log(formData);
     // console.log(inputSrc);
     // console.log(imageSrc);
 
