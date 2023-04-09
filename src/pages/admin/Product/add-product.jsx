@@ -129,6 +129,16 @@ function AddProduct() {
             // call api
         }
     };
+
+    const imageLoaded = (e) => {};
+
+    const imageError = (e) => {
+        console.log('đasa');
+        setFormData({
+            ...formData,
+            avatar: 'https://khoinguonsangtao.vn/wp-content/uploads/2022/07/anh-avatar-facebook-nu-toc-dai-buoc-no.jpg',
+        });
+    };
     return (
         <div className={cx(['add-product'])}>
             <div className={cx(['content'])}>
@@ -195,6 +205,8 @@ function AddProduct() {
                         alt=""
                         width="150"
                         height="150"
+                        onLoad={imageLoaded}
+                        onError={imageError}
                     />
                 </div>
                 <div className={cx(['input-feature'])}>

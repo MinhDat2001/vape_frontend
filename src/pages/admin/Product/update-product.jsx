@@ -7,6 +7,9 @@ import styles from './css/update-product.module.scss';
 
 const cx = classNames.bind(styles);
 
+const LOADING_IMG =
+    'https://media3.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.gif';
+
 function UpdateProduct() {
     const { productId } = useParams();
 
@@ -42,6 +45,10 @@ function UpdateProduct() {
 
     const [valid, setValid] = useState({ status: true, message: '' });
 
+    const [imageSrc, setImageSrc] = useState(LOADING_IMG);
+
+    const [inputSrc, setInputSrc] = useState('');
+
     const handleOnChange = (e) => {
         const targetId = e.target.id;
         let targerValue = e.target.value;
@@ -54,7 +61,6 @@ function UpdateProduct() {
                 break;
             case 'price':
                 //validate giá
-
                 if (targerValue === '') {
                     setFormData({ ...formData, price: 0 });
                 } else {
@@ -75,7 +81,8 @@ function UpdateProduct() {
                 break;
             case 'avatar':
                 //validate ảnh
-                setFormData({ ...formData, avatar: targerValue });
+                setInputSrc(targerValue);
+                setImageSrc(targerValue);
                 break;
             default:
                 break;
@@ -133,6 +140,23 @@ function UpdateProduct() {
         if (validate()) {
             // call api
         }
+    };
+
+    console.log(formData);
+    // console.log(inputSrc);
+    // console.log(imageSrc);
+
+    const imageLoaded = (e) => {
+        if (imageSrc !== LOADING_IMG)
+            setFormData({ ...formData, avatar: imageSrc });
+    };
+
+    const imageError = (e) => {
+        setImageSrc(LOADING_IMG);
+        setFormData({
+            ...formData,
+            avatar: '',
+        });
     };
     return (
         <div className={cx(['add-product'])}>
@@ -192,14 +216,17 @@ function UpdateProduct() {
                         placeholder="link"
                         type="text"
                         className={cx(['input-text'])}
-                        value={formData.avatar}
+                        value={inputSrc}
                         onChange={handleOnChange}
                     />
                     <img
-                        src={formData.avatar}
+                        id="image"
+                        src={imageSrc}
                         alt=""
                         width="150"
                         height="150"
+                        onLoad={imageLoaded}
+                        onError={imageError}
                     />
                 </div>
                 <div className={cx(['input-feature'])}>
