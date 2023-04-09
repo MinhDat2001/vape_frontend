@@ -2,9 +2,9 @@ import './authen.css'
 import { Link, useNavigate } from 'react-router-dom'
 import { CallLogin } from './api';
 function Login() {
+    const token = document.cookie.split("; ").find((row) => row.startsWith("token="))?.split("=")[1];
     const navigate = useNavigate();
-    var cookie = document.cookie;
-    if(cookie !== null && cookie !==""){
+    if(token !== null && token !=="" && token !==undefined){
         navigate('/')
     }
     var ResponseHTML = (

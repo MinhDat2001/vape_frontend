@@ -5,6 +5,9 @@ import Profile from '~/pages/user/Profile';
 import Payment from '~/pages/user/Payment';
 import Category from '~/pages/user/Category';
 import Cart from '~/pages/user/Cart';
+import ForgotPassword from '~/pages/user/ForgotPassword';
+import ForgotPasswordAuth from '~/pages/user/ForgotPasswordAuth';
+import ResetPassword from '~/pages/user/ResetPassword';
 import { default as userLogin } from '~/pages/user/Login';
 import { default as userRegisterAuth } from '~/pages/user/RegisterAuth';
 import { default as userRegister } from '~/pages/user/Register';
@@ -24,6 +27,8 @@ import AddCategory from '~/pages/admin/Category/add-category';
 import UpdateCategory from '~/pages/admin/Category/update-category';
 import UpdateUser from '~/pages/admin/User/update-user';
 import AddUser from '~/pages/admin/User/add-user';
+import History from '~/pages/user/History';
+import ChangeInfo from '~/pages/user/ChangeInfo';
 
 const userRoute = [
     { path: '', component: userHome, Layout: DefaultLayout },
@@ -36,6 +41,21 @@ const userRoute = [
     },
     { path: '/product', component: Shop, Layout: DefaultLayout },
     {
+        path: '/forgot-password',
+        component: ForgotPassword,
+        Layout: DefaultLayout,
+    },
+    {
+        path: '/forgot-password/auth',
+        component: ForgotPasswordAuth,
+        Layout: DefaultLayout,
+    },
+    {
+        path: '/reset-password',
+        component: ResetPassword,
+        Layout: DefaultLayout,
+    },
+    {
         path: '/product/{product-slug}',
         component: Product,
         Layout: DefaultLayout,
@@ -45,6 +65,8 @@ const userRoute = [
     { path: '/category', component: Category, Layout: DefaultLayout },
     { path: '/cart', component: Cart, Layout: DefaultLayout },
     { path: '/payment', component: Payment, Layout: DefaultLayout },
+    { path: '/history', component: History, Layout: DefaultLayout },
+    { path: '/change-info', component: ChangeInfo, Layout: DefaultLayout },
 ];
 const adminRoute = [
     { path: '/admin', component: adminHome, Layout: AdminLayout },

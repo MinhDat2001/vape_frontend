@@ -37,9 +37,7 @@ function Profile() {
                                     <Link>Đổi mật khẩu</Link>
                                 </li>
                                 <li>
-                                    <Link to={'/history'}>
-                                        Đơn hàng của bạn
-                                    </Link>
+                                    <Link>Đơn hàng của bạn</Link>
                                 </li>
                             </ul>
                         </div>

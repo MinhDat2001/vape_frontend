@@ -5,9 +5,9 @@ import { CallRegister } from './api.js'
 
 const host = 'https://provinces.open-api.vn/api/'
 function Register() {
+    const token = document.cookie.split("; ").find((row) => row.startsWith("token="))?.split("=")[1];
     const navigate = useNavigate();
-    var cookie = document.cookie;
-    if(cookie !== null && cookie !==""){
+    if(token !== null && token !=="" && token !==undefined){
         navigate('/')
     }
     var callAPI = (api) => {
