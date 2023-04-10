@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import logo from '~/static/images/logo.png';
+import Notify from './notify';
 import './product.css';
 function Product() {
     const [products, setProducts] = useState([
@@ -23,6 +24,17 @@ function Product() {
             Category: 'CLC',
         },
     ]);
+
+    const [notify, setNotify] = useState({
+        visible: false,
+        message: 'Bạn có chắc muốn xóa sản phẩm này không',
+        obj: {},
+        feature: 'product',
+    });
+
+    const myCallBack = (notifyChanged) => {
+        setNotify(notifyChanged);
+    };
 
     return (
         <div style={{ position: 'relative', height: '100%' }}>
@@ -88,24 +100,29 @@ function Product() {
                                     </Link>
                                 </td>
                                 <td width="10%">
-                                    <Link className="admin-page-btn">Xóa</Link>
+                                    <Link
+                                        className="admin-page-btn"
+                                        onClick={(e) => {
+                                            setNotify({
+                                                ...notify,
+                                                visible: true,
+                                                message:
+                                                    'Bạn có chắc muốn xóa sản phẩm ' +
+                                                    item.id +
+                                                    ' không?',
+                                                obj: item,
+                                            });
+                                        }}
+                                    >
+                                        Xóa
+                                    </Link>
                                 </td>
                             </tr>
                         ))}
                     </tbody>
                 </table>
             </div>
-            <div className="notify">
-                <div className="box-notify">
-                    <div className="notify-box-top">
-                        Bạn có chắc muốn xóa sản phẩm 1 không ?
-                    </div>
-                    <div className="notify-box-bot">
-                        <div className="notify-btn notify-po">Có</div>
-                        <div className="notify-btn notify-ne">Không</div>
-                    </div>
-                </div>
-            </div>
+            <Notify notify={notify} myCallBack={myCallBack}></Notify>
         </div>
     );
 }
