@@ -1,10 +1,10 @@
-.admin_content{
+.admin_content {
     margin-top: 10px;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
 }
-.contain_box{
+.contain_box {
     background-color: rgb(210, 210, 210);
     border-radius: 10px;
     width: 500px;
@@ -13,18 +13,18 @@
     margin: 20px;
     padding: 50px 80px 50px 80px;
 }
-.contain_title{
+.contain_title {
     display: flex;
     justify-content: center;
 }
-.contain_title label{
+.contain_title label {
     font-size: 24px;
     font-weight: 600;
 }
-.box_item a{
+.box_item a {
     text-decoration: none;
     color: black;
 }
-.box_item{
+.box_item {
     font-size: 18px;
 }

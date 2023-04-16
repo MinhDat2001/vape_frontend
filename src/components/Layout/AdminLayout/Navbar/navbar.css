@@ -1,15 +1,15 @@
-.admin_navbar{
+.admin_navbar {
     background-color: var(--primary-color);
     min-height: 700px;
     display: flex;
     justify-content: center;
     align-items: first baseline;
 }
-.contain_controll{
+.contain_controll {
     width: 60%;
     margin-top: 5px;
 }
-.controll{
+.controll {
     font-size: 16px;
     cursor: pointer;
     padding: 15px 0 15px 10px;
@@ -18,8 +18,7 @@
     text-decoration: none;
     font-weight: 700;
 }
-.controll:hover{
+.controll:hover {
     background-color: black;
     color: white;
-    
 }

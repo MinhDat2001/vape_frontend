@@ -29,10 +29,13 @@ import UpdateUser from '~/pages/admin/User/update-user';
 import AddUser from '~/pages/admin/User/add-user';
 import History from '~/pages/user/History';
 import ChangeInfo from '~/pages/user/ChangeInfo';
+import LoginGoogle from '~/pages/user/LoginGoogle';
 
 const userRoute = [
     { path: '', component: userHome, Layout: DefaultLayout },
     { path: '/login', component: userLogin, Layout: DefaultLayout },
+    { path: '/login-google', component: LoginGoogle, Layout: DefaultLayout },
+    { path: '/login-facebook', component: LoginGoogle, Layout: DefaultLayout },
     { path: '/register', component: userRegister, Layout: DefaultLayout },
     {
         path: '/register/auth',

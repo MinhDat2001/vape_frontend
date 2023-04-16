@@ -1,12 +1,15 @@
-import '../Login/authen.css'
-import { useNavigate } from 'react-router-dom'
-import { CallRegister } from './api.js'
+import '../Login/authen.css';
+import { useNavigate } from 'react-router-dom';
+import { CallRegister } from './api.js';
 
 function RegisterAuth() {
-    const token = document.cookie.split("; ").find((row) => row.startsWith("token="))?.split("=")[1];
+    const token = document.cookie
+        .split('; ')
+        .find((row) => row.startsWith('token='))
+        ?.split('=')[1];
     const navigate = useNavigate();
-    if(token !== null && token !=="" && token !==undefined){
-        navigate('/')
+    if (token !== null && token !== '' && token !== undefined) {
+        navigate('/');
     }
 
     return (
@@ -40,30 +43,31 @@ function RegisterAuth() {
                 </div>
             </div>
         </div>
-    )
+    );
 }
 function registerAuth() {
-    document.getElementById('warnning').innerHTML = ''
+    document.getElementById('warnning').innerHTML = '';
     validate();
-    var code = document.getElementById("code");
+    var code = document.getElementById('code');
     var authForm = {
-        email:  document.cookie.split("; ").find((row) => row.startsWith("email="))?.split("=")[1],
-        code: code.value
-    }
+        email: document.cookie
+            .split('; ')
+            .find((row) => row.startsWith('email='))
+            ?.split('=')[1],
+        code: code.value,
+    };
     console.log(authForm);
     CallRegister(authForm);
 }
 function validate() {
-    var code = document.getElementById('code')
+    var code = document.getElementById('code');
     if (code.value === '') {
-        document.getElementById('warnning').innerHTML =
-            'Không được để trống!'
-        return
+        document.getElementById('warnning').innerHTML = 'Không được để trống!';
+        return;
     }
     if (!/([0-9]{4})\b/.test(code.value)) {
-        document.getElementById('warnning').innerHTML =
-            'Mã gồm 4 chữ số!'
-        return
+        document.getElementById('warnning').innerHTML = 'Mã gồm 4 chữ số!';
+        return;
     }
 }
-export default RegisterAuth
+export default RegisterAuth;

@@ -1,11 +1,14 @@
-import './authen.css'
-import { Link, useNavigate } from 'react-router-dom'
+import './authen.css';
+import { Link, useNavigate } from 'react-router-dom';
 import { CallLogin } from './api';
 function Login() {
-    const token = document.cookie.split("; ").find((row) => row.startsWith("token="))?.split("=")[1];
+    const token = document.cookie
+        .split('; ')
+        .find((row) => row.startsWith('token='))
+        ?.split('=')[1];
     const navigate = useNavigate();
-    if(token !== null && token !=="" && token !==undefined){
-        navigate('/')
+    if (token !== null && token !== '' && token !== undefined) {
+        navigate('/');
     }
     var ResponseHTML = (
         <div className="container">
@@ -80,54 +83,58 @@ function Login() {
                 </div>
             </div>
         </div>
-    )
-    return ResponseHTML
+    );
+    return ResponseHTML;
 }
 function hiddenPassword() {
-    var passwordInput = document.getElementById('password')
-    var hiddenPassword = document.getElementById('hidden-password')
+    var passwordInput = document.getElementById('password');
+    var hiddenPassword = document.getElementById('hidden-password');
     if (passwordInput.type === 'password') {
-        passwordInput.type = 'text'
-        hiddenPassword.classList.remove('fa-eye')
-        hiddenPassword.classList.add('fa-eye-slash')
+        passwordInput.type = 'text';
+        hiddenPassword.classList.remove('fa-eye');
+        hiddenPassword.classList.add('fa-eye-slash');
     } else {
-        passwordInput.type = 'password'
-        hiddenPassword.classList.remove('fa-eye-slash')
-        hiddenPassword.classList.add('fa-eye')
+        passwordInput.type = 'password';
+        hiddenPassword.classList.remove('fa-eye-slash');
+        hiddenPassword.classList.add('fa-eye');
     }
 }
-
 
 async function login() {
-    var email = document.getElementById('username')
-    var password = document.getElementById('password')
-    if(await validate() === -1){
-        return
+    var email = document.getElementById('username');
+    var password = document.getElementById('password');
+    if ((await validate()) === -1) {
+        return;
     }
     var loginForm = {
-        username : email ? email.value : "",
-        password : password ? password.value:""
-    }
-    CallLogin(loginForm)
+        username: email ? email.value : '',
+        password: password ? password.value : '',
+    };
+    CallLogin(loginForm);
 }
-function loginGG() {}
-function loginFB() {}
+function loginGG() {
+    window.location.href =
+        'https://accounts.google.com/o/oauth2/auth?scope=email&redirect_uri=http://localhost:8088/login-google&response_type=code&client_id=939460828675-0npvkiie0oosus35jv8lsjdgiqh9euol.apps.googleusercontent.com&approval_prompt=force';
+}
+function loginFB() {
+    window.location.href =
+        'https://www.facebook.com/dialog/oauth?client_id=925015248643472&redirect_uri=http://localhost:8088/login-facebook&scope=email';
+}
 
 async function validate() {
-    document.getElementById('warnning').innerHTML = ''
-    var email = document.getElementById('username')
-    var password = document.getElementById('password')
+    document.getElementById('warnning').innerHTML = '';
+    var email = document.getElementById('username');
+    var password = document.getElementById('password');
     if (email.value === '' || password.value === '') {
-        document.getElementById('warnning').innerHTML = 'Không được để trống!'
-        return -1
+        document.getElementById('warnning').innerHTML = 'Không được để trống!';
+        return -1;
     }
     if (!/^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[A-Za-z]+$/.test(email.value)) {
         document.getElementById('warnning').innerHTML =
-            'Nhập đúng định dạng email!'
-        return -1
+            'Nhập đúng định dạng email!';
+        return -1;
     }
     return 0;
 }
 
-
-export default Login
+export default Login;

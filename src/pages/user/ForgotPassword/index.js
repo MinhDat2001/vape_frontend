@@ -1,11 +1,14 @@
-import './authen.css'
-import { useNavigate } from 'react-router-dom'
+import './authen.css';
+import { useNavigate } from 'react-router-dom';
 import { CallForgotPassword } from './api';
 function ForgotPassword() {
-    const token = document.cookie.split("; ").find((row) => row.startsWith("token="))?.split("=")[1];
+    const token = document.cookie
+        .split('; ')
+        .find((row) => row.startsWith('token='))
+        ?.split('=')[1];
     const navigate = useNavigate();
-    if(token !== null && token !=="" && token !==undefined){
-        navigate('/')
+    if (token !== null && token !== '' && token !== undefined) {
+        navigate('/');
     }
     var ResponseHTML = (
         <div className="container">
@@ -37,37 +40,35 @@ function ForgotPassword() {
                 </div>
             </div>
         </div>
-    )
-    return ResponseHTML
+    );
+    return ResponseHTML;
 }
 
-
 async function sendEmail() {
-    var email = document.getElementById('email')
-    if(await validate() === -1){
-        return
+    var email = document.getElementById('email');
+    if ((await validate()) === -1) {
+        return;
     }
-    document.cookie = "email="+email.value+";";
+    document.cookie = 'email=' + email.value + ';';
     var emailForm = {
-        email : email ? email.value : "",
-    }
-    CallForgotPassword(emailForm)
+        email: email ? email.value : '',
+    };
+    CallForgotPassword(emailForm);
 }
 
 async function validate() {
-    document.getElementById('warnning').innerHTML = ''
-    var email = document.getElementById('email')
+    document.getElementById('warnning').innerHTML = '';
+    var email = document.getElementById('email');
     if (email.value === '') {
-        document.getElementById('warnning').innerHTML = 'Không được để trống!'
-        return -1
+        document.getElementById('warnning').innerHTML = 'Không được để trống!';
+        return -1;
     }
     if (!/^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[A-Za-z]+$/.test(email.value)) {
         document.getElementById('warnning').innerHTML =
-            'Nhập đúng định dạng email!'
-        return -1
+            'Nhập đúng định dạng email!';
+        return -1;
     }
     return 0;
 }
 
-
-export default ForgotPassword
+export default ForgotPassword;

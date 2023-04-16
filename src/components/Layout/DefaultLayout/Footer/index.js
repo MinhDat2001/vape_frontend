@@ -1,29 +1,62 @@
-import './Footer.css'
-import logo from '~/static/images/logo.png'
-import { Link} from 'react-router-dom'
+import './Footer.css';
+import logo from '~/static/images/logo.png';
+import { Link } from 'react-router-dom';
 function Footer() {
     var ResponseHTML = (
         <footer className="footerContainer">
             <div className="containfooterContent">
                 <div className="row footerContent">
                     <div className="col-md-4 footerCol">
-                        <img className="footerIcon" alt="vape logo" src={logo} />
+                        <img
+                            className="footerIcon"
+                            alt="vape logo"
+                            src={logo}
+                        />
                         <h1>Vape Store</h1>
                     </div>
                     <div className="col-md-4 footerCol">
                         <div className="footerTitle">Liên hệ</div>
                         <ul>
-                            <li>Địa chỉ: <Link className='footer-link' to={"/contact"}>Ha Dong, Ha Noi</Link></li>
-                            <li>Số điện thoại: <Link className='footer-link' to={"tel:0963632312"}>0963632312</Link></li>
-                            <li>Email: <Link className='footer-link' to={"mailto:dangminhdat@minhdat.dev"}>dangminhdat@minhdat.dev</Link></li>
+                            <li>
+                                Địa chỉ:{' '}
+                                <Link className="footer-link" to={'/contact'}>
+                                    Ha Dong, Ha Noi
+                                </Link>
+                            </li>
+                            <li>
+                                Số điện thoại:{' '}
+                                <Link
+                                    className="footer-link"
+                                    to={'tel:0963632312'}
+                                >
+                                    0963632312
+                                </Link>
+                            </li>
+                            <li>
+                                Email:{' '}
+                                <Link
+                                    className="footer-link"
+                                    to={'mailto:dangminhdat@minhdat.dev'}
+                                >
+                                    dangminhdat@minhdat.dev
+                                </Link>
+                            </li>
                         </ul>
                     </div>
                     <div className="col-md-4 footerCol">
                         <div className="footerTitle">Về chúng tôi</div>
                         <ul>
                             <li>Về chúng tôi</li>
-                            <li><Link className='footer-link' to={"#"}>Chính sách thanh toán</Link></li>
-                            <li><Link className='footer-link' to={"#"}>Chính sách thanh đổi trả</Link></li>
+                            <li>
+                                <Link className="footer-link" to={'#'}>
+                                    Chính sách thanh toán
+                                </Link>
+                            </li>
+                            <li>
+                                <Link className="footer-link" to={'#'}>
+                                    Chính sách thanh đổi trả
+                                </Link>
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -35,7 +68,7 @@ function Footer() {
                 </div>
             </div>
         </footer>
-    )
-    return ResponseHTML
+    );
+    return ResponseHTML;
 }
-export default Footer
+export default Footer;

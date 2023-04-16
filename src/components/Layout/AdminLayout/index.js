@@ -1,7 +1,7 @@
-import AdminFooter from './Footer'
-import AdminHeader from './Header'
-import Navbar from './Navbar'
-import './layout.css'
+import AdminFooter from './Footer';
+import AdminHeader from './Header';
+import Navbar from './Navbar';
+import './layout.css';
 function AdminLayout({ children }) {
     return (
         <div>
@@ -14,7 +14,7 @@ function AdminLayout({ children }) {
             </div>
             <AdminFooter />
         </div>
-    )
+    );
 }
 
-export default AdminLayout
+export default AdminLayout;

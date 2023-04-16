@@ -1,9 +1,9 @@
-import './product_list.css'
-import { Link } from 'react-router-dom'
+import './product_list.css';
+import { Link } from 'react-router-dom';
 function CategoryList({ data }) {
-    const amount = 5
+    const amount = 5;
 
-    const categories = data.slice(0, amount)
+    const categories = data.slice(0, amount);
 
     return (
         <div className="option categories">
@@ -16,7 +16,7 @@ function CategoryList({ data }) {
                 ))}
             </ul>
         </div>
-    )
+    );
 }
 
-export default CategoryList
+export default CategoryList;

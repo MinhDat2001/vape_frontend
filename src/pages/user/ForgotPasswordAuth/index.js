@@ -1,11 +1,14 @@
-import './authen.css'
-import { useNavigate } from 'react-router-dom'
+import './authen.css';
+import { useNavigate } from 'react-router-dom';
 import { CallForgotPassword } from './api';
 function ForgotPasswordAuth() {
-    const token = document.cookie.split("; ").find((row) => row.startsWith("token="))?.split("=")[1];
+    const token = document.cookie
+        .split('; ')
+        .find((row) => row.startsWith('token='))
+        ?.split('=')[1];
     const navigate = useNavigate();
-    if(token !== null && token !=="" && token !==undefined){
-        navigate('/')
+    if (token !== null && token !== '' && token !== undefined) {
+        navigate('/');
     }
     var ResponseHTML = (
         <div className="container">
@@ -37,37 +40,38 @@ function ForgotPasswordAuth() {
                 </div>
             </div>
         </div>
-    )
-    return ResponseHTML
+    );
+    return ResponseHTML;
 }
 
-
 async function sendCode() {
-    var code = document.getElementById('code')
-    if(await validate() === -1){
-        return
+    var code = document.getElementById('code');
+    if ((await validate()) === -1) {
+        return;
     }
     var emailForm = {
-        email : document.cookie.split("; ").find((row) => row.startsWith("email="))?.split("=")[1],
-        code : code.value
-    }
-    CallForgotPassword(emailForm)
+        email: document.cookie
+            .split('; ')
+            .find((row) => row.startsWith('email='))
+            ?.split('=')[1],
+        code: code.value,
+    };
+    CallForgotPassword(emailForm);
 }
 
 async function validate() {
-    document.getElementById('warnning').innerHTML = ''
-    var code = document.getElementById('code')
+    document.getElementById('warnning').innerHTML = '';
+    var code = document.getElementById('code');
     if (code.value === '') {
-        document.getElementById('warnning').innerHTML = 'Không được để trống!'
-        return -1
+        document.getElementById('warnning').innerHTML = 'Không được để trống!';
+        return -1;
     }
     if (!/^[0-9]{4}/.test(code.value)) {
         document.getElementById('warnning').innerHTML =
-            'Mã xác thực gồm 4 chữ số!'
-        return -1
+            'Mã xác thực gồm 4 chữ số!';
+        return -1;
     }
     return 0;
 }
 
-
-export default ForgotPasswordAuth
+export default ForgotPasswordAuth;

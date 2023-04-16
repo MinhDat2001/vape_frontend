@@ -1,11 +1,11 @@
-import './product_list.css'
-import { Link } from 'react-router-dom'
+import './product_list.css';
+import { Link } from 'react-router-dom';
 
 function ProductCard({ product }) {
     const formattedPrice = Number(product.price).toLocaleString('vi-VN', {
         style: 'currency',
         currency: 'VND',
-    })
+    });
     return (
         <div className="product-item col-md-4 col-6">
             <div className="card">
@@ -20,7 +20,7 @@ function ProductCard({ product }) {
                 </Link>
             </div>
         </div>
-    )
+    );
 }
 
-export default ProductCard
+export default ProductCard;

@@ -42,7 +42,7 @@ function App() {
                     })}
                 </Routes>
             </div>
-        <MessengerCustomerChat pageId="103439796060490" appId="489856599903206" />
+            {/* <MessengerCustomerChat pageId="103439796060490" appId="489856599903206" /> */}
         </Router>
     );
 }

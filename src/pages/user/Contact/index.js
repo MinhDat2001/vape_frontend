@@ -1,6 +1,6 @@
-import './contact.css'
-import { React, ReactDOM } from 'react'
-import Iframe from 'react-iframe'
+import './contact.css';
+import { React, ReactDOM } from 'react';
+import Iframe from 'react-iframe';
 function Contact() {
     return (
         <div className="contain row">
@@ -48,33 +48,33 @@ function Contact() {
                 />
             </div>
         </div>
-    )
+    );
 }
 
 function sendRequest() {
-    validate()
+    validate();
 }
 function validate() {
-    document.getElementById('warnning').innerHTML = ''
-    var email = document.getElementById('email')
-    var name = document.getElementById('name')
-    var phone = document.getElementById('phone')
+    document.getElementById('warnning').innerHTML = '';
+    var email = document.getElementById('email');
+    var name = document.getElementById('name');
+    var phone = document.getElementById('phone');
     if (email.value === '' || phone.value === '' || name.value === '') {
-        document.getElementById('warnning').innerHTML = 'Không được để trống!'
-        return
+        document.getElementById('warnning').innerHTML = 'Không được để trống!';
+        return;
     }
     if (!/^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[A-Za-z]+$/.test(email.value)) {
         document.getElementById('warnning').innerHTML =
-            'Nhập đúng định dạng email!'
-        return
+            'Nhập đúng định dạng email!';
+        return;
     }
     if (!/(84|0[3|5|7|8|9])+([0-9]{8})\b/.test(phone.value)) {
         document.getElementById('warnning').innerHTML =
-            'Nhập đúng định dạng số điện thoại!'
-        return
+            'Nhập đúng định dạng số điện thoại!';
+        return;
     }
-    document.getElementById('warnning').style.color = 'var(--primary-color)'
+    document.getElementById('warnning').style.color = 'var(--primary-color)';
     document.getElementById('warnning').innerHTML =
-        'Xin cảm ơn! <br/> Chúng tôi sẽ sớm liên hệ với bạn'
+        'Xin cảm ơn! <br/> Chúng tôi sẽ sớm liên hệ với bạn';
 }
-export default Contact
+export default Contact;

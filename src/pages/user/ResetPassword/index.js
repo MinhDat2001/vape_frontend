@@ -1,11 +1,14 @@
-import './authen.css'
-import { useNavigate } from 'react-router-dom'
+import './authen.css';
+import { useNavigate } from 'react-router-dom';
 import { CallResetPassword } from './api';
 function ResetPassword() {
-    const token = document.cookie.split("; ").find((row) => row.startsWith("token="))?.split("=")[1];
+    const token = document.cookie
+        .split('; ')
+        .find((row) => row.startsWith('token='))
+        ?.split('=')[1];
     const navigate = useNavigate();
-    if(token !== null && token !=="" && token !==undefined){
-        navigate('/')
+    if (token !== null && token !== '' && token !== undefined) {
+        navigate('/');
     }
     var ResponseHTML = (
         <div className="container">
@@ -46,38 +49,38 @@ function ResetPassword() {
                 </div>
             </div>
         </div>
-    )
-    return ResponseHTML
+    );
+    return ResponseHTML;
 }
 
-
 async function sendPassword() {
-    var password = document.getElementById('password')
-    if(await validate() === -1){
-        return
+    var password = document.getElementById('password');
+    if ((await validate()) === -1) {
+        return;
     }
     var emailForm = {
-        email : document.cookie.split("; ").find((row) => row.startsWith("email="))?.split("=")[1],
-        password : password.value
-    }
-    CallResetPassword(emailForm)
+        email: document.cookie
+            .split('; ')
+            .find((row) => row.startsWith('email='))
+            ?.split('=')[1],
+        password: password.value,
+    };
+    CallResetPassword(emailForm);
 }
 
 async function validate() {
-    document.getElementById('warnning').innerHTML = ''
-    var password = document.getElementById('password')
-    var re_password = document.getElementById('re-password')
-    if (password.value === ''|| re_password.value==='') {
-        document.getElementById('warnning').innerHTML = 'Không được để trống!'
-        return -1
+    document.getElementById('warnning').innerHTML = '';
+    var password = document.getElementById('password');
+    var re_password = document.getElementById('re-password');
+    if (password.value === '' || re_password.value === '') {
+        document.getElementById('warnning').innerHTML = 'Không được để trống!';
+        return -1;
     }
     if (password.value !== re_password.value) {
-        document.getElementById('warnning').innerHTML =
-            'Mật khẩu không trùng!'
-        return -1
+        document.getElementById('warnning').innerHTML = 'Mật khẩu không trùng!';
+        return -1;
     }
     return 0;
 }
 
-
-export default ResetPassword
+export default ResetPassword;

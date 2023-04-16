@@ -1,4 +1,4 @@
-import styles from './AdminLogin.module.scss'
+import styles from './AdminLogin.module.scss';
 
 function AdminLogin() {
     return (
@@ -30,7 +30,7 @@ function AdminLogin() {
                 </div>
             </div>
         </div>
-    )
+    );
 }
 
-export default AdminLogin
+export default AdminLogin;
