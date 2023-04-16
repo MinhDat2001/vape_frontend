@@ -59,7 +59,7 @@ const userRoute = [
         Layout: DefaultLayout,
     },
     {
-        path: '/product/{product-slug}',
+        path: '/product/{id}',
         component: Product,
         Layout: DefaultLayout,
     },
