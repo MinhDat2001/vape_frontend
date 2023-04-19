@@ -1,7 +1,7 @@
-import React from 'react'
-import './styles.css'
+import React from 'react';
+import './styles.css';
 
-import ProductContentTableRow from './product-content-table-row'
+import ProductContentTableRow from './product-content-table-row';
 
 function ProductContentTable() {
     const datas = [
@@ -23,7 +23,7 @@ function ProductContentTable() {
             name: 'Coil',
             value: 'Coil 1.0ohm',
         },
-    ]
+    ];
 
     const dataComponents = datas.map((tableRow, index) => {
         return (
@@ -32,18 +32,23 @@ function ProductContentTable() {
                 name={tableRow.name}
                 value={tableRow.value}
             />
-        )
-    })
+        );
+    });
 
     return (
         <div className="thongso">
-            <h3 className="text-center" style={{paddingTop: 12, paddingBottom: 12}}>Thông số kỹ thuật</h3>
+            <h3
+                className="text-center"
+                style={{ paddingTop: 12, paddingBottom: 12 }}
+            >
+                Thông số kỹ thuật
+            </h3>
 
             <table>
                 <tbody>{dataComponents}</tbody>
             </table>
         </div>
-    )
+    );
 }
 
-export default ProductContentTable
+export default ProductContentTable;

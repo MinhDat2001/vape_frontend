@@ -1,5 +1,5 @@
-import React from 'react'
-import './styles.css'
+import React from 'react';
+import './styles.css';
 
 function ProductContentTableRow(props) {
     return (
@@ -7,7 +7,7 @@ function ProductContentTableRow(props) {
             <td>{props.name}</td>
             <td>{props.value}</td>
         </tr>
-    )
+    );
 }
 
-export default ProductContentTableRow
+export default ProductContentTableRow;

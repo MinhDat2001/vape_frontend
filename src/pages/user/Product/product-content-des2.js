@@ -1,10 +1,10 @@
-import ProductContentTable from '~/pages/user/Product/product-content-table'
-import React from 'react'
-import './styles.css'
+import ProductContentTable from '~/pages/user/Product/product-content-table';
+import React from 'react';
+import './styles.css';
 
 function ProductContentDes2(props) {
     const img =
-        'https://mega.com.vn/media/news/0306_tong-quan-ve-nhan-vat-yae-miko-genshin-impact.jpg'
+        'https://bizweb.dktcdn.net/100/247/296/files/00-a8265882-c3b4-4f21-902e-6bbd94125d5d.jpg?v=1663560415794';
 
     return (
         <div className="mota mota2">
@@ -32,7 +32,7 @@ function ProductContentDes2(props) {
             </p>
             <ProductContentTable />
         </div>
-    )
+    );
 }
 
-export default ProductContentDes2
+export default ProductContentDes2;
