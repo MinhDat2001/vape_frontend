@@ -1,5 +1,5 @@
-import React, { useState } from 'react'
-import './styles.css'
+import React, { useState } from 'react';
+import './styles.css';
 
 function ProductReview({ username }) {
     const [reviews, setReviews] = useState([
@@ -34,15 +34,15 @@ function ProductReview({ username }) {
             comment: 'Sản phẩm ổn, nhưng chưa đúng mong đợi',
             replies: [],
         },
-    ])
+    ]);
 
-    const [rating, setRating] = useState('')
-    const [review, setReview] = useState('')
+    const [rating, setRating] = useState('');
+    const [review, setReview] = useState('');
 
-    const [replyForms, setReplyForms] = useState(reviews.map(() => false))
+    const [replyForms, setReplyForms] = useState(reviews.map(() => false));
 
     const handleSubmit = (event) => {
-        event.preventDefault()
+        event.preventDefault();
         const newComment = {
             id: reviews.length + 1,
             name: username,
@@ -50,39 +50,39 @@ function ProductReview({ username }) {
             rating,
             comment: review,
             replies: [],
-        }
-        setReviews([...reviews, newComment])
-        setRating('')
-        setReview('')
-    }
+        };
+        setReviews([...reviews, newComment]);
+        setRating('');
+        setReview('');
+    };
 
     const handleReply = (index, reply) => {
-        const updatedReviews = [...reviews]
-        updatedReviews[index].replies.push(reply)
-        setReviews(updatedReviews)
-        const updatedReplyForms = [...replyForms]
-        updatedReplyForms[index] = false
-        setReplyForms(updatedReplyForms)
-    }
+        const updatedReviews = [...reviews];
+        updatedReviews[index].replies.push(reply);
+        setReviews(updatedReviews);
+        const updatedReplyForms = [...replyForms];
+        updatedReplyForms[index] = false;
+        setReplyForms(updatedReplyForms);
+    };
 
     const toggleReplyForm = (index) => {
-        const updatedReplyForms = [...replyForms]
-        updatedReplyForms[index] = !updatedReplyForms[index]
-        setReplyForms(updatedReplyForms)
-    }
+        const updatedReplyForms = [...replyForms];
+        updatedReplyForms[index] = !updatedReplyForms[index];
+        setReplyForms(updatedReplyForms);
+    };
 
     function ReplyForm({ onSubmit, username }) {
-        const [comment, setComment] = useState('')
+        const [comment, setComment] = useState('');
 
         const handleSubmit = (event) => {
-            event.preventDefault()
+            event.preventDefault();
             onSubmit({
                 name: username,
                 avatar: 'https://via.placeholder.com/50',
                 comment,
-            })
-            setComment('')
-        }
+            });
+            setComment('');
+        };
 
         return (
             <form className="reply-form" onSubmit={handleSubmit}>
@@ -95,7 +95,7 @@ function ProductReview({ username }) {
                 />
                 <button type="submit">Đăng bình luận</button>
             </form>
-        )
+        );
     }
 
     return (
@@ -186,7 +186,7 @@ function ProductReview({ username }) {
                 </form>
             </div>
         </div>
-    )
+    );
 }
 
-export default ProductReview
+export default ProductReview;
