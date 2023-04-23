@@ -13,9 +13,6 @@ function CategoryList({ data, current, handleSelectCate }) {
                     if (item.id !== current) {
                         return (
                             <li key={index}>
-                                {/* <Link to={'./category/' + item.id}>
-                                    {item.name}
-                                </Link> */}
                                 <Link
                                     onClick={() => {
                                         handleSelectCate(item.id);
@@ -28,12 +25,6 @@ function CategoryList({ data, current, handleSelectCate }) {
                     } else {
                         return (
                             <li key={index}>
-                                {/* <Link
-                                    to={'./category/' + item.id}
-                                    className={'active'}
-                                >
-                                    {item.name}
-                                </Link> */}
                                 <Link className={'active'}>{item.name}</Link>
                             </li>
                         );

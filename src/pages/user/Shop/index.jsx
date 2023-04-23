@@ -14,11 +14,6 @@ function Shop() {
             .find((row) => row.startsWith('token='))
             ?.split('=')[1];
 
-    // console.log(token);
-    // console.log(categories);
-    // console.log(currentCategory);
-    // console.log(currentCategory);
-
     useEffect(() => {
         if (token !== undefined || token !== null || token.trim() !== '') {
             axios
@@ -35,24 +30,6 @@ function Shop() {
                     console.log(error);
                 });
         }
-
-        // lấy products
-        // if (token !== undefined || token !== null || token.trim() !== '') {
-        //     const url = PRODUCTS_BY_CATEGORY + '/' + currentCategory.id;
-        //     axios
-        //         .get(url, {
-        //             headers: {
-        //                 token: token,
-        //             },
-        //         })
-        //         .then((response) => {
-        //             // setProduct(response.data);
-        //             console.log(response);
-        //         })
-        //         .catch((error) => {
-        //             console.log(error);
-        //         });
-        // }
     }, []);
 
     const handleSelectCate = (cate) => {

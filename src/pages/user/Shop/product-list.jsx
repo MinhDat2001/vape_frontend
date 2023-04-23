@@ -24,6 +24,7 @@ function ProductList({ categoryId }) {
         setCateId(categoryId);
         setCurrentPage(1);
     }
+
     const token =
         'Vape ' +
         document.cookie
@@ -60,24 +61,14 @@ function ProductList({ categoryId }) {
         }
     };
 
-    // sử dụng cho chuyển trang
+    // sử dụng cho chuyển trang và thay đổi category
     useEffect(() => {
         // lấy products
         handleGetProducts();
     }, [currentPage, cateId]);
 
     // sử dụng cho chuyển sort
-    useEffect(() => {
-        // lấy products
-        // axios
-        //     .get(PRODUCT_API)
-        //     .then((response) => {
-        //         setData1(response.data);
-        //     })
-        //     .catch((error) => {
-        //         console.log(error);
-        //     });
-    }, [sort]);
+    useEffect(() => {}, [sort]);
 
     let pageArray = [];
     for (let i = 1; i <= totalPage; ++i) {
