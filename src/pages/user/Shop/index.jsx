@@ -38,7 +38,10 @@ function Shop() {
 
     return (
         <div className="main">
-            <div className="container">
+            <div
+                className="container d-block"
+                style={{ marginTop: '100px', marginBottom: '100px' }}
+            >
                 <div className="row content">
                     <div className="col-md-4 d-none d-md-block options">
                         <CategoryList
