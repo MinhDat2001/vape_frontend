@@ -1,8 +1,7 @@
 import axios from 'axios';
 export const HOST = 'localhost:8088';
-export const CATEGORY_GET_ALL = 'localhost:8088/categories';
-export const PRODUCT_API =
-    'https://626d69e8034ec185d332c052.mockapi.io/products';
+export const CATEGORY_GET_ALL = 'http://localhost:8088/categories';
+export const PRODUCTS_BY_CATEGORY = 'http://localhost:8088/products';
 
 export const getAllCategories = () => {
     return axios.get(CATEGORY_GET_ALL);
@@ -17,11 +16,11 @@ export const getCategoryById = (id) => {
 };
 
 export const getAllProducts = () => {
-    return axios.get(PRODUCT_API);
+    return axios.get(PRODUCTS_BY_CATEGORY);
 };
 
 export const getProductById = (id) => {
-    return axios.get(PRODUCT_API, {
+    return axios.get(PRODUCTS_BY_CATEGORY, {
         params: {
             id: id,
         },
@@ -29,7 +28,7 @@ export const getProductById = (id) => {
 };
 
 export const getProductByCategory = (categoryId) => {
-    return axios.get(PRODUCT_API, {
+    return axios.get(PRODUCTS_BY_CATEGORY, {
         params: {
             categoryid: categoryId,
         },
@@ -38,7 +37,7 @@ export const getProductByCategory = (categoryId) => {
 
 export default {
     CATEGORY_GET_ALL,
-    PRODUCT_API,
+    PRODUCTS_BY_CATEGORY,
     getAllCategories,
     getAllProducts,
     getCategoryById,

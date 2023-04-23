@@ -3,28 +3,73 @@ import ProductCard from './product-card';
 import { Form } from 'react-bootstrap';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import { PRODUCT_API } from './api';
+import { PRODUCTS_BY_CATEGORY } from './api';
 
-function ProductList({ data, page }) {
+function ProductList({ categoryId }) {
     const [currentPage, setCurrentPage] = useState(1);
 
-    const [data1, setData1] = useState([]);
+    const [totalPage, setTotalPage] = useState(1);
 
-    const [search, setSearch] = useState(['']);
+    const [data, setData] = useState([]);
+
+    const [search, setSearch] = useState('');
 
     const [sort, setSort] = useState(['']);
+
+    // console.log(PRODUCTS_BY_CATEGORY + '/' + category.id);
+    // console.log(category);
+
+    const token =
+        'Vape ' +
+        document.cookie
+            .split('; ')
+            .find((row) => row.startsWith('token='))
+            ?.split('=')[1];
 
     // sử dụng cho chuyển trang
     useEffect(() => {
         // lấy products
-        // axios
-        //     .get(PRODUCT_API)
-        //     .then((response) => {
-        //         setData1(response.data);
-        //     })
-        //     .catch((error) => {
-        //         console.log(error);
-        //     });
+        const sendData = {
+            key_search: '',
+            page_number: currentPage,
+            page_size: 3,
+        };
+
+        if (token !== undefined || token !== null || token.trim() !== '') {
+            const url = PRODUCTS_BY_CATEGORY + '/' + categoryId;
+            // console.log(category);
+            axios
+                .post(url, sendData, {
+                    headers: {
+                        token: token,
+                        'Content-Type': 'application/json',
+                    },
+                })
+                .then((response) => {
+                    console.log(response.data.data);
+                    setData(response.data.data.content);
+                    setTotalPage(response.data.data.totalPages);
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+
+            // axios({
+            //     method: 'post',
+            //     url: url,
+            //     data: sendData,
+            //     headers: {
+            //         token: token,
+            //     },
+            // })
+            //     .then((response) => {
+            //         // setProduct(response.data);
+            //         console.log(response);
+            //     })
+            //     .catch((error) => {
+            //         console.log(error);
+            //     });
+        }
     }, [currentPage]);
 
     // sử dụng cho chuyển sort
@@ -40,16 +85,20 @@ function ProductList({ data, page }) {
         //     });
     }, [sort]);
 
-    const amountShow = 9;
-    const products = data;
-    const totalPage = Math.ceil(data.length / 9);
+    // const amountShow = 9;
+    // const products = data;
+    // const totalPage = Math.ceil(data.length / 9);
 
     // const pageArray = Array.from(
     //     { length: totalPage },
     //     (_, index) => index + 1
     // );
 
-    const pageArray = [1, 2, 3, 4, 5];
+    let pageArray = [];
+    for (let i = 1; i <= totalPage; ++i) {
+        pageArray = [...pageArray, i];
+    }
+    // console.log(pageArray);
 
     // console.log({
     //     currentPage: currentPage,
@@ -126,14 +175,9 @@ function ProductList({ data, page }) {
                 </div>
             </div>
             <div className="product-display row">
-                {products
-                    .slice(
-                        (currentPage - 1) * amountShow,
-                        (currentPage - 1) * amountShow + amountShow
-                    )
-                    .map((item, index) => (
-                        <ProductCard key={index} product={item} />
-                    ))}
+                {data.map((item, index) => (
+                    <ProductCard key={index} product={item} />
+                ))}
             </div>
             <div className="paginationBox">
                 <ul className="pagination">

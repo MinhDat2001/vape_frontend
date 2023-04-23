@@ -11,7 +11,12 @@ function ProductCard({ product }) {
             <div className="card">
                 <Link to={'/product/' + product.id}>
                     <div className="img">
-                        <img className="card-img" src={product.avatar} alt="" />
+                        <img
+                            className="card-img"
+                            src={product.avatar}
+                            alt=""
+                            height={'200px'}
+                        />
                     </div>
                     <div className="card-body">
                         <div className="name">{product.name}</div>
