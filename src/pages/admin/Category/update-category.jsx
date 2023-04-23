@@ -76,7 +76,7 @@ function UpdateCategory() {
     };
 
     const validate = () => {
-        if (formData.name === '' || formData.descripstion === '') {
+        if (formData.name === '' || formData.description === '') {
             setValid({
                 status: false,
                 message: 'Các trường "Tên", "Mô tả" cần nhập đầy đủ',
@@ -99,7 +99,7 @@ function UpdateCategory() {
                         headers: { token },
                     })
                     .then((response) => {
-                        if (response.status == 200) {
+                        if (response.status === 200) {
                             setSuccess('Sửa thành công');
                             setTimeout(() => {
                                 setSuccess('');
