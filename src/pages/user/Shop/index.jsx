@@ -1,24 +1,40 @@
 import CategoryList from './category-list';
 import ProductList from './product-list';
 import { useEffect, useState } from 'react';
-import { CATEGORY_API, PRODUCT_API } from './api';
+import { CATEGORY_GET_ALL, PRODUCT_API } from './api';
 import axios from 'axios';
 function Shop() {
     const categoryId = 1;
 
-    const [categories, setCategory] = useState([]);
+    const [categories, setCategories] = useState([]);
     const [products, setProduct] = useState([]);
 
+    const token =
+        'Vape ' +
+        document.cookie
+            .split('; ')
+            .find((row) => row.startsWith('token='))
+            ?.split('=')[1];
+
+    // console.log(token);
+    // console.log(categories);
+
     useEffect(() => {
-        // lấy categories
-        axios
-            .get(CATEGORY_API)
-            .then((response) => {
-                setCategory(response.data);
-            })
-            .catch((error) => {
-                console.log(error);
-            });
+        if (token !== undefined || token !== null || token.trim() !== '')
+            axios
+                .get('http://localhost:8088/categories', {
+                    headers: {
+                        token: token,
+                    },
+                })
+                .then((response) => {
+                    setCategories(response.data.data);
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+        {
+        }
 
         // lấy products
         axios

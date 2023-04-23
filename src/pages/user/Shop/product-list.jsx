@@ -85,21 +85,21 @@ function ProductList({ data, page }) {
             <div className="top">
                 <div className="title">Sản phẩm mới</div>
 
-                <div class="input-group mb-3">
+                <div className="input-group mb-3">
                     <input
                         type="text"
-                        class="form-control"
+                        className="form-control"
                         placeholder="Search ......"
                         aria-label="Recipient's username"
                         value={search}
                         onChange={handleSearchChange}
                     />
                     <div
-                        class="input-group-append"
+                        className="input-group-append"
                         onClick={handleSubmitSearch}
                     >
-                        <span class="input-group-text">
-                            <i class="fa fa-search"></i>
+                        <span className="input-group-text">
+                            <i className="fa fa-search"></i>
                         </span>
                     </div>
                 </div>

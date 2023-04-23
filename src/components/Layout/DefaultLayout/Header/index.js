@@ -11,8 +11,9 @@ function Header() {
         .split('; ')
         .find((row) => row.startsWith('token='))
         ?.split('=')[1];
+
     if (token !== undefined || token !== null || token.trim() !== '') {
-        console.log('token:' + token);
+        // console.log('token:' + token);
         window.onload = axios
             .get(getUser, {
                 mode: 'cors',
@@ -22,7 +23,7 @@ function Header() {
             })
             .then((response) => {
                 if (response.data.status === 0) {
-                    console.log(response.data);
+                    // console.log(response.data);
                     document.getElementById('user').classList.add('display');
                     document
                         .getElementById('guest')
