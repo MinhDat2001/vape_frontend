@@ -1,7 +1,7 @@
 import CategoryList from './category-list';
 import ProductList from './product-list';
 import { useEffect, useState } from 'react';
-import { CATEGORY_GET_ALL, PRODUCTS_BY_CATEGORY } from './api';
+import { CATEGORY_GET_ALL } from './api';
 import axios from 'axios';
 function Shop() {
     const [categories, setCategories] = useState([]);

@@ -1,21 +1,37 @@
+import axios from 'axios';
+import { useEffect } from 'react';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import logo from '~/static/images/logo.png';
+import { getAllCategory, GET_ALL_CATEGORY } from './api';
 function AdminCategory() {
-    const [products, setProducts] = useState([
-        {
-            id: 1,
-            name: 'abc',
-            description: 'abc',
-            Category: 'CLC',
-        },
-        {
-            id: 2,
-            name: 'abc',
-            description: 'abc',
-            Category: 'CLC',
-        },
-    ]);
+    const [categories, setCategories] = useState([]);
+
+    const token =
+        'Vape ' +
+        document.cookie
+            .split('; ')
+            .find((row) => row.startsWith('token='))
+            ?.split('=')[1];
+
+    useEffect(() => {
+        if (token !== undefined || token !== null || token.trim() !== '') {
+            axios
+                .get(GET_ALL_CATEGORY, {
+                    headers: {
+                        token: token,
+                    },
+                })
+                .then((response) => {
+                    if (response.status === 200) {
+                        setCategories(response.data.data);
+                    }
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+        }
+    }, []);
 
     return (
         <div className="product_content">
@@ -48,7 +64,7 @@ function AdminCategory() {
                     </tr>
                 </thead>
                 <tbody>
-                    {products.map((item, index) => (
+                    {categories.map((item, index) => (
                         <tr key={index}>
                             <td width="15%">
                                 <img

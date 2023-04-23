@@ -1,9 +1,12 @@
+import axios from 'axios';
 import classNames from 'classnames/bind';
+import { useEffect } from 'react';
 
 import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 
 import styles from '~/pages/admin/Product/css/update-product.module.scss';
+import { GET_CATEGORY_BY_ID, UPDATE_CATEGORY } from './api';
 
 const cx = classNames.bind(styles);
 
@@ -14,16 +17,43 @@ function UpdateCategory() {
     const { categoryId } = useParams();
 
     const [formData, setFormData] = useState({
+        id: 0,
         name: '',
-        descripstion: '',
-        avatar: '',
+        description: '',
     });
 
     const [valid, setValid] = useState({ status: true, message: '' });
 
+    const [success, setSuccess] = useState('');
+
     const [imageSrc, setImageSrc] = useState(LOADING_IMG);
 
     const [inputSrc, setInputSrc] = useState('');
+
+    const token =
+        'Vape ' +
+        document.cookie
+            .split('; ')
+            .find((row) => row.startsWith('token='))
+            ?.split('=')[1];
+
+    useEffect(() => {
+        if (token != null) {
+            axios
+                .get(GET_CATEGORY_BY_ID + '/' + categoryId, {
+                    headers: { token },
+                })
+                .then((response) => {
+                    // console.log(response);
+                    if (response.status === 200) {
+                        setFormData(response.data.data);
+                    }
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+        }
+    }, []);
 
     const handleOnChange = (e) => {
         const targetId = e.target.id;
@@ -33,7 +63,7 @@ function UpdateCategory() {
                 setFormData({ ...formData, name: targerValue });
                 break;
             case 'description':
-                setFormData({ ...formData, descripstion: targerValue });
+                setFormData({ ...formData, description: targerValue });
                 break;
             case 'avatar':
                 //validate ảnh
@@ -63,6 +93,23 @@ function UpdateCategory() {
     const handleSubmit = (e) => {
         if (validate()) {
             // call api
+            if (token !== undefined || token !== null || token.trim() !== '') {
+                axios
+                    .put(UPDATE_CATEGORY, formData, {
+                        headers: { token },
+                    })
+                    .then((response) => {
+                        if (response.status == 200) {
+                            setSuccess('Sửa thành công');
+                            setTimeout(() => {
+                                setSuccess('');
+                            }, 5000);
+                        }
+                    })
+                    .catch((error) => {
+                        console.log(error);
+                    });
+            }
         }
     };
 
@@ -108,35 +155,15 @@ function UpdateCategory() {
                         placeholder="Mô tả"
                         type="text"
                         className={cx(['input-text'])}
-                        value={formData.descripstion}
+                        value={formData.description}
                         onChange={handleOnChange}
-                    />
-                </div>
-
-                <div className={cx(['input-feature'])}>
-                    <div className={cx(['label'])}>Hình đại diện:</div>
-                    <input
-                        id="avatar"
-                        placeholder="link"
-                        type="text"
-                        className={cx(['input-text'])}
-                        value={inputSrc}
-                        onChange={handleOnChange}
-                    />
-                    <img
-                        id="image"
-                        src={imageSrc}
-                        alt=""
-                        width="150"
-                        height="150"
-                        onLoad={imageLoaded}
-                        onError={imageError}
                     />
                 </div>
 
                 {!valid.status && (
                     <div className={cx(['warning'])}>{valid.message}</div>
                 )}
+                {success && <div className={cx(['success'])}>{success}</div>}
                 <div className={cx(['btn-submit'])} onClick={handleSubmit}>
                     Lưu thể loại
                 </div>
