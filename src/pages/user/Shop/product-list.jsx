@@ -6,6 +6,8 @@ import axios from 'axios';
 import { PRODUCTS_BY_CATEGORY } from './api';
 
 function ProductList({ categoryId }) {
+    const [cateId, setCateId] = useState(categoryId);
+
     const [currentPage, setCurrentPage] = useState(1);
 
     const [totalPage, setTotalPage] = useState(1);
@@ -16,9 +18,12 @@ function ProductList({ categoryId }) {
 
     const [sort, setSort] = useState(['']);
 
-    // console.log(PRODUCTS_BY_CATEGORY + '/' + category.id);
-    // console.log(category);
+    const [title, setTitle] = useState('Danh sách sản phẩm');
 
+    if (cateId !== categoryId) {
+        setCateId(categoryId);
+        setCurrentPage(1);
+    }
     const token =
         'Vape ' +
         document.cookie
@@ -26,17 +31,16 @@ function ProductList({ categoryId }) {
             .find((row) => row.startsWith('token='))
             ?.split('=')[1];
 
-    // sử dụng cho chuyển trang
-    useEffect(() => {
-        // lấy products
+    // call api lấy sản phẩm
+    const handleGetProducts = () => {
         const sendData = {
-            key_search: '',
+            key_search: search,
             page_number: currentPage,
             page_size: 3,
         };
 
         if (token !== undefined || token !== null || token.trim() !== '') {
-            const url = PRODUCTS_BY_CATEGORY + '/' + categoryId;
+            const url = PRODUCTS_BY_CATEGORY + '/' + cateId;
             // console.log(category);
             axios
                 .post(url, sendData, {
@@ -46,31 +50,21 @@ function ProductList({ categoryId }) {
                     },
                 })
                 .then((response) => {
-                    console.log(response.data.data);
+                    // console.log(response.data.data);
                     setData(response.data.data.content);
                     setTotalPage(response.data.data.totalPages);
                 })
                 .catch((error) => {
                     console.log(error);
                 });
-
-            // axios({
-            //     method: 'post',
-            //     url: url,
-            //     data: sendData,
-            //     headers: {
-            //         token: token,
-            //     },
-            // })
-            //     .then((response) => {
-            //         // setProduct(response.data);
-            //         console.log(response);
-            //     })
-            //     .catch((error) => {
-            //         console.log(error);
-            //     });
         }
-    }, [currentPage]);
+    };
+
+    // sử dụng cho chuyển trang
+    useEffect(() => {
+        // lấy products
+        handleGetProducts();
+    }, [currentPage, cateId]);
 
     // sử dụng cho chuyển sort
     useEffect(() => {
@@ -85,28 +79,10 @@ function ProductList({ categoryId }) {
         //     });
     }, [sort]);
 
-    // const amountShow = 9;
-    // const products = data;
-    // const totalPage = Math.ceil(data.length / 9);
-
-    // const pageArray = Array.from(
-    //     { length: totalPage },
-    //     (_, index) => index + 1
-    // );
-
     let pageArray = [];
     for (let i = 1; i <= totalPage; ++i) {
         pageArray = [...pageArray, i];
     }
-    // console.log(pageArray);
-
-    // console.log({
-    //     currentPage: currentPage,
-    //     amountShow: amountShow,
-    //     products: products,
-    //     totalPage: totalPage,
-    //     pageArray: pageArray,
-    // });
 
     const handleClick = (e) => {
         const pageSelected = Number.parseInt(e.target.innerHTML);
@@ -119,9 +95,16 @@ function ProductList({ categoryId }) {
     };
 
     const handleSubmitSearch = (e) => {
+        setCurrentPage(1);
+
         // call api search
-        // set lai data
-        setSearch('');
+        handleGetProducts();
+
+        if (search !== '') {
+            setTitle('Kết quả cho tìm kiếm "' + search + '"');
+        } else {
+            setTitle('Danh sách sản phẩm');
+        }
     };
 
     const handleSortSelect = (e) => {
@@ -132,7 +115,14 @@ function ProductList({ categoryId }) {
     return (
         <div className="col-md-8 product-list">
             <div className="top">
-                <div className="title">Sản phẩm mới</div>
+                <div
+                    className="title"
+                    style={{
+                        marginTop: '0.5rem',
+                    }}
+                >
+                    {title}
+                </div>
 
                 <div className="input-group mb-3">
                     <input
