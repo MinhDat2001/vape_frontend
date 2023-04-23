@@ -11,6 +11,7 @@ export const GET_ALL_CATEGORY = 'http://localhost:8088/categories';
 export const GET_CATEGORY_BY_ID = 'http://localhost:8088/category';
 export const UPDATE_CATEGORY = 'http://localhost:8088/category';
 export const CREATE_CATEGORY = 'http://localhost:8088/category';
+export const DELETE_CATEGORY = 'http://localhost:8088/category';
 
 export const getAllCategory = () => {
     // let res = null;
@@ -37,5 +38,6 @@ export default {
     GET_ALL_CATEGORY,
     UPDATE_CATEGORY,
     CREATE_CATEGORY,
+    DELETE_CATEGORY,
     getAllCategory,
 };
