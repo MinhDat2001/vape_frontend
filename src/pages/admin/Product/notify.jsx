@@ -1,8 +1,11 @@
 import axios from 'axios';
 import React from 'react';
 import { DELETE_CATEGORY } from '../Category/api';
+import { DELETE_PRODUCT } from './api';
 
 export default function Notify({ notify, myCallBack, updateCallBack }) {
+    // console.log(notify.obj);
+
     const token =
         'Vape ' +
         document.cookie
@@ -17,7 +20,35 @@ export default function Notify({ notify, myCallBack, updateCallBack }) {
                 // call api xóa obj trong notify
                 switch (notify.feature) {
                     case 'product':
-                        // console.log('product');
+                        if (
+                            token !== undefined ||
+                            token !== null ||
+                            token.trim() !== ''
+                        ) {
+                            axios
+                                .delete(DELETE_PRODUCT + '/' + notify.obj.id, {
+                                    headers: {
+                                        token: token,
+                                    },
+                                })
+                                .then((response) => {
+                                    if (response.status === 200) {
+                                        if (response.data.status === 0) {
+                                            console.log('Xóa product');
+                                            myCallBack({
+                                                ...notify,
+                                                visible: false,
+                                                message: '',
+                                                obj: {},
+                                            });
+                                            // updateCallBack();
+                                        }
+                                    }
+                                })
+                                .catch((error) => {
+                                    console.log(error);
+                                });
+                        }
                         break;
                     case 'category':
                         if (
@@ -41,7 +72,7 @@ export default function Notify({ notify, myCallBack, updateCallBack }) {
                                             message: '',
                                             obj: {},
                                         });
-                                        updateCallBack();
+                                        // updateCallBack();
                                     }
                                 })
                                 .catch((error) => {

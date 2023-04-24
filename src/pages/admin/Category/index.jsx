@@ -109,7 +109,7 @@ function AdminCategory() {
                                                 ...notify,
                                                 visible: true,
                                                 message:
-                                                    'Bạn có chắc muốn xóa sản phẩm ' +
+                                                    'Bạn có chắc muốn xóa thể loại ' +
                                                     item.id +
                                                     ' không?',
                                                 obj: item,

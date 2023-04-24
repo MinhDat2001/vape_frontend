@@ -69,6 +69,7 @@ function AddCategory() {
 
     const handleSubmit = (e) => {
         if (validate()) {
+            setSuccess('Đang đợi phản hồi...');
             // call api
             if (token !== undefined || token !== null || token.trim() !== '') {
                 axios
