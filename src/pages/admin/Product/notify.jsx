@@ -32,17 +32,26 @@ export default function Notify({ notify, myCallBack, updateCallBack }) {
                                     },
                                 })
                                 .then((response) => {
-                                    if (response.status === 200) {
-                                        if (response.data.status === 0) {
-                                            console.log('Xóa product');
-                                            myCallBack({
-                                                ...notify,
-                                                visible: false,
-                                                message: '',
-                                                obj: {},
-                                            });
-                                            // updateCallBack();
-                                        }
+                                    if (
+                                        response.status === 200 &&
+                                        response.data.status === 0
+                                    ) {
+                                        alert('Xóa thành công');
+                                        myCallBack({
+                                            ...notify,
+                                            visible: false,
+                                            message: '',
+                                            obj: {},
+                                        });
+                                        // updateCallBack();
+                                    } else {
+                                        alert('Xóa không thành công');
+                                        myCallBack({
+                                            ...notify,
+                                            visible: false,
+                                            message: '',
+                                            obj: {},
+                                        });
                                     }
                                 })
                                 .catch((error) => {
@@ -65,7 +74,7 @@ export default function Notify({ notify, myCallBack, updateCallBack }) {
                                 .then((response) => {
                                     if (response.status === 200) {
                                         // setCategories(response.data.data);
-                                        console.log('Xóa thành công');
+                                        alert('Xóa thành công');
                                         myCallBack({
                                             ...notify,
                                             visible: false,
@@ -73,6 +82,14 @@ export default function Notify({ notify, myCallBack, updateCallBack }) {
                                             obj: {},
                                         });
                                         // updateCallBack();
+                                    } else {
+                                        alert('Xóa không thành công');
+                                        myCallBack({
+                                            ...notify,
+                                            visible: false,
+                                            message: '',
+                                            obj: {},
+                                        });
                                     }
                                 })
                                 .catch((error) => {
@@ -86,7 +103,7 @@ export default function Notify({ notify, myCallBack, updateCallBack }) {
                     default:
                         break;
                 }
-                myCallBack({ ...notify, visible: false, message: '', obj: {} });
+                // myCallBack({ ...notify, visible: false, message: '', obj: {} });
                 break;
             case 'ne':
                 myCallBack({ ...notify, visible: false, message: '', obj: {} });
