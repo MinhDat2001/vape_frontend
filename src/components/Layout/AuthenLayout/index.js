@@ -1,4 +1,4 @@
 function AuthenLayout() {
-    return <div>Authen</div>
+    return <div>Authen</div>;
 }
-export default AuthenLayout
+export default AuthenLayout;

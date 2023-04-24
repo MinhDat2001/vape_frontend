@@ -1,0 +1,119 @@
+.d-block {
+    display: block !important;
+}
+
+.mh-0 {
+    min-height: 0 !important;
+}
+
+.center {
+    display: flex;
+    justify-content: center;
+}
+
+.cart {
+    box-sizing: border-box;
+    font-size: 1.5rem;
+
+    .title {
+        font-size: 2rem;
+        font-weight: normal;
+        text-transform: uppercase;
+        padding: 10px 0;
+    }
+    .cart-table {
+        .cart-header {
+            padding: 0;
+            border: 1px solid rgb(227, 227, 227);
+            .feature-name {
+                padding: 8px 0;
+                text-transform: capitalize;
+                font-weight: bold;
+            }
+        }
+        .cart-item {
+            padding: 10px 0;
+            border: 1px solid rgb(227, 227, 227);
+            .info {
+                display: flex;
+                img {
+                    display: inline-block;
+                }
+                .name {
+                    margin-left: 12px;
+                    display: inline-block;
+                    padding: 0;
+                    button {
+                        padding: 8px 8px 8px 0px;
+                        background-color: white;
+                        color: #f45c43;
+                        &:hover {
+                            opacity: 0.7;
+                        }
+                    }
+                }
+            }
+            .price {
+                height: 100%;
+                color: #f45c43;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-weight: bold;
+            }
+            .quantity {
+                height: 100%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                div {
+                    border-collapse: collapse;
+                    .box {
+                        display: inline-block;
+                        padding: 6px 12px;
+                        border: 1px solid rgb(227, 227, 227);
+                    }
+                    .center {
+                        border-left: none;
+                        border-right: none;
+                    }
+                    .button {
+                        &:hover {
+                            cursor: pointer;
+                            opacity: 0.7;
+                            background-color: #f45c43;
+                            color: white;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    .total-bill {
+        padding: 16px 0;
+        .total-price {
+            display: flex;
+            justify-content: space-between;
+            .price {
+                color: #f45c43;
+                font-size: 1.5rem;
+                font-weight: bold;
+            }
+        }
+        .pay-button {
+            margin-top: 12px;
+            a {
+                text-decoration: none;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                color: white;
+                padding: 12px 0;
+                background-color: rgb(35, 35, 35);
+                &:hover {
+                    opacity: 0.8;
+                }
+            }
+        }
+    }
+}
