@@ -10,10 +10,61 @@ import styles from './css/home.module.scss';
 import { Link } from 'react-router-dom';
 
 import Tag from './tag';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
+import { GET_ALL_CATEGORY } from '~/pages/admin/Category/api';
+import { GET_ALL_PRODUCT } from '~/pages/admin/Product/api';
 
 const cx = classNames.bind(styles);
 
 function Home() {
+    const [categories, setCategories] = useState([]);
+
+    const [products, setProducts] = useState([]);
+
+    const token =
+        'Vape ' +
+        document.cookie
+            .split('; ')
+            .find((row) => row.startsWith('token='))
+            ?.split('=')[1];
+
+    useEffect(() => {
+        if (token !== undefined || token !== null || token.trim() !== '') {
+            // call gọi categories
+            axios
+                .get(GET_ALL_CATEGORY, {
+                    headers: {
+                        token: token,
+                    },
+                })
+                .then((response) => {
+                    if (response.status === 200) {
+                        setCategories(response.data.data);
+                    }
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+
+            // call gọi products
+            axios
+                .get(GET_ALL_PRODUCT, {
+                    headers: {
+                        token: token,
+                    },
+                })
+                .then((response) => {
+                    if (response.status === 200) {
+                        setProducts(response.data.data);
+                    }
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+        }
+    }, []);
+
     return (
         <main className={cx(['home'])}>
             <section className={cx(['section-product', 'top-seller'])}>
@@ -27,106 +78,44 @@ function Home() {
                     </div>
                     <div className={cx(['product-list'])}>
                         <Row>
-                            <Col lg={2} md={4} sm={6}>
-                                <Link
-                                    title="Naked 100 Max - WATERMELON ( Dưa
-                                                Hấu Lạnh ) - Salt Nicotine"
-                                >
-                                    <div className={cx(['card'])}>
-                                        <div className={cx(['top'])}>
-                                            <Tag status={'new'} />
-                                            <img
-                                                src="https://i.pinimg.com/236x/f4/54/c5/f454c51311bdac71a761f60cc6085597.jpg"
-                                                alt=""
-                                            />
-                                        </div>
-                                        <div className={cx(['info'])}>
-                                            <div className={cx(['name'])}>
-                                                Naked 100 Max - WATERMELON ( Dưa
-                                                Hấu Lạnh ) - Salt Nicotine
+                            {products
+                                .slice(products.length - 6, products.length)
+                                .reverse()
+                                .map((item, index) => (
+                                    <Col lg={2} md={4} sm={6} key={index}>
+                                        <Link title={item.name}>
+                                            <div className={cx(['card'])}>
+                                                <div className={cx(['top'])}>
+                                                    <Tag status={'new'} />
+                                                    <img
+                                                        src={item.avatar}
+                                                        alt=""
+                                                    />
+                                                </div>
+                                                <div className={cx(['info'])}>
+                                                    <div
+                                                        className={cx(['name'])}
+                                                    >
+                                                        {item.name}
+                                                    </div>
+                                                    <div
+                                                        className={cx([
+                                                            'price',
+                                                        ])}
+                                                    >
+                                                        {item.price.toLocaleString(
+                                                            'vi-VN',
+                                                            {
+                                                                style: 'currency',
+                                                                currency: 'VND',
+                                                            }
+                                                        )}
+                                                    </div>
+                                                </div>
                                             </div>
-                                            <div className={cx(['price'])}>
-                                                340.000₫
-                                            </div>
-                                        </div>
-                                    </div>
-                                </Link>
-                            </Col>
-                            <Col lg={2} md={4} sm={6}>
-                                <Link
-                                    title="Naked 100 Max - WATERMELON ( Dưa
-                                                Hấu Lạnh ) - Salt Nicotine"
-                                >
-                                    <div className={cx(['card'])}>
-                                        <div className={cx(['top'])}>
-                                            <Tag status={'new'} />
-                                            <img
-                                                src="https://i.pinimg.com/236x/f4/54/c5/f454c51311bdac71a761f60cc6085597.jpg"
-                                                alt=""
-                                            />
-                                        </div>
-                                        <div className={cx(['info'])}>
-                                            <div className={cx(['name'])}>
-                                                Naked 100 Max - WATERMELON ( Dưa
-                                                Hấu Lạnh ) - Salt Nicotine
-                                            </div>
-                                            <div className={cx(['price'])}>
-                                                340.000₫
-                                            </div>
-                                        </div>
-                                    </div>
-                                </Link>
-                            </Col>
-                            <Col lg={2} md={4} sm={6}>
-                                <Link
-                                    title="Naked 100 Max - WATERMELON ( Dưa
-                                                Hấu Lạnh ) - Salt Nicotine"
-                                >
-                                    <div className={cx(['card'])}>
-                                        <div className={cx(['top'])}>
-                                            <Tag status={'new'} />
-                                            <img
-                                                src="https://i.pinimg.com/236x/f4/54/c5/f454c51311bdac71a761f60cc6085597.jpg"
-                                                alt=""
-                                            />
-                                        </div>
-                                        <div className={cx(['info'])}>
-                                            <div className={cx(['name'])}>
-                                                Naked 100 Max - WATERMELON ( Dưa
-                                                Hấu Lạnh ) - Salt Nicotine
-                                            </div>
-                                            <div className={cx(['price'])}>
-                                                340.000₫
-                                            </div>
-                                        </div>
-                                    </div>
-                                </Link>
-                            </Col>
-                            <Col lg={2} md={4} sm={6}>
-                                <Link
-                                    title="Naked 100 Max - WATERMELON ( Dưa
-                                                Hấu Lạnh ) - Salt Nicotine"
-                                >
-                                    <div className={cx(['card'])}>
-                                        <div className={cx(['top'])}>
-                                            <Tag status={'new'} />
-                                            <img
-                                                src="https://i.pinimg.com/236x/f4/54/c5/f454c51311bdac71a761f60cc6085597.jpg"
-                                                alt=""
-                                            />
-                                        </div>
-                                        <div className={cx(['info'])}>
-                                            <div className={cx(['name'])}>
-                                                Naked 100 Max - WATERMELON ( Dưa
-                                                Hấu Lạnh ) - Salt Nicotine
-                                            </div>
-                                            <div className={cx(['price'])}>
-                                                340.000₫
-                                            </div>
-                                        </div>
-                                    </div>
-                                </Link>
-                            </Col>
+                                        </Link>
+                                    </Col>
+                                ))}
                         </Row>
                     </div>
                 </Container>
@@ -142,58 +131,22 @@ function Home() {
                     </div>
                     <div className={cx(['category-list'])}>
                         <Row>
-                            <Col xl={2} lg={3} md={4} sm={6}>
-                                <Link>
-                                    <div className={cx(['category-card'])}>
-                                        <img
-                                            src="https://i.pinimg.com/236x/f4/54/c5/f454c51311bdac71a761f60cc6085597.jpg"
-                                            alt=""
-                                        />
-                                        <div className={cx(['name'])}>
-                                            sản phẩm mới <p>(493 Sản phẩm)</p>
+                            {categories.map((item, index) => (
+                                <Col xl={2} lg={3} md={4} sm={6} key={index}>
+                                    <Link>
+                                        <div className={cx(['category-card'])}>
+                                            <img
+                                                src="https://i.pinimg.com/236x/f4/54/c5/f454c51311bdac71a761f60cc6085597.jpg"
+                                                alt=""
+                                            />
+                                            <div className={cx(['name'])}>
+                                                {item.name}{' '}
+                                                <p>(493 Sản phẩm)</p>
+                                            </div>
                                         </div>
-                                    </div>
-                                </Link>
-                            </Col>
-                            <Col xl={2} lg={3} md={4} sm={6}>
-                                <Link>
-                                    <div className={cx(['category-card'])}>
-                                        <img
-                                            src="https://i.pinimg.com/236x/f4/54/c5/f454c51311bdac71a761f60cc6085597.jpg"
-                                            alt=""
-                                        />
-                                        <div className={cx(['name'])}>
-                                            sản phẩm mới <p>(493 Sản phẩm)</p>
-                                        </div>
-                                    </div>
-                                </Link>
-                            </Col>
-                            <Col xl={2} lg={3} md={4} sm={6}>
-                                <Link>
-                                    <div className={cx(['category-card'])}>
-                                        <img
-                                            src="https://i.pinimg.com/236x/f4/54/c5/f454c51311bdac71a761f60cc6085597.jpg"
-                                            alt=""
-                                        />
-                                        <div className={cx(['name'])}>
-                                            sản phẩm mới <p>(493 Sản phẩm)</p>
-                                        </div>
-                                    </div>
-                                </Link>
-                            </Col>
-                            <Col xl={2} lg={3} md={4} sm={6}>
-                                <Link>
-                                    <div className={cx(['category-card'])}>
-                                        <img
-                                            src="https://i.pinimg.com/236x/f4/54/c5/f454c51311bdac71a761f60cc6085597.jpg"
-                                            alt=""
-                                        />
-                                        <div className={cx(['name'])}>
-                                            sản phẩm mới <p>(493 Sản phẩm)</p>
-                                        </div>
-                                    </div>
-                                </Link>
-                            </Col>
+                                    </Link>
+                                </Col>
+                            ))}
                         </Row>
                     </div>
                 </Container>

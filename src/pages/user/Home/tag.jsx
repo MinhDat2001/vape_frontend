@@ -4,7 +4,6 @@ import classNames from 'classnames/bind';
 const cx = classNames.bind(styles);
 
 function Tag({ status }) {
-    console.log(cx(['tag']));
     switch (status) {
         case 'hot':
             return <div className={cx(['tag'])}>Hot</div>;
