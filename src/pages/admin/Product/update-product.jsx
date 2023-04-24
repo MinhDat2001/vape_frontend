@@ -1,7 +1,9 @@
+import axios from 'axios';
 import classNames from 'classnames/bind';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { GET_PRODUCT_BY_ID, UPDATE_PRODUCT } from './api';
 
 import styles from './css/update-product.module.scss';
 
@@ -15,12 +17,15 @@ function UpdateProduct() {
 
     //call api gọi sản phẩm
     const [formData, setFormData] = useState({
+        id: 0,
         name: '',
-        descripstion: '',
         avatar: '',
-        categories: [],
         quantity: 0,
         price: 0,
+        description: '0',
+        product_details: [],
+        images: [],
+        votes: [],
     });
 
     //call api gọi category
@@ -45,9 +50,39 @@ function UpdateProduct() {
 
     const [valid, setValid] = useState({ status: true, message: '' });
 
+    const [success, setSuccess] = useState('');
+
     const [imageSrc, setImageSrc] = useState(LOADING_IMG);
 
     const [inputSrc, setInputSrc] = useState('');
+
+    const token =
+        'Vape ' +
+        document.cookie
+            .split('; ')
+            .find((row) => row.startsWith('token='))
+            ?.split('=')[1];
+
+    useEffect(() => {
+        if (token !== undefined || token !== null || token.trim() !== '') {
+            axios
+                .get(GET_PRODUCT_BY_ID + '/' + productId, {
+                    headers: {
+                        token: token,
+                    },
+                })
+                .then((response) => {
+                    if (response.status === 200) {
+                        setFormData(response.data.data);
+                        setInputSrc(response.data.data.avatar);
+                        setImageSrc(response.data.data.avatar);
+                    }
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+        }
+    }, []);
 
     const handleOnChange = (e) => {
         const targetId = e.target.id;
@@ -57,7 +92,7 @@ function UpdateProduct() {
                 setFormData({ ...formData, name: targerValue });
                 break;
             case 'description':
-                setFormData({ ...formData, descripstion: targerValue });
+                setFormData({ ...formData, description: targerValue });
                 break;
             case 'price':
                 //validate giá
@@ -72,10 +107,10 @@ function UpdateProduct() {
             case 'quantity':
                 //validate số lượng
                 if (targerValue === '') {
-                    setFormData({ ...formData, price: 0 });
+                    setFormData({ ...formData, quantity: 0 });
                 } else {
                     targerValue = Number.parseInt(targerValue);
-                    setFormData({ ...formData, price: targerValue });
+                    setFormData({ ...formData, quantity: targerValue });
                 }
 
                 break;
@@ -112,7 +147,7 @@ function UpdateProduct() {
     const validate = () => {
         if (
             formData.name === '' ||
-            formData.descripstion === '' ||
+            formData.description === '' ||
             formData.avatar === ''
         ) {
             setValid({
@@ -121,13 +156,13 @@ function UpdateProduct() {
             });
             return false;
         } else {
-            if (formData.categories.length === 0) {
-                setValid({
-                    status: false,
-                    message: 'Phải chọn ít nhất 1 tag chứ',
-                });
-                return false;
-            }
+            // if (formData.categories.length === 0) {
+            //     setValid({
+            //         status: false,
+            //         message: 'Phải chọn ít nhất 1 tag chứ',
+            //     });
+            //     return false;
+            // }
         }
         setValid({
             status: true,
@@ -137,14 +172,30 @@ function UpdateProduct() {
     };
 
     const handleSubmit = (e) => {
+        setSuccess('Đang đợi phản hồi...');
         if (validate()) {
             // call api
+            if (token !== undefined || token !== null || token.trim() !== '') {
+                axios
+                    .put(UPDATE_PRODUCT + '/' + formData.id, formData, {
+                        headers: {
+                            token: token,
+                        },
+                    })
+                    .then((response) => {
+                        if (response.status === 200) {
+                            setSuccess('Sửa thành công');
+                            setTimeout(() => {
+                                setSuccess('');
+                            }, 5000);
+                        }
+                    })
+                    .catch((error) => {
+                        console.log(error);
+                    });
+            }
         }
     };
-
-    // console.log(formData);
-    // console.log(inputSrc);
-    // console.log(imageSrc);
 
     const imageLoaded = (e) => {
         if (imageSrc !== LOADING_IMG)
@@ -158,6 +209,7 @@ function UpdateProduct() {
             avatar: '',
         });
     };
+
     return (
         <div className={cx(['add-product'])}>
             <h1
@@ -186,7 +238,7 @@ function UpdateProduct() {
                         placeholder="Mô tả"
                         type="text"
                         className={cx(['input-text'])}
-                        value={formData.descripstion}
+                        value={formData.description}
                         onChange={handleOnChange}
                     />
                 </div>
@@ -236,7 +288,7 @@ function UpdateProduct() {
                         onError={imageError}
                     />
                 </div>
-                <div className={cx(['input-feature'])}>
+                {/* <div className={cx(['input-feature'])}>
                     <div className={cx(['label'])}>Thể loại:</div>
                     <div className={cx(['categories-box'])}>
                         {categogies.map((item, index) => {
@@ -269,10 +321,11 @@ function UpdateProduct() {
                             }
                         })}
                     </div>
-                </div>
+                </div> */}
                 {!valid.status && (
                     <div className={cx(['warning'])}>{valid.message}</div>
                 )}
+                {success && <div className={cx(['success'])}>{success}</div>}
                 <div className={cx(['btn-submit'])} onClick={handleSubmit}>
                     Lưu
                 </div>

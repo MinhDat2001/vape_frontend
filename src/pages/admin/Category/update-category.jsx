@@ -91,6 +91,7 @@ function UpdateCategory() {
     };
 
     const handleSubmit = (e) => {
+        setSuccess('Đang đợi phản hồi...');
         if (validate()) {
             // call api
             if (token !== undefined || token !== null || token.trim() !== '') {
