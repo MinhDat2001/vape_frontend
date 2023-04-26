@@ -11,8 +11,8 @@ function ProductImageGallery(props) {
 
     const images = props.images.map((img) => {
         return {
-            original: img.src,
-            thumbnail: img.src,
+            original: img.link,
+            thumbnail: img.link,
             thumbnailLabel: img.alt,
             originalTitle: img.alt,
             originalAlt: img.alt,

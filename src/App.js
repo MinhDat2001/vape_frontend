@@ -1,8 +1,14 @@
-import { Fragment, React } from 'react';
+import { Fragment, React, useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 import { adminRoute, userRoute } from '~/routes/index';
 import MessengerCustomerChat from 'react-messenger-customer-chat';
+function getToken(){
+    return document.cookie
+    .split('; ')
+    .find((row) => row.startsWith('token='))
+    ?.split('=')[1];
+}
 function App() {
     return (
         <Router>
