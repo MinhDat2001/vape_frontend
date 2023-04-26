@@ -1,33 +1,51 @@
 import ProductContentBlock from './product-content-block';
 import ProductImageGallery from './product-image-gallery';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './styles.css';
+import { getProduct } from '~/pages/Host';
+import axios from 'axios';
 
+
+import { Container, Row, Col } from 'react-bootstrap';
 function Product() {
-    const images = [
-        {
-            src: 'https://bizweb.dktcdn.net/thumb/1024x1024/100/247/296/products/aio-ss.jpg?v=1663564865957',
-            alt: 'Trắng',
-        },
-        {
-            src: 'https://bizweb.dktcdn.net/thumb/1024x1024/100/247/296/products/aio-rainbow.jpg?v=1663564875150',
-            alt: 'Xanh',
-        },
-        {
-            src: 'https://bizweb.dktcdn.net/thumb/1024x1024/100/247/296/products/aio-black-b997f43b-7707-494d-9826-77cf8b809aed.jpg?v=1663564882503',
-            alt: 'Đen',
-        },
-        {
-            src: 'https://bizweb.dktcdn.net/thumb/1024x1024/100/247/296/products/aio-gumetal.jpg?v=1663564891667',
-            alt: 'Xám',
-        },
+    var id = window.location.pathname.split('/')[2]
+    const [image, setImage] = useState([]);
+    useEffect(()=> function callUser(){
+        axios.get((getProduct+id), {
+            mode: 'cors',
+            headers: {
+            },
+        })
+        .then((response) => {
+            if (response.data.status === 0) {
+                setImage(response.data.data.images)
+            } else {
+            }
+        })
+        .catch(function () {
+        })
+        
+    },[])
+    var images = [
     ];
+    console.log(images)
+    console.log(image)
+    for(var i=0; i<image.length; i++){
+        images.push({
+            src:image.link
+        })
+    }
 
     return (
         <div className="mainn">
             <div className="main">
-                <ProductImageGallery images={images} />
-                <ProductContentBlock />
+                
+            <Container className="d-block mh-0">
+                <Row className="p-0">
+                    <Col md={7} sm={12} style={{ minHeight: '120px' }}><ProductImageGallery images={image} /></Col>
+                    <Col md={5} sm={12} style={{ minHeight: '120px' }}><ProductContentBlock /></Col>
+                </Row>
+            </Container>
             </div>
         </div>
     );

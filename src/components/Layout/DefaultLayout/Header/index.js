@@ -11,7 +11,6 @@ function Header() {
         .split('; ')
         .find((row) => row.startsWith('token='))
         ?.split('=')[1];
-    var login=false;
     if (token !== undefined || token !== null || token.trim() !== '') {
         // console.log('token:' + token);
         window.onload = axios
@@ -36,7 +35,6 @@ function Header() {
                     ) {
                         document.getElementById('avatar').src = avatar;
                     }
-                    console.log(response.data)
                 } else {
                     console.log('call error');
                     var path = window.location.pathname

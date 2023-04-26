@@ -1,14 +1,17 @@
-import ProductContentTable from '~/pages/user/Product/product-content-table';
 import React from 'react';
 import './styles.css';
 
 function ProductContentDes2(props) {
-    const img =
-        'https://bizweb.dktcdn.net/100/247/296/files/00-a8265882-c3b4-4f21-902e-6bbd94125d5d.jpg?v=1663560415794';
 
     return (
         <div className="mota mota2">
-            <img className="img-des" alt="" src={img} />
+
+            <div className="properties">
+                <p style={{ whiteSpace: 'pre-wrap' }}> Giá: {props.price}</p>
+            </div>
+            <div className="properties">
+                <p style={{ whiteSpace: 'pre-wrap' }}> Số lượng: {props.quantity}</p>
+            </div>
 
             <div className="mota mota1">
                 <p style={{ whiteSpace: 'pre-wrap' }}>{props.data}</p>
@@ -30,7 +33,8 @@ function ProductContentDes2(props) {
                     </div>
                 </span>
             </p>
-            <ProductContentTable />
+
+            <button className='order-btn'> Đặt hàng</button>
         </div>
     );
 }

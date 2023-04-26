@@ -114,81 +114,81 @@ function ChangeInfo() {
     };
 
     return (
-                    <ProfileLayout>
-                        <Col md={8} sm={12} style={{ minHeight: '120px' }}>
-                            <div className={cx('info-box')}>
-                                <div className={cx(['title'])}>
-                                    Thông tin tài khoản
+            <ProfileLayout>
+                <Col md={8} sm={12} style={{ minHeight: '120px' }}>
+                    <div className={cx('info-box')}>
+                        <div className={cx(['title'])}>
+                            Thông tin tài khoản
+                        </div>
+                        <div className={cx(['content'])}>
+                            <ul className={cx(['list-info'])}>
+                                <li>
+                                    <span className={cx(['label'])}>
+                                        Họ tên:{' '}
+                                    </span>
+
+                                    <input
+                                        id="name"
+                                        type="text"
+                                        className={cx(['info'])}
+                                        value={data.name}
+                                        onChange={handleChange}
+                                    />
+                                </li>
+                                <li>
+                                    <span className={cx(['label'])}>
+                                        Email:{' '}
+                                    </span>
+                                    <input
+                                        id="email"
+                                        type="text"
+                                        className={cx(['info'])}
+                                        value={data.email}
+                                        onChange={handleChange}
+                                    />
+                                </li>
+                                <li>
+                                    <span className={cx(['label'])}>
+                                        Số điện thoại:{' '}
+                                    </span>
+                                    <input
+                                        id="phone"
+                                        type="text"
+                                        className={cx(['info'])}
+                                        value={data.phone}
+                                        onChange={handleChange}
+                                    />
+                                </li>
+                                <li>
+                                    <span className={cx(['label'])}>
+                                        địa chỉ:{' '}
+                                    </span>
+                                    <input
+                                        id="address"
+                                        type="text"
+                                        className={cx(['info'])}
+                                        value={data.address}
+                                        onChange={handleChange}
+                                    />
+                                </li>
+                            </ul>
+                            {!valid.status && (
+                                <div className={cx(['warning'])}>
+                                    {valid.message}
                                 </div>
-                                <div className={cx(['content'])}>
-                                    <ul className={cx(['list-info'])}>
-                                        <li>
-                                            <span className={cx(['label'])}>
-                                                Họ tên:{' '}
-                                            </span>
-    
-                                            <input
-                                                id="name"
-                                                type="text"
-                                                className={cx(['info'])}
-                                                value={data.name}
-                                                onChange={handleChange}
-                                            />
-                                        </li>
-                                        <li>
-                                            <span className={cx(['label'])}>
-                                                Email:{' '}
-                                            </span>
-                                            <input
-                                                id="email"
-                                                type="text"
-                                                className={cx(['info'])}
-                                                value={data.email}
-                                                onChange={handleChange}
-                                            />
-                                        </li>
-                                        <li>
-                                            <span className={cx(['label'])}>
-                                                Số điện thoại:{' '}
-                                            </span>
-                                            <input
-                                                id="phone"
-                                                type="text"
-                                                className={cx(['info'])}
-                                                value={data.phone}
-                                                onChange={handleChange}
-                                            />
-                                        </li>
-                                        <li>
-                                            <span className={cx(['label'])}>
-                                                địa chỉ:{' '}
-                                            </span>
-                                            <input
-                                                id="address"
-                                                type="text"
-                                                className={cx(['info'])}
-                                                value={data.address}
-                                                onChange={handleChange}
-                                            />
-                                        </li>
-                                    </ul>
-                                    {!valid.status && (
-                                        <div className={cx(['warning'])}>
-                                            {valid.message}
-                                        </div>
-                                    )}
-    
-                                    <div
-                                        id="submit"
-                                        className={cx(['button-submit'])}
-                                        onClick={handleClick}
-                                    >
-                                        Lưu
-                                    </div>
-                                </div>
+                            )}
+
+                            <div
+                                id="submit"
+                                className={cx(['button-submit'])}
+                                onClick={handleClick}
+                            >
+                                Lưu
                             </div>
-                        </Col>
-                    </ProfileLayout>
+                        </div>
+                    </div>
+                </Col>
+            </ProfileLayout>
     );
 }
 
