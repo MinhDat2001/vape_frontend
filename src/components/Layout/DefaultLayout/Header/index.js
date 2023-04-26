@@ -11,7 +11,7 @@ function Header() {
         .split('; ')
         .find((row) => row.startsWith('token='))
         ?.split('=')[1];
-
+    var login=false;
     if (token !== undefined || token !== null || token.trim() !== '') {
         // console.log('token:' + token);
         window.onload = axios
@@ -36,16 +36,26 @@ function Header() {
                     ) {
                         document.getElementById('avatar').src = avatar;
                     }
+                    login=true;
                 } else {
                     console.log('call error');
+                    var path = window.location.pathname
+                    if(path.includes("profile") || path.includes("cart") ||path.includes("payment") ||path.includes("history") ||path.includes("change-info")){
+                        window.location.pathname = "/login"
+                        return
+                    }
                 }
             })
             .catch(function (error) {
                 console.log(error);
+                var path = window.location.pathname
+                if(path.includes("profile") || path.includes("cart") ||path.includes("payment") ||path.includes("history") ||path.includes("change-info")){
+                    window.location.pathname = "/login"
+                    return
+                }
             });
     }
     const navigate = useNavigate();
-
     const navigateLogin = () => {
         navigate('/login');
     };
