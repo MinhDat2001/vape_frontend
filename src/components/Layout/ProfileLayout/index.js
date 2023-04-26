@@ -16,7 +16,6 @@ function ProfileLayout({ children }) {
         .split('; ')
         .find((row) => row.startsWith('token='))
         ?.split('=')[1];
-    var username="";
     if (token !== undefined || token !== null || token.trim() !== '') {
         // console.log('token:' + token);
         window.onload = axios
@@ -60,7 +59,7 @@ function ProfileLayout({ children }) {
                                     </Link>
                                 </li>
                                 <li>
-                                    <Link to={'/change-info'}>Đổi mật khẩu</Link>
+                                    <Link to={'/change-info'}>Sửa thông tin</Link>
                                 </li>
                                 <li>
                                     <Link to={'/history'}>

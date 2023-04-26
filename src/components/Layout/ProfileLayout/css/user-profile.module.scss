@@ -11,6 +11,7 @@
 }
 
 .user-profile {
+    min-height: 430px;
     box-sizing: border-box;
     ul {
         list-style: none;
@@ -27,7 +28,7 @@
             .welcome {
                 font-size: 1.5rem;
                 .name {
-                    color: #f45c43;
+                    color: var(--primary-color);
                 }
             }
         }
@@ -40,32 +41,7 @@
                     text-decoration: none;
                     color: black;
                     &:hover {
-                        color: #f45c43;
-                    }
-                }
-            }
-        }
-    }
-    .info-box {
-        .content {
-            padding: 0;
-            font-size: 1.5rem;
-            .list-info {
-                padding: 0;
-                li {
-                    display: flex;
-                    padding: 1rem 0;
-                    span {
-                        display: inline-block;
-                    }
-                    .label {
-                        font-size: 1.5rem;
-                        font-weight: bold;
-                        text-transform: capitalize;
-                        min-width: 150px;
-                        height: 100%;
-                    }
-                    .info {
+                        color: var(--primary-color);
                     }
                 }
             }

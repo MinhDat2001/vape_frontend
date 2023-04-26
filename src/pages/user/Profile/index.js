@@ -1,6 +1,6 @@
 import classNames from 'classnames/bind';
 
-import { Container, Row, Col } from 'react-bootstrap';
+import { Col } from 'react-bootstrap';
 
 import styles from './css/user-profile.module.scss';
 
@@ -14,7 +14,6 @@ function Profile() {
         .split('; ')
         .find((row) => row.startsWith('token='))
         ?.split('=')[1];
-    var username="";
     if (token !== undefined || token !== null || token.trim() !== '') {
         // console.log('token:' + token);
         window.onload = axios
@@ -26,7 +25,11 @@ function Profile() {
             })
             .then((response) => {
                 if (response.data.status === 0) {
-                    // document.getElementById("name_info").innerHTML= response.data.name
+                    console.log(response.data)
+                    document.getElementById("info_display_name").innerHTML= response.data.data.name
+                    document.getElementById("info_display_email").innerHTML= response.data.data.email
+                    document.getElementById("info_display_phone").innerHTML= response.data.data.phone
+                    document.getElementById("info_display_address").innerHTML= response.data.data.address
                 } else {
                 }
             })
@@ -47,39 +50,35 @@ function Profile() {
                                     <span className={cx(['label'])}>
                                         Họ tên:{' '}
                                     </span>
-                                    <span  className={cx(['info'])}>
-                                        Nguyễn Văn Hùng
+                                    <span id='info_display_name' className={cx(['info'])}>
                                     </span>
                                 </li>
                                 <li>
                                     <span className={cx(['label'])}>
                                         Email:{' '}
                                     </span>
-                                    <span className={cx(['info'])}>
-                                        abc@gmail.com
+                                    <span id='info_display_email' className={cx(['info'])}>
                                     </span>
                                 </li>
                                 <li>
                                     <span className={cx(['label'])}>
                                         Số điện thoại:{' '}
                                     </span>
-                                    <span className={cx(['info'])}>
-                                        09123456789
+                                    <span id='info_display_phone' className={cx(['info'])}>
                                     </span>
                                 </li>
                                 <li>
                                     <span className={cx(['label'])}>
                                         địa chỉ:{' '}
                                     </span>
-                                    <span className={cx(['info'])}>
-                                        Khu 2 hoàng cương thanh ba phú thọ
+                                    <span id='info_display_address' className={cx(['info'])}>
                                     </span>
                                 </li>
                                 <li>
                                     <span className={cx(['label'])}>
                                         Loại thành viên:{' '}
                                     </span>
-                                    <span className={cx(['info'])}>
+                                    <span id='info_display_role' className={cx(['info'])}>
                                         Khách hàng
                                     </span>
                                 </li>
