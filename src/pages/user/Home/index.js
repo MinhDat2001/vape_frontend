@@ -112,8 +112,10 @@ function Home() {
             <section className={cx(['section-product', 'top-seller'])}>
                 <Container className={cx(['d-block', 'mh-0'])}>
                     <div className={cx(['top'])}>
-                        <Link className={cx(['title'])}>Sản phẩm Mới</Link>
-                        <Link className={cx(['more'])}>
+                        <Link className={cx(['title'])} to="/product">
+                            Sản phẩm Mới
+                        </Link>
+                        <Link className={cx(['more'])} to="/product">
                             <span>Xem thêm</span>
                             <FontAwesomeIcon icon={faArrowRight} />
                         </Link>
@@ -196,7 +198,7 @@ function Home() {
                     </div>
                 </Container>
             </section>
-            <section className={cx(['section-product', 'sales'])}>
+            {/* <section className={cx(['section-product', 'sales'])}>
                 <Container className={cx(['d-block', 'mh-0'])}>
                     <div className={cx(['top'])}>
                         <Link className={cx(['title'])}>Khuyến mãi</Link>
@@ -298,7 +300,7 @@ function Home() {
                         </Row>
                     </div>
                 </Container>
-            </section>
+            </section> */}
             <section className={cx(['section-product', 'category'])}>
                 <Container className={cx(['d-block', 'mh-0'])}>
                     <div className={cx(['top'])}>

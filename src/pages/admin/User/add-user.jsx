@@ -1,3 +1,4 @@
+import axios from 'axios';
 import classNames from 'classnames/bind';
 
 import { useState } from 'react';
@@ -8,6 +9,8 @@ const cx = classNames.bind(styles);
 
 const LOADING_IMG =
     'https://media3.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.gif';
+
+const host = 'https://provinces.open-api.vn/api/';
 
 function AddUser() {
     const [formData, setFormData] = useState({
@@ -125,6 +128,58 @@ function AddUser() {
         });
     };
 
+    async function callApiDistrict(api) {
+        return await axios.get(api).then((response) => {
+            renderData(response.data.districts, 'district');
+        });
+    }
+
+    async function callApiWard(api) {
+        return await axios.get(api).then((response) => {
+            renderData(response.data.wards, 'ward');
+        });
+    }
+
+    async function renderData(array, select) {
+        let row = ' <option disable value="">Chọn </option>';
+        array.forEach((element) => {
+            row +=
+                '<option data-id=' +
+                element.code +
+                ' value=' +
+                element.name +
+                '>' +
+                element.name +
+                '</option>';
+        });
+        document.getElementById(select).innerHTML = row;
+    }
+
+    async function removeAllChild(parent) {
+        while (parent.firstChild) {
+            parent.removeChild(parent.firstChild);
+        }
+        let row = ' <option value="">Chọn </option>';
+        parent.innerHTML = row;
+    }
+
+    async function callDistrict(e) {
+        var el = e.target.selectedIndex;
+        var option = document.getElementById('city').childNodes[el + 1];
+        removeAllChild(document.getElementById('district'));
+        removeAllChild(document.getElementById('ward'));
+        callApiDistrict(
+            host + 'p/' + option.getAttribute('data-id') + '?depth=2'
+        );
+    }
+
+    async function callWard(e) {
+        var el = e.target.selectedIndex;
+        var option = document.getElementById('district').childNodes[el + 1];
+        removeAllChild(document.getElementById('ward'));
+        callApiWard(host + 'd/' + option.getAttribute('data-id') + '?depth=2');
+    }
+
     return (
         <div className={cx(['add-product'])}>
             <h1
@@ -211,6 +266,25 @@ function AddUser() {
                         })}
                     </div>
                 </div>
+                <div className="contain">
+                    <label className="label">Tỉnh/Thành phố</label>
+                    <select onChange={callDistrict} id="city" className="input">
+                        <option>Chọn</option>
+                    </select>
+                </div>
+                <div className="contain">
+                    <label className="label">Quận/Huyện</label>
+                    <select onChange={callWard} id="district" className="input">
+                        <option>Chọn</option>
+                    </select>
+                </div>
+                <div className="contain">
+                    <label className="label">Xã/Phường</label>
+                    <select id="ward" className="input">
+                        <option>Chọn</option>
+                    </select>
+                </div>
+
                 {!valid.status && (
                     <div className={cx(['warning'])}>{valid.message}</div>
                 )}
