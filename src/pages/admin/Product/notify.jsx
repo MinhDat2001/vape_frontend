@@ -25,6 +25,7 @@ export default function Notify({ notify, myCallBack, updateCallBack }) {
                             token !== null ||
                             token.trim() !== ''
                         ) {
+                            alert('Đang đợi kết quả');
                             axios
                                 .delete(DELETE_PRODUCT + '/' + notify.obj.id, {
                                     headers: {
@@ -56,6 +57,7 @@ export default function Notify({ notify, myCallBack, updateCallBack }) {
                                 })
                                 .catch((error) => {
                                     console.log(error);
+                                    alert('Xóa không thành công');
                                 });
                         }
                         break;
@@ -65,6 +67,7 @@ export default function Notify({ notify, myCallBack, updateCallBack }) {
                             token !== null ||
                             token.trim() !== ''
                         ) {
+                            alert('Đang đợi kết quả');
                             axios
                                 .delete(DELETE_CATEGORY + '/' + notify.obj.id, {
                                     headers: {
