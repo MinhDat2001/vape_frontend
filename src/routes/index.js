@@ -65,7 +65,7 @@ const userRoute = [
     },
     { path: '/profile', component: Profile, Layout: DefaultLayout },
     { path: '/contact', component: Contact, Layout: DefaultLayout },
-    { path: '/category', component: Category, Layout: DefaultLayout },
+    { path: '/category/:cateId', component: Category, Layout: DefaultLayout },
     { path: '/cart', component: Cart, Layout: DefaultLayout },
     { path: '/payment', component: Payment, Layout: DefaultLayout },
     { path: '/history', component: History, Layout: DefaultLayout },
