@@ -3,10 +3,8 @@ import ProductList from './product-list';
 import { useEffect, useState } from 'react';
 import { CATEGORY_GET_ALL } from './api';
 import axios from 'axios';
+import { useParams } from 'react-router-dom';
 function Shop() {
-    const [categories, setCategories] = useState([]);
-    const [currentCategory, setCurrentCategory] = useState(1);
-
     const token =
         'Vape ' +
         document.cookie
@@ -14,7 +12,20 @@ function Shop() {
             .find((row) => row.startsWith('token='))
             ?.split('=')[1];
 
+    const [categories, setCategories] = useState([]);
+
+    const [currentCategory, setCurrentCategory] = useState(1);
+
+    const { categoryId } = useParams();
+
+    const sendCurrent = 1;
+    if (categoryId !== null) {
+        // setCurrentCategory(categoryId);
+        // const sendCurrent = categoryId;
+    }
+
     useEffect(() => {
+        // call api
         if (token !== undefined || token !== null || token.trim() !== '') {
             axios
                 .get(CATEGORY_GET_ALL, {
@@ -24,7 +35,7 @@ function Shop() {
                 })
                 .then((response) => {
                     setCategories(response.data.data);
-                    setCurrentCategory(response.data.data[0].id);
+                    // setCurrentCategory(response.data.data[0].id);
                 })
                 .catch((error) => {
                     console.log(error);
