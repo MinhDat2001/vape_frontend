@@ -40,25 +40,18 @@ function ProductList({ categoryId }) {
             page_size: 3,
         };
 
-        if (token !== undefined || token !== null || token.trim() !== '') {
-            const url = PRODUCTS_BY_CATEGORY + '/' + cateId;
-            // console.log(category);
-            axios
-                .post(url, sendData, {
-                    headers: {
-                        token: token,
-                        'Content-Type': 'application/json',
-                    },
-                })
-                .then((response) => {
-                    // console.log(response.data.data);
-                    setData(response.data.data.content);
-                    setTotalPage(response.data.data.totalPages);
-                })
-                .catch((error) => {
-                    console.log(error);
-                });
-        }
+        const url = PRODUCTS_BY_CATEGORY + '/' + cateId;
+        // console.log(category);
+        axios
+            .post(url, sendData)
+            .then((response) => {
+                // console.log(response.data.data);
+                setData(response.data.data.content);
+                setTotalPage(response.data.data.totalPages);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
     };
 
     // sử dụng cho chuyển trang và thay đổi category

@@ -16,31 +16,19 @@ function Shop() {
 
     const [currentCategory, setCurrentCategory] = useState(1);
 
-    const { categoryId } = useParams();
-
     const sendCurrent = 1;
-    if (categoryId !== null) {
-        // setCurrentCategory(categoryId);
-        // const sendCurrent = categoryId;
-    }
 
     useEffect(() => {
-        // call api
-        if (token !== undefined || token !== null || token.trim() !== '') {
-            axios
-                .get(CATEGORY_GET_ALL, {
-                    headers: {
-                        token: token,
-                    },
-                })
-                .then((response) => {
-                    setCategories(response.data.data);
-                    // setCurrentCategory(response.data.data[0].id);
-                })
-                .catch((error) => {
-                    console.log(error);
-                });
-        }
+        // call api lấy category
+        axios
+            .get(CATEGORY_GET_ALL)
+            .then((response) => {
+                setCategories(response.data.data);
+                // setCurrentCategory(response.data.data[0].id);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
     }, []);
 
     const handleSelectCate = (cate) => {
