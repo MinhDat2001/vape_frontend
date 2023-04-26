@@ -37,7 +37,7 @@ function ProductList({ categoryId }) {
         const sendData = {
             key_search: search,
             page_number: currentPage,
-            page_size: 3,
+            page_size: 6,
         };
 
         const url = PRODUCTS_BY_CATEGORY + '/' + cateId;
