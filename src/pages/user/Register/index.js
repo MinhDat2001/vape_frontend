@@ -9,6 +9,7 @@ function Register() {
         .split('; ')
         .find((row) => row.startsWith('token='))
         ?.split('=')[1];
+
     const navigate = useNavigate();
     if (token !== null && token !== '' && token !== undefined) {
         navigate('/');
@@ -18,6 +19,7 @@ function Register() {
             renderData(response.data, 'city');
         });
     };
+
     callAPI('https://provinces.open-api.vn/api/?depth=1');
 
     return (
@@ -129,11 +131,13 @@ async function callApiDistrict(api) {
         renderData(response.data.districts, 'district');
     });
 }
+
 async function callApiWard(api) {
     return await axios.get(api).then((response) => {
         renderData(response.data.wards, 'ward');
     });
 }
+
 async function renderData(array, select) {
     let row = ' <option disable value="">Chọn </option>';
     array.forEach((element) => {
@@ -148,6 +152,7 @@ async function renderData(array, select) {
     });
     document.getElementById(select).innerHTML = row;
 }
+
 async function removeAllChild(parent) {
     while (parent.firstChild) {
         parent.removeChild(parent.firstChild);
@@ -155,6 +160,7 @@ async function removeAllChild(parent) {
     let row = ' <option value="">Chọn </option>';
     parent.innerHTML = row;
 }
+
 async function callDistrict(e) {
     var el = e.target.selectedIndex;
     var option = document.getElementById('city').childNodes[el + 1];
@@ -162,12 +168,14 @@ async function callDistrict(e) {
     removeAllChild(document.getElementById('ward'));
     callApiDistrict(host + 'p/' + option.getAttribute('data-id') + '?depth=2');
 }
+
 async function callWard(e) {
     var el = e.target.selectedIndex;
     var option = document.getElementById('district').childNodes[el + 1];
     removeAllChild(document.getElementById('ward'));
     callApiWard(host + 'd/' + option.getAttribute('data-id') + '?depth=2');
 }
+
 async function register() {
     document.getElementById('warnning').innerHTML = '';
     if ((await validate()) === 0) {
@@ -198,6 +206,7 @@ async function register() {
     };
     CallRegister(registerForm);
 }
+
 async function validate() {
     var email = document.getElementById('username');
     var name = document.getElementById('name');

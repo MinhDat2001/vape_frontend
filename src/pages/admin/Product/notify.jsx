@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React from 'react';
 import { DELETE_CATEGORY } from '../Category/api';
+import { USER_DELETE } from '../User/api';
 import { DELETE_PRODUCT } from './api';
 
 export default function Notify({ notify, myCallBack, updateCallBack }) {
@@ -101,7 +102,48 @@ export default function Notify({ notify, myCallBack, updateCallBack }) {
                         }
                         break;
                     case 'user':
-                        // console.log('user');
+                        if (
+                            token !== undefined ||
+                            token !== null ||
+                            token.trim() !== ''
+                        ) {
+                            alert('Đang đợi kết quả');
+                            const sendData = { email: notify.obj.email };
+                            axios
+                                .delete(USER_DELETE, {
+                                    data: sendData,
+                                    headers: {
+                                        token: token,
+                                    },
+                                })
+                                .then((response) => {
+                                    if (
+                                        response.status === 200 &&
+                                        response.data.status === 0
+                                    ) {
+                                        // setCategories(response.data.data);
+                                        alert('Xóa thành công');
+                                        myCallBack({
+                                            ...notify,
+                                            visible: false,
+                                            message: '',
+                                            obj: {},
+                                        });
+                                        // updateCallBack();
+                                    } else {
+                                        alert('Xóa không thành công');
+                                        myCallBack({
+                                            ...notify,
+                                            visible: false,
+                                            message: '',
+                                            obj: {},
+                                        });
+                                    }
+                                })
+                                .catch((error) => {
+                                    console.log(error);
+                                });
+                        }
                         break;
                     default:
                         break;
