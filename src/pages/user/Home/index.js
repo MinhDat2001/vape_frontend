@@ -41,11 +41,7 @@ function Home() {
         if (token !== undefined || token !== null || token.trim() !== '') {
             // call gọi categories
             axios
-                .get(GET_ALL_CATEGORY, {
-                    headers: {
-                        token: token,
-                    },
-                })
+                .get(GET_ALL_CATEGORY)
                 .then((response) => {
                     if (response.status === 200) {
                         setCategories(response.data.data);
@@ -54,12 +50,7 @@ function Home() {
                             .get(
                                 GET_CATEGORY_BY_ID +
                                     '/' +
-                                    response.data.data[0].id,
-                                {
-                                    headers: {
-                                        token: token,
-                                    },
-                                }
+                                    response.data.data[0].id
                             )
                             .then((response) => {
                                 if (response.status === 200) {
@@ -76,14 +67,7 @@ function Home() {
                                             PRODUCTS_BY_CATEGORY +
                                                 '/' +
                                                 response.data.data.id,
-                                            sendData,
-                                            {
-                                                headers: {
-                                                    token: token,
-                                                    'Content-Type':
-                                                        'application/json',
-                                                },
-                                            }
+                                            sendData
                                         )
                                         .then((response) => {
                                             if (response.status === 200) {
@@ -109,11 +93,7 @@ function Home() {
 
             // gọi products
             axios
-                .get(GET_ALL_PRODUCT, {
-                    headers: {
-                        token: token,
-                    },
-                })
+                .get(GET_ALL_PRODUCT)
                 .then((response) => {
                     if (response.status === 200) {
                         setProducts(response.data.data);
@@ -386,14 +366,14 @@ function Home() {
                                                                         ]
                                                                     )}
                                                                 >
-                                                                    {/* {item.price.toLocaleString(
+                                                                    {item.price.toLocaleString(
                                                                         'vi-VN',
                                                                         {
                                                                             style: 'currency',
                                                                             currency:
                                                                                 'VND',
                                                                         }
-                                                                    )} */}
+                                                                    )}
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -401,318 +381,6 @@ function Home() {
                                                 </Col>
                                             )
                                         )}
-                                        {/* <Col lg={3} md={6} sm={6}>
-                                            <Link
-                                                title="Naked 100 Max - WATERMELON ( Dưa
-                                                Hấu Lạnh ) - Salt Nicotine"
-                                            >
-                                                <div className={cx(['card'])}>
-                                                    <div
-                                                        className={cx(['top'])}
-                                                    >
-                                                        <Tag status={'new'} />
-                                                        <img
-                                                            src="https://i.pinimg.com/236x/f4/54/c5/f454c51311bdac71a761f60cc6085597.jpg"
-                                                            alt=""
-                                                        />
-                                                    </div>
-                                                    <div
-                                                        className={cx(['info'])}
-                                                    >
-                                                        <div
-                                                            className={cx([
-                                                                'name',
-                                                            ])}
-                                                        >
-                                                            Naked 100 Max -
-                                                            WATERMELON ( Dưa Hấu
-                                                            Lạnh ) - Salt
-                                                            Nicotine
-                                                        </div>
-                                                        <div
-                                                            className={cx([
-                                                                'price',
-                                                            ])}
-                                                        >
-                                                            340.000₫
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </Link>
-                                        </Col>
-                                        <Col lg={3} md={6} sm={6}>
-                                            <Link
-                                                title="Naked 100 Max - WATERMELON ( Dưa
-                                                Hấu Lạnh ) - Salt Nicotine"
-                                            >
-                                                <div className={cx(['card'])}>
-                                                    <div
-                                                        className={cx(['top'])}
-                                                    >
-                                                        <Tag status={'new'} />
-                                                        <img
-                                                            src="https://i.pinimg.com/236x/f4/54/c5/f454c51311bdac71a761f60cc6085597.jpg"
-                                                            alt=""
-                                                        />
-                                                    </div>
-                                                    <div
-                                                        className={cx(['info'])}
-                                                    >
-                                                        <div
-                                                            className={cx([
-                                                                'name',
-                                                            ])}
-                                                        >
-                                                            Naked 100 Max -
-                                                            WATERMELON ( Dưa Hấu
-                                                            Lạnh ) - Salt
-                                                            Nicotine
-                                                        </div>
-                                                        <div
-                                                            className={cx([
-                                                                'price',
-                                                            ])}
-                                                        >
-                                                            340.000₫
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </Link>
-                                        </Col>
-                                        <Col lg={3} md={6} sm={6}>
-                                            <Link
-                                                title="Naked 100 Max - WATERMELON ( Dưa
-                                                Hấu Lạnh ) - Salt Nicotine"
-                                            >
-                                                <div className={cx(['card'])}>
-                                                    <div
-                                                        className={cx(['top'])}
-                                                    >
-                                                        <Tag status={'new'} />
-                                                        <img
-                                                            src="https://i.pinimg.com/236x/f4/54/c5/f454c51311bdac71a761f60cc6085597.jpg"
-                                                            alt=""
-                                                        />
-                                                    </div>
-                                                    <div
-                                                        className={cx(['info'])}
-                                                    >
-                                                        <div
-                                                            className={cx([
-                                                                'name',
-                                                            ])}
-                                                        >
-                                                            Naked 100 Max -
-                                                            WATERMELON ( Dưa Hấu
-                                                            Lạnh ) - Salt
-                                                            Nicotine
-                                                        </div>
-                                                        <div
-                                                            className={cx([
-                                                                'price',
-                                                            ])}
-                                                        >
-                                                            340.000₫
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </Link>
-                                        </Col>
-                                        <Col lg={3} md={6} sm={6}>
-                                            <Link
-                                                title="Naked 100 Max - WATERMELON ( Dưa
-                                                Hấu Lạnh ) - Salt Nicotine"
-                                            >
-                                                <div className={cx(['card'])}>
-                                                    <div
-                                                        className={cx(['top'])}
-                                                    >
-                                                        <Tag status={'new'} />
-                                                        <img
-                                                            src="https://i.pinimg.com/236x/f4/54/c5/f454c51311bdac71a761f60cc6085597.jpg"
-                                                            alt=""
-                                                        />
-                                                    </div>
-                                                    <div
-                                                        className={cx(['info'])}
-                                                    >
-                                                        <div
-                                                            className={cx([
-                                                                'name',
-                                                            ])}
-                                                        >
-                                                            Naked 100 Max -
-                                                            WATERMELON ( Dưa Hấu
-                                                            Lạnh ) - Salt
-                                                            Nicotine
-                                                        </div>
-                                                        <div
-                                                            className={cx([
-                                                                'price',
-                                                            ])}
-                                                        >
-                                                            340.000₫
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </Link>
-                                        </Col>
-                                        <Col lg={3} md={6} sm={6}>
-                                            <Link
-                                                title="Naked 100 Max - WATERMELON ( Dưa
-                                                Hấu Lạnh ) - Salt Nicotine"
-                                            >
-                                                <div className={cx(['card'])}>
-                                                    <div
-                                                        className={cx(['top'])}
-                                                    >
-                                                        <Tag status={'new'} />
-                                                        <img
-                                                            src="https://i.pinimg.com/236x/f4/54/c5/f454c51311bdac71a761f60cc6085597.jpg"
-                                                            alt=""
-                                                        />
-                                                    </div>
-                                                    <div
-                                                        className={cx(['info'])}
-                                                    >
-                                                        <div
-                                                            className={cx([
-                                                                'name',
-                                                            ])}
-                                                        >
-                                                            Naked 100 Max -
-                                                            WATERMELON ( Dưa Hấu
-                                                            Lạnh ) - Salt
-                                                            Nicotine
-                                                        </div>
-                                                        <div
-                                                            className={cx([
-                                                                'price',
-                                                            ])}
-                                                        >
-                                                            340.000₫
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </Link>
-                                        </Col>
-                                        <Col lg={3} md={6} sm={6}>
-                                            <Link
-                                                title="Naked 100 Max - WATERMELON ( Dưa
-                                                Hấu Lạnh ) - Salt Nicotine"
-                                            >
-                                                <div className={cx(['card'])}>
-                                                    <div
-                                                        className={cx(['top'])}
-                                                    >
-                                                        <Tag status={'new'} />
-                                                        <img
-                                                            src="https://i.pinimg.com/236x/f4/54/c5/f454c51311bdac71a761f60cc6085597.jpg"
-                                                            alt=""
-                                                        />
-                                                    </div>
-                                                    <div
-                                                        className={cx(['info'])}
-                                                    >
-                                                        <div
-                                                            className={cx([
-                                                                'name',
-                                                            ])}
-                                                        >
-                                                            Naked 100 Max -
-                                                            WATERMELON ( Dưa Hấu
-                                                            Lạnh ) - Salt
-                                                            Nicotine
-                                                        </div>
-                                                        <div
-                                                            className={cx([
-                                                                'price',
-                                                            ])}
-                                                        >
-                                                            340.000₫
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </Link>
-                                        </Col>
-                                        <Col lg={3} md={6} sm={6}>
-                                            <Link
-                                                title="Naked 100 Max - WATERMELON ( Dưa
-                                                Hấu Lạnh ) - Salt Nicotine"
-                                            >
-                                                <div className={cx(['card'])}>
-                                                    <div
-                                                        className={cx(['top'])}
-                                                    >
-                                                        <Tag status={'new'} />
-                                                        <img
-                                                            src="https://i.pinimg.com/236x/f4/54/c5/f454c51311bdac71a761f60cc6085597.jpg"
-                                                            alt=""
-                                                        />
-                                                    </div>
-                                                    <div
-                                                        className={cx(['info'])}
-                                                    >
-                                                        <div
-                                                            className={cx([
-                                                                'name',
-                                                            ])}
-                                                        >
-                                                            Naked 100 Max -
-                                                            WATERMELON ( Dưa Hấu
-                                                            Lạnh ) - Salt
-                                                            Nicotine
-                                                        </div>
-                                                        <div
-                                                            className={cx([
-                                                                'price',
-                                                            ])}
-                                                        >
-                                                            340.000₫
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </Link>
-                                        </Col>
-                                        <Col lg={3} md={6} sm={6}>
-                                            <Link
-                                                title="Naked 100 Max - WATERMELON ( Dưa
-                                                Hấu Lạnh ) - Salt Nicotine"
-                                            >
-                                                <div className={cx(['card'])}>
-                                                    <div
-                                                        className={cx(['top'])}
-                                                    >
-                                                        <Tag status={'new'} />
-                                                        <img
-                                                            src="https://i.pinimg.com/236x/f4/54/c5/f454c51311bdac71a761f60cc6085597.jpg"
-                                                            alt=""
-                                                        />
-                                                    </div>
-                                                    <div
-                                                        className={cx(['info'])}
-                                                    >
-                                                        <div
-                                                            className={cx([
-                                                                'name',
-                                                            ])}
-                                                        >
-                                                            Naked 100 Max -
-                                                            WATERMELON ( Dưa Hấu
-                                                            Lạnh ) - Salt
-                                                            Nicotine
-                                                        </div>
-                                                        <div
-                                                            className={cx([
-                                                                'price',
-                                                            ])}
-                                                        >
-                                                            340.000₫
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </Link>
-                                        </Col> */}
                                     </Row>
                                 </div>
                             </Col>
