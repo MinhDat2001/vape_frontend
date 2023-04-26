@@ -36,7 +36,7 @@ function Header() {
                     ) {
                         document.getElementById('avatar').src = avatar;
                     }
-                    login=true;
+                    console.log(response.data)
                 } else {
                     console.log('call error');
                     var path = window.location.pathname
