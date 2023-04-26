@@ -3,61 +3,77 @@ import ProductCard from './product-card';
 import { Form } from 'react-bootstrap';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import { PRODUCT_API } from './api';
+import { PRODUCTS_BY_CATEGORY } from './api';
 
-function ProductList({ data, page }) {
+function ProductList({ categoryId }) {
+    const [cateId, setCateId] = useState(categoryId);
+
     const [currentPage, setCurrentPage] = useState(1);
 
-    const [data1, setData1] = useState([]);
+    const [totalPage, setTotalPage] = useState(1);
 
-    const [search, setSearch] = useState(['']);
+    const [data, setData] = useState([]);
+
+    const [search, setSearch] = useState('');
 
     const [sort, setSort] = useState(['']);
 
-    // sử dụng cho chuyển trang
+    const [title, setTitle] = useState('Danh sách sản phẩm');
+
+    if (cateId !== categoryId) {
+        setCateId(categoryId);
+        setCurrentPage(1);
+    }
+
+    const token =
+        'Vape ' +
+        document.cookie
+            .split('; ')
+            .find((row) => row.startsWith('token='))
+            ?.split('=')[1];
+
+    // call api lấy sản phẩm
+    const handleGetProducts = () => {
+        const sendData = {
+            key_search: search,
+            page_number: currentPage,
+            page_size: 3,
+        };
+
+        if (token !== undefined || token !== null || token.trim() !== '') {
+            const url = PRODUCTS_BY_CATEGORY + '/' + cateId;
+            // console.log(category);
+            axios
+                .post(url, sendData, {
+                    headers: {
+                        token: token,
+                        'Content-Type': 'application/json',
+                    },
+                })
+                .then((response) => {
+                    // console.log(response.data.data);
+                    setData(response.data.data.content);
+                    setTotalPage(response.data.data.totalPages);
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+        }
+    };
+
+    // sử dụng cho chuyển trang và thay đổi category
     useEffect(() => {
         // lấy products
-        // axios
-        //     .get(PRODUCT_API)
-        //     .then((response) => {
-        //         setData1(response.data);
-        //     })
-        //     .catch((error) => {
-        //         console.log(error);
-        //     });
-    }, [currentPage]);
+        handleGetProducts();
+    }, [currentPage, cateId]);
 
     // sử dụng cho chuyển sort
-    useEffect(() => {
-        // lấy products
-        // axios
-        //     .get(PRODUCT_API)
-        //     .then((response) => {
-        //         setData1(response.data);
-        //     })
-        //     .catch((error) => {
-        //         console.log(error);
-        //     });
-    }, [sort]);
+    useEffect(() => {}, [sort]);
 
-    const amountShow = 9;
-    const products = data;
-    const totalPage = Math.ceil(data.length / 9);
-
-    // const pageArray = Array.from(
-    //     { length: totalPage },
-    //     (_, index) => index + 1
-    // );
-
-    const pageArray = [1, 2, 3, 4, 5];
-
-    // console.log({
-    //     currentPage: currentPage,
-    //     amountShow: amountShow,
-    //     products: products,
-    //     totalPage: totalPage,
-    //     pageArray: pageArray,
-    // });
+    let pageArray = [];
+    for (let i = 1; i <= totalPage; ++i) {
+        pageArray = [...pageArray, i];
+    }
 
     const handleClick = (e) => {
         const pageSelected = Number.parseInt(e.target.innerHTML);
@@ -70,9 +86,16 @@ function ProductList({ data, page }) {
     };
 
     const handleSubmitSearch = (e) => {
+        setCurrentPage(1);
+
         // call api search
-        // set lai data
-        setSearch('');
+        handleGetProducts();
+
+        if (search !== '') {
+            setTitle('Kết quả cho tìm kiếm "' + search + '"');
+        } else {
+            setTitle('Danh sách sản phẩm');
+        }
     };
 
     const handleSortSelect = (e) => {
@@ -83,23 +106,30 @@ function ProductList({ data, page }) {
     return (
         <div className="col-md-8 product-list">
             <div className="top">
-                <div className="title">Sản phẩm mới</div>
+                <div
+                    className="title"
+                    style={{
+                        marginTop: '0.5rem',
+                    }}
+                >
+                    {title}
+                </div>
 
-                <div class="input-group mb-3">
+                <div className="input-group mb-3">
                     <input
                         type="text"
-                        class="form-control"
+                        className="form-control"
                         placeholder="Search ......"
                         aria-label="Recipient's username"
                         value={search}
                         onChange={handleSearchChange}
                     />
                     <div
-                        class="input-group-append"
+                        className="input-group-append"
                         onClick={handleSubmitSearch}
                     >
-                        <span class="input-group-text">
-                            <i class="fa fa-search"></i>
+                        <span className="input-group-text">
+                            <i className="fa fa-search"></i>
                         </span>
                     </div>
                 </div>
@@ -126,14 +156,9 @@ function ProductList({ data, page }) {
                 </div>
             </div>
             <div className="product-display row">
-                {products
-                    .slice(
-                        (currentPage - 1) * amountShow,
-                        (currentPage - 1) * amountShow + amountShow
-                    )
-                    .map((item, index) => (
-                        <ProductCard key={index} product={item} />
-                    ))}
+                {data.map((item, index) => (
+                    <ProductCard key={index} product={item} />
+                ))}
             </div>
             <div className="paginationBox">
                 <ul className="pagination">

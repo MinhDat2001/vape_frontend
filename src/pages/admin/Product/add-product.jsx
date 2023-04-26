@@ -1,6 +1,9 @@
+import axios from 'axios';
 import classNames from 'classnames/bind';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { GET_ALL_CATEGORY } from '../Category/api';
+import { CREATE_PRODUCT } from './api';
 
 import styles from './css/add-product.module.scss';
 
@@ -12,37 +15,54 @@ const LOADING_IMG =
 function AddProduct() {
     const [formData, setFormData] = useState({
         name: '',
-        descripstion: '',
-        avatar: '',
-        categories: [],
+        description: '',
+        avatar: 'abc',
+        category_ids: [],
         quantity: 0,
         price: 0,
+        images: [],
+        details: [],
     });
 
-    const [categogies, setCategogies] = useState([
-        {
-            id: 1,
-            name: 'Sách',
-        },
-        {
-            id: 2,
-            name: 'Đồ chơi',
-        },
-        {
-            id: 3,
-            name: 'Đồ ăn',
-        },
-        {
-            id: 4,
-            name: 'Thuốc phiện',
-        },
-    ]);
+    const [avatar, setAvatar] = useState(null);
+
+    const [files, setFiles] = useState([]);
+
+    const [categogies, setCategogies] = useState([]);
 
     const [valid, setValid] = useState({ status: true, message: '' });
 
     const [imageSrc, setImageSrc] = useState(LOADING_IMG);
 
     const [inputSrc, setInputSrc] = useState('');
+
+    const [success, setSuccess] = useState('');
+
+    const token =
+        'Vape ' +
+        document.cookie
+            .split('; ')
+            .find((row) => row.startsWith('token='))
+            ?.split('=')[1];
+
+    useEffect(() => {
+        if (token !== undefined || token !== null || token.trim() !== '') {
+            axios
+                .get(GET_ALL_CATEGORY, {
+                    headers: {
+                        token: token,
+                    },
+                })
+                .then((response) => {
+                    if (response.status === 200) {
+                        setCategogies(response.data.data);
+                    }
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+        }
+    }, []);
 
     const handleOnChange = (e) => {
         const targetId = e.target.id;
@@ -52,7 +72,7 @@ function AddProduct() {
                 setFormData({ ...formData, name: targerValue });
                 break;
             case 'description':
-                setFormData({ ...formData, descripstion: targerValue });
+                setFormData({ ...formData, description: targerValue });
                 break;
             case 'price':
                 //validate giá
@@ -67,52 +87,76 @@ function AddProduct() {
             case 'quantity':
                 //validate số lượng
                 if (targerValue === '') {
-                    setFormData({ ...formData, price: 0 });
+                    setFormData({ ...formData, quantity: 0 });
                 } else {
                     targerValue = Number.parseInt(targerValue);
-                    setFormData({ ...formData, price: targerValue });
+                    setFormData({ ...formData, quantity: targerValue });
                 }
 
                 break;
             case 'avatar':
                 //validate ảnh
-                setInputSrc(targerValue);
-                setImageSrc(targerValue);
+                // setInputSrc(targerValue);
+                // setImageSrc(targerValue);
+                const file1 = e.target.files;
+                if (file1.length !== 0) {
+                    setAvatar(file1[0]);
+                    setFormData({ ...formData, avatar: file1[0].name });
+                }
+                break;
+            case 'images':
+                //validate ảnh
+                // setInputSrc(targerValue);
+                // setImageSrc(targerValue);
+                const file2 = e.target.files;
+                const list = [];
+                const listImagesName = [];
+                if (file2.length !== 0) {
+                    for (let i = 0; i < file2.length; i++) {
+                        // console.log(file2[i]);
+                        list.push(file2[i]);
+                        listImagesName.push(file2[i].name);
+                    }
+                    setFiles(list);
+                    setFormData({ ...formData, images: listImagesName });
+                }
                 break;
             default:
                 break;
         }
     };
 
+    // console.log(formData);
+
     const handleSelectCategory = (e) => {
         const targetId = Number.parseInt(e.target.id);
         const targetName = e.target.innerHTML.trim();
         const obj = { id: targetId, name: targetName };
 
-        if (!formData.categories.some((item) => item.id === obj.id)) {
+        if (!formData.category_ids.some((item) => item === obj.id)) {
             setFormData({
                 ...formData,
-                categories: [...formData.categories, obj],
+                category_ids: [...formData.category_ids, obj.id],
             });
         } else {
             setFormData({
                 ...formData,
-                categories: formData.categories.filter(
-                    (item) => item.id !== obj.id
+                category_ids: formData.category_ids.filter(
+                    (item) => item !== obj.id
                 ),
             });
         }
     };
 
     const validate = () => {
-        if (formData.name === '' || formData.descripstion === '') {
+        if (formData.name === '' || formData.description === '') {
             setValid({
                 status: false,
                 message: 'Các trường "Tên", "Mô tả", cần nhập đầy đủ',
             });
             return false;
         } else {
-            if (formData.categories.length === 0) {
+            if (formData.category_ids.length === 0) {
                 setValid({
                     status: false,
                     message: 'Phải chọn ít nhất 1 tag chứ',
@@ -129,7 +173,34 @@ function AddProduct() {
 
     const handleSubmit = (e) => {
         if (validate()) {
+            setSuccess('Đang đợi phản hồi...');
             // call api
+            const sendFormData = new FormData();
+            sendFormData.append('data', JSON.stringify(formData));
+            sendFormData.append('avatar', avatar);
+            for (let i = 0; i < files.length; i++) {
+                sendFormData.append('files', files[i]); // imageFiles là một mảng chứa các tệp tin ảnh sản phẩm
+            }
+
+            if (token !== undefined || token !== null || token.trim() !== '') {
+                axios
+                    .post(CREATE_PRODUCT, sendFormData, {
+                        headers: {
+                            token: token,
+                            'Content-Type':
+                                'multipart/form-data; boundary=2a8ae6ad-f4ad-4d9a-a92c-6d217011fe0f',
+                        },
+                    })
+                    .then((response) => {
+                        setSuccess('Thêm thành công');
+                        setTimeout(() => {
+                            setSuccess('');
+                        }, 5000);
+                    })
+                    .catch((error) => {
+                        console.log(error);
+                    });
+            }
         }
     };
 
@@ -173,7 +244,7 @@ function AddProduct() {
                         placeholder="Mô tả"
                         type="text"
                         className={cx(['input-text'])}
-                        value={formData.descripstion}
+                        value={formData.description}
                         onChange={handleOnChange}
                     />
                 </div>
@@ -208,12 +279,12 @@ function AddProduct() {
                     <input
                         id="avatar"
                         placeholder="link"
-                        type="text"
+                        type="file"
                         className={cx(['input-text'])}
-                        value={inputSrc}
+                        files={[avatar]}
                         onChange={handleOnChange}
                     />
-                    <img
+                    {/* <img
                         id="image"
                         src={imageSrc}
                         alt=""
@@ -221,15 +292,36 @@ function AddProduct() {
                         height="150"
                         onLoad={imageLoaded}
                         onError={imageError}
+                    /> */}
+                </div>
+                <div className={cx(['input-feature'])}>
+                    <div className={cx(['label'])}>Danh sách ảnh:</div>
+                    <input
+                        id="images"
+                        placeholder="link"
+                        type="file"
+                        className={cx(['input-text'])}
+                        multiple
+                        files={files}
+                        onChange={handleOnChange}
                     />
+                    {/* <img
+                        id="image"
+                        src={imageSrc}
+                        alt=""
+                        width="150"
+                        height="150"
+                        onLoad={imageLoaded}
+                        onError={imageError}
+                    /> */}
                 </div>
                 <div className={cx(['input-feature'])}>
                     <div className={cx(['label'])}>Thể loại:</div>
                     <div className={cx(['categories-box'])}>
                         {categogies.map((item, index) => {
                             if (
-                                formData.categories.some(
-                                    (item1) => item1.id === item.id
+                                formData.category_ids.some(
+                                    (item1) => item1 === item.id
                                 )
                             ) {
                                 return (
@@ -260,6 +352,8 @@ function AddProduct() {
                 {!valid.status && (
                     <div className={cx(['warning'])}>{valid.message}</div>
                 )}
+                {success && <div className={cx(['success'])}>{success}</div>}
+
                 <div className={cx(['btn-submit'])} onClick={handleSubmit}>
                     Thêm sản phẩm
                 </div>
