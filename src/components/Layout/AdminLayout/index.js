@@ -9,7 +9,7 @@ import { useEffect, useState } from 'react';
 function AdminLayout({ children }) {
     const navigate = useNavigate();
 
-    const [login, setLogin] = useState(false);
+    const [login, setLogin] = useState(true);
 
     const token = document.cookie
         .split('; ')
@@ -26,7 +26,7 @@ function AdminLayout({ children }) {
             })
             .then((response) => {
                 if (response.data.status === 0) {
-                    setLogin(true);
+                    // setLogin(true);
                     console.log('login da bang true');
                 } else {
                     setLogin(false);

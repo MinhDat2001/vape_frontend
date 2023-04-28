@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { getUser } from '~/pages/Host';
 import styles from './AdminLogin.module.scss';
 
 function AdminLogin() {
@@ -13,10 +14,28 @@ function AdminLogin() {
         ?.split('=')[1];
 
     // useEffect(() => {
-    //     if (token !== null && token !== '' && token !== undefined) {
-    //         navigate('/admin');
-    //     }
-    // });
+    //     console.log('vao trang login');
+    //     navigate('/admin/login');
+    // }, []);
+
+    if (token !== undefined || token !== null || token.trim() !== '') {
+        window.onload = axios
+            .get(getUser, {
+                mode: 'cors',
+                headers: {
+                    token: 'Vape ' + token,
+                },
+            })
+            .then((response) => {
+                if (response.data.status === 0) {
+                    navigate('/admin');
+                } else {
+                }
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    }
 
     async function login() {
         console.log('vao ham login');
