@@ -2,7 +2,7 @@ import logo from '~/static/images/logo.png';
 import user from '~/static/images/user.png';
 import './header.css';
 
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { getUser } from '~/pages/Host';
 import axios from 'axios';
 
@@ -11,8 +11,7 @@ function AdminHeader() {
         .split('; ')
         .find((row) => row.startsWith('token='))
         ?.split('=')[1];
-    var login=false;
-    if (window.location.pathname != "/admin/login" && token !== undefined || token !== null || token.trim() !== '') {
+    if (window.location.pathname !== "/admin/login" && (token !== undefined || token !== null || token.trim() !== '')) {
         // console.log('token:' + token);
         window.onload = axios
             .get(getUser, {
@@ -23,20 +22,14 @@ function AdminHeader() {
             })
             .then((response) => {
                 if (response.data.status === 0) {
-                    login=true;
                     console.log("login ---------------")
                 } else {
-                    console.log('call error');
+                    window.location.pathname = "/admin/login"
                 }
             })
             .catch(function (error) {
-                console.log(error);
+                window.location.pathname = "/admin/login"
             });
-    }
-    const navigate = useNavigate();
-    if(login===false){
-        window.location.pathname = "/admin/login"
-        return
     }
     var adminHeader = (
         <header>
