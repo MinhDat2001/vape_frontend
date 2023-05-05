@@ -27,10 +27,10 @@ function AdminLayout({ children }) {
             .then((response) => {
                 if (response.data.status === 0) {
                     // setLogin(true);
-                    console.log('login da bang true');
+                    // console.log('login da bang true');
                 } else {
                     setLogin(false);
-                    console.log('login da bang false');
+                    // console.log('login da bang false');
                 }
             })
             .catch(function (error) {
@@ -41,8 +41,8 @@ function AdminLayout({ children }) {
     // console.log(login);
 
     useEffect(() => {
-        console.log('vao use effect');
-        console.log(login);
+        // console.log('vao use effect');
+        // console.log(login);
         if (login === false) {
             navigate('/admin/login');
             return;

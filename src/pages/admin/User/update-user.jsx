@@ -1,8 +1,12 @@
+import axios from 'axios';
 import classNames from 'classnames/bind';
+import { useEffect } from 'react';
 
 import { useState } from 'react';
+import { useParams } from 'react-router-dom';
 
 import styles from '~/pages/admin/Product/css/update-product.module.scss';
+import { USER_GET_BY_ID, USER_UPDATE } from './api';
 
 const cx = classNames.bind(styles);
 
@@ -10,21 +14,33 @@ const LOADING_IMG =
     'https://media3.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.gif';
 
 function UpdateUser() {
+    const { userId } = useParams();
+
+    // useEffect(() => {
+    //     axios
+    //         .get(USER_GET_BY_ID + userId)
+    //         .then((response) => console.log(response))
+    //         .catch((e) => console.log(e));
+    // }, []);
+
     const [formData, setFormData] = useState({
-        username: '',
-        password: '',
+        email: 'hungkojno1@gmail.com',
+        password: '12345678',
+        name: '',
         avatar: '',
+        home: '',
+        phone: '',
         roles: [],
     });
 
     const [roles, setRoles] = useState([
         {
             id: 1,
-            name: 'Người dùng',
+            name: 'USER',
         },
         {
             id: 2,
-            name: 'Admin',
+            name: 'ADMIN',
         },
     ]);
 
@@ -34,29 +50,92 @@ function UpdateUser() {
 
     const [inputSrc, setInputSrc] = useState('');
 
+    const [success, setSuccess] = useState('');
+
     const handleOnChange = (e) => {
         const targetId = e.target.id;
-        let targerValue = e.target.value;
+        let targetValue = e.target.value;
         switch (targetId) {
-            case 'username':
-                setFormData({ ...formData, username: targerValue });
+            case 'email':
+                // setFormData({ ...formData, email: targetValue });
                 break;
             case 'password':
-                setFormData({ ...formData, password: targerValue });
-                break;
-                //validate số lượng
-                if (targerValue === '') {
-                    setFormData({ ...formData, price: 0 });
-                } else {
-                    targerValue = Number.parseInt(targerValue);
-                    setFormData({ ...formData, price: targerValue });
-                }
-
+                setFormData({ ...formData, password: targetValue });
                 break;
             case 'avatar':
                 //validate ảnh
-                setInputSrc(targerValue);
-                setImageSrc(targerValue);
+                setInputSrc(targetValue);
+                setImageSrc(targetValue);
+                break;
+            case 'city':
+                const selectedOption = e.target.options[e.target.selectedIndex];
+                const code = selectedOption.getAttribute('code');
+                const value = selectedOption.value;
+                setCity({
+                    code: code,
+                    name: value,
+                });
+                if (code == 0) {
+                    setDistricts([]);
+                    setWards([]);
+                    setDistrict({ code: '0', name: '' });
+                    setWard({ code: '0', name: '' });
+                } else {
+                    axios
+                        .get(
+                            'https://provinces.open-api.vn/api/p/' +
+                                code +
+                                '?depth=2'
+                        )
+                        .then((response) => {
+                            setDistricts(response.data.districts);
+                        })
+                        .catch((error) => console.log(error));
+                }
+                break;
+            case 'district':
+                const selectedOption1 =
+                    e.target.options[e.target.selectedIndex];
+                const code1 = selectedOption1.getAttribute('code');
+                const value1 = selectedOption1.value;
+                setDistrict({
+                    code: code1,
+                    name: value1,
+                });
+                if (code1 == 0) {
+                    setWards([]);
+                    setWard({ code: '0', name: '' });
+                } else {
+                    axios
+                        .get(
+                            'https://provinces.open-api.vn/api/d/' +
+                                code1 +
+                                '?depth=2'
+                        )
+                        .then((response) => {
+                            setWards(response.data.wards);
+                        })
+                        .catch((error) => console.log(error));
+                }
+                break;
+            case 'ward':
+                const selectedOption2 =
+                    e.target.options[e.target.selectedIndex];
+                const code2 = selectedOption2.getAttribute('code');
+                const value2 = selectedOption2.value;
+                setWard({
+                    code: code2,
+                    name: value2,
+                });
+                break;
+            case 'home':
+                setFormData({ ...formData, home: targetValue });
+                break;
+            case 'phone':
+                setFormData({ ...formData, phone: targetValue });
+                break;
+            case 'name':
+                setFormData({ ...formData, name: targetValue });
                 break;
             default:
                 break;
@@ -68,17 +147,15 @@ function UpdateUser() {
         const targetName = e.target.innerHTML.trim();
         const obj = { id: targetId, name: targetName };
 
-        if (!formData.categories.some((item) => item.id === obj.id)) {
+        if (!formData.roles.some((item) => item.id === obj.id)) {
             setFormData({
                 ...formData,
-                categories: [...formData.categories, obj],
+                roles: [...formData.roles, obj],
             });
         } else {
             setFormData({
                 ...formData,
-                categories: formData.categories.filter(
-                    (item) => item.id !== obj.id
-                ),
+                roles: formData.roles.filter((item) => item.id !== obj.id),
             });
         }
     };
@@ -107,8 +184,40 @@ function UpdateUser() {
     };
 
     const handleSubmit = (e) => {
+        setSuccess('Đang đợi phản hồi...');
+
         if (validate()) {
-            // call api
+            const sendData = {
+                email: formData.email,
+                name: formData.name,
+                phone: formData.home,
+                address:
+                    formData.home +
+                    ' ' +
+                    ward.name +
+                    ' ' +
+                    district.name +
+                    ' ' +
+                    city.name,
+            };
+
+            const token =
+                'Vape ' +
+                document.cookie
+                    .split('; ')
+                    .find((row) => row.startsWith('token='))
+                    ?.split('=')[1];
+
+            axios
+                .post(USER_UPDATE, sendData, { headers: { token: token } })
+                .then((response) => {
+                    console.log(response);
+                    setSuccess('Sửa thành công');
+                    setTimeout(() => {
+                        setSuccess('');
+                    }, 5000);
+                })
+                .catch((e) => console.log(e));
         }
     };
 
@@ -125,6 +234,23 @@ function UpdateUser() {
         });
     };
 
+    const [cities, setCities] = useState([]);
+    const [districts, setDistricts] = useState([]);
+    const [wards, setWards] = useState([]);
+
+    const [city, setCity] = useState({ code: '', name: '' });
+    const [district, setDistrict] = useState({ code: '', name: '' });
+    const [ward, setWard] = useState({ code: '', name: '' });
+
+    useEffect(() => {
+        axios
+            .get('https://provinces.open-api.vn/api/')
+            .then((response) => {
+                setCities(response.data);
+            })
+            .catch((error) => console.log(error));
+    }, []);
+
     return (
         <div className={cx(['add-product'])}>
             <h1
@@ -136,13 +262,24 @@ function UpdateUser() {
             </h1>
             <div className={cx(['content'])}>
                 <div className={cx(['input-feature'])}>
-                    <div className={cx(['label'])}>Tài khoản:</div>
+                    <div className={cx(['label'])}>Họ và tên:</div>
                     <input
-                        id="username"
+                        id="name"
+                        placeholder="Họ và tên"
+                        type="text"
+                        className={cx(['input-text'])}
+                        value={formData.name}
+                        onChange={handleOnChange}
+                    />
+                </div>
+                <div className={cx(['input-feature'])}>
+                    <div className={cx(['label'])}>Email:</div>
+                    <input
+                        id="email"
                         placeholder="Tài khoản"
                         type="text"
                         className={cx(['input-text'])}
-                        value={formData.username}
+                        value={formData.email}
                         onChange={handleOnChange}
                     />
                 </div>
@@ -154,6 +291,17 @@ function UpdateUser() {
                         type="text"
                         className={cx(['input-text'])}
                         value={formData.password}
+                        onChange={handleOnChange}
+                    />
+                </div>
+                <div className={cx(['input-feature'])}>
+                    <div className={cx(['label'])}>Số điện thoại:</div>
+                    <input
+                        id="phone"
+                        placeholder="Số điện thoại"
+                        type="text"
+                        className={cx(['input-text'])}
+                        value={formData.phone}
                         onChange={handleOnChange}
                     />
                 </div>
@@ -211,11 +359,112 @@ function UpdateUser() {
                         })}
                     </div>
                 </div>
+                <div className={cx(['input-feature'])}>
+                    <div className={cx(['label'])}>Tỉnh/Thành phố:</div>
+                    <select
+                        onChange={handleOnChange}
+                        id="city"
+                        className={cx(['input-text'])}
+                        value={city.name}
+                    >
+                        <option value={''} code="0">
+                            Chọn
+                        </option>
+                        {cities.map((item, index) => (
+                            <option
+                                code={item.code}
+                                key={item.codename}
+                                value={item.name}
+                            >
+                                {item.name}
+                            </option>
+                        ))}
+                    </select>
+                </div>
+                <div className={cx(['input-feature'])}>
+                    <div className={cx(['label'])}>Huyện:</div>
+                    <select
+                        onChange={handleOnChange}
+                        id="district"
+                        className={cx(['input-text'])}
+                    >
+                        {districts.length > 0 ? (
+                            districts.map((item, index) => (
+                                <option
+                                    code={item.code}
+                                    key={item.codename}
+                                    value={item.name}
+                                >
+                                    {item.name}
+                                </option>
+                            ))
+                        ) : (
+                            <option code="0" value="">
+                                Chọn
+                            </option>
+                        )}
+                    </select>
+                </div>
+                <div className={cx(['input-feature'])}>
+                    <div className={cx(['label'])}>Xã:</div>
+                    <select
+                        onChange={handleOnChange}
+                        id="ward"
+                        className={cx(['input-text'])}
+                    >
+                        {wards.length > 0 ? (
+                            wards.map((item, index) => (
+                                <option
+                                    code={item.code}
+                                    key={item.codename}
+                                    value={item.name}
+                                >
+                                    {item.name}
+                                </option>
+                            ))
+                        ) : (
+                            <option value={''} code="0">
+                                Chọn
+                            </option>
+                        )}
+                    </select>
+                </div>
+                <div className={cx(['input-feature'])}>
+                    <div className={cx(['label'])}>Địa chỉ nhà:</div>
+                    <input
+                        id="home"
+                        placeholder="Địa chỉ nhà"
+                        type="text"
+                        className={cx(['input-text'])}
+                        value={formData.home}
+                        onChange={handleOnChange}
+                    />
+                </div>
+                {/* <div className="contain">
+                    <label className="label">Tỉnh/Thành phố</label>
+                    <select onChange={callDistrict} id="city" className="input">
+                        <option>Chọn</option>
+                    </select>
+                </div>
+                <div className="contain">
+                    <label className="label">Quận/Huyện</label>
+                    <select onChange={callWard} id="district" className="input">
+                        <option>Chọn</option>
+                    </select>
+                </div>
+                <div className="contain">
+                    <label className="label">Xã/Phường</label>
+                    <select id="ward" className="input">
+                        <option>Chọn</option>
+                    </select>
+                </div> */}
+
                 {!valid.status && (
                     <div className={cx(['warning'])}>{valid.message}</div>
                 )}
+                {success && <div className={cx(['success'])}>{success}</div>}
                 <div className={cx(['btn-submit'])} onClick={handleSubmit}>
-                    Lưu Người dùng
+                    Sửa thông tin người dùng
                 </div>
             </div>
         </div>
