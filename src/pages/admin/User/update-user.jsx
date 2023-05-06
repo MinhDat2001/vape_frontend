@@ -6,6 +6,7 @@ import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 
 import styles from '~/pages/admin/Product/css/update-product.module.scss';
+import { GET_ALL_PRODUCT } from '../Product/api';
 import { USER_GET_BY_ID, USER_UPDATE } from './api';
 
 const cx = classNames.bind(styles);
@@ -16,33 +17,37 @@ const LOADING_IMG =
 function UpdateUser() {
     const { userId } = useParams();
 
-    // useEffect(() => {
-    //     axios
-    //         .get(USER_GET_BY_ID + userId)
-    //         .then((response) => console.log(response))
-    //         .catch((e) => console.log(e));
-    // }, []);
+    const [formData, setFormData] = useState({});
 
-    const [formData, setFormData] = useState({
-        email: 'hungkojno1@gmail.com',
-        password: '12345678',
-        name: '',
-        avatar: '',
-        home: '',
-        phone: '',
-        roles: [],
-    });
+    const token =
+        'Vape ' +
+        document.cookie
+            .split('; ')
+            .find((row) => row.startsWith('token='))
+            ?.split('=')[1];
 
-    const [roles, setRoles] = useState([
-        {
-            id: 1,
-            name: 'USER',
-        },
-        {
-            id: 2,
-            name: 'ADMIN',
-        },
-    ]);
+    useEffect(() => {
+        console.log(USER_GET_BY_ID + userId);
+        axios
+            .get(USER_GET_BY_ID + userId, {
+                headers: {
+                    token: token,
+                },
+            })
+            .then((response) => setFormData(response.data.data))
+            .catch((e) => console.log(e));
+    }, []);
+
+    // const [roles, setRoles] = useState([
+    //     {
+    //         id: 1,
+    //         name: 'USER',
+    //     },
+    //     {
+    //         id: 2,
+    //         name: 'ADMIN',
+    //     },
+    // ]);
 
     const [valid, setValid] = useState({ status: true, message: '' });
 
@@ -57,7 +62,7 @@ function UpdateUser() {
         let targetValue = e.target.value;
         switch (targetId) {
             case 'email':
-                // setFormData({ ...formData, email: targetValue });
+                setFormData({ ...formData, email: targetValue });
                 break;
             case 'password':
                 setFormData({ ...formData, password: targetValue });
@@ -129,7 +134,7 @@ function UpdateUser() {
                 });
                 break;
             case 'home':
-                setFormData({ ...formData, home: targetValue });
+                setFormData({ ...formData, address: targetValue });
                 break;
             case 'phone':
                 setFormData({ ...formData, phone: targetValue });
@@ -161,20 +166,17 @@ function UpdateUser() {
     };
 
     const validate = () => {
-        if (formData.username === '' || formData.password === '') {
+        if (
+            formData.name === '' ||
+            formData.email === '' ||
+            formData.phone === '' ||
+            formData.address === ''
+        ) {
             setValid({
                 status: false,
-                message: 'Các trường "Tài khoản", "Mật khẩu" cần nhập đầy đủ',
+                message: 'Các trường cần nhập đầy đủ',
             });
             return false;
-        } else {
-            if (formData.roles.length === 0) {
-                setValid({
-                    status: false,
-                    message: 'Phải chọn ít nhất 1 loại người dùng chứ',
-                });
-                return false;
-            }
         }
         setValid({
             status: true,
@@ -190,9 +192,9 @@ function UpdateUser() {
             const sendData = {
                 email: formData.email,
                 name: formData.name,
-                phone: formData.home,
+                phone: formData.phone,
                 address:
-                    formData.home +
+                    formData.address +
                     ' ' +
                     ward.name +
                     ' ' +
@@ -200,6 +202,8 @@ function UpdateUser() {
                     ' ' +
                     city.name,
             };
+
+            console.log(sendData);
 
             const token =
                 'Vape ' +
@@ -283,7 +287,7 @@ function UpdateUser() {
                         onChange={handleOnChange}
                     />
                 </div>
-                <div className={cx(['input-feature'])}>
+                {/* <div className={cx(['input-feature'])}>
                     <div className={cx(['label'])}>Mật khẩu:</div>
                     <input
                         id="password"
@@ -293,7 +297,7 @@ function UpdateUser() {
                         value={formData.password}
                         onChange={handleOnChange}
                     />
-                </div>
+                </div> */}
                 <div className={cx(['input-feature'])}>
                     <div className={cx(['label'])}>Số điện thoại:</div>
                     <input
@@ -305,7 +309,7 @@ function UpdateUser() {
                         onChange={handleOnChange}
                     />
                 </div>
-                <div className={cx(['input-feature'])}>
+                {/* <div className={cx(['input-feature'])}>
                     <div className={cx(['label'])}>Hình đại diện:</div>
                     <input
                         id="avatar"
@@ -324,8 +328,8 @@ function UpdateUser() {
                         onLoad={imageLoaded}
                         onError={imageError}
                     />
-                </div>
-                <div className={cx(['input-feature'])}>
+                </div> */}
+                {/* <div className={cx(['input-feature'])}>
                     <div className={cx(['label'])}>Loại người dùng:</div>
                     <div className={cx(['categories-box'])}>
                         {roles.map((item, index) => {
@@ -358,7 +362,7 @@ function UpdateUser() {
                             }
                         })}
                     </div>
-                </div>
+                </div> */}
                 <div className={cx(['input-feature'])}>
                     <div className={cx(['label'])}>Tỉnh/Thành phố:</div>
                     <select
@@ -436,7 +440,7 @@ function UpdateUser() {
                         placeholder="Địa chỉ nhà"
                         type="text"
                         className={cx(['input-text'])}
-                        value={formData.home}
+                        value={formData.address}
                         onChange={handleOnChange}
                     />
                 </div>
