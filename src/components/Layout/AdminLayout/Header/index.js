@@ -2,10 +2,10 @@ import logo from '~/static/images/logo.png';
 import user from '~/static/images/user.png';
 import './header.css';
 
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { getUser } from '~/pages/Host';
-import axios from 'axios';
 import { useEffect, useState } from 'react';
+import axios from 'axios';
 
 function AdminHeader() {
     const token = document.cookie
