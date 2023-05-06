@@ -27,7 +27,9 @@ function AdminLogin() {
                     <br />
                     <label id="warnning" className="warnning"></label>
                     <div className={styles.displayCenter}>
-                        <button onClick={login} className={styles.button}>Login</button>{' '}
+                        <button onClick={login} className={styles.button}>
+                            Login
+                        </button>{' '}
                     </div>
                 </div>
             </div>
@@ -35,7 +37,7 @@ function AdminLogin() {
     );
 }
 async function login() {
-    console.log("login");
+    console.log('login');
     var email = document.getElementById('username');
     var password = document.getElementById('password');
     if ((await validate()) === -1) {

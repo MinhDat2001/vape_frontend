@@ -7,8 +7,8 @@ const resetPasswordHost = 'http://localhost:8088/reset-password';
 const loginGoogleHost = 'http://localhost:8088/login-google';
 const loginFacebookHost = 'http://localhost:8088/login-facebook';
 const getUser = 'http://localhost:8088/user/getUser';
-const getProduct = 'http://localhost:8088/product/'
-const adminLogin = 'http://localhost:8088/admin/login'
+const getProduct = 'http://localhost:8088/product/';
+const adminLogin = 'http://localhost:8088/admin/login';
 
 export {
     loginHost,
@@ -21,5 +21,5 @@ export {
     loginFacebookHost,
     getUser,
     getProduct,
-    adminLogin
+    adminLogin,
 };

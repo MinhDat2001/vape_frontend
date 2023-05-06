@@ -11,7 +11,10 @@ function AdminHeader() {
         .split('; ')
         .find((row) => row.startsWith('token='))
         ?.split('=')[1];
-    if (window.location.pathname !== "/admin/login" && (token !== undefined || token !== null || token.trim() !== '')) {
+    if (
+        window.location.pathname !== '/admin/login' &&
+        (token !== undefined || token !== null || token.trim() !== '')
+    ) {
         // console.log('token:' + token);
         window.onload = axios
             .get(getUser, {
@@ -22,13 +25,13 @@ function AdminHeader() {
             })
             .then((response) => {
                 if (response.data.status === 0) {
-                    console.log("login ---------------")
+                    console.log('login ---------------');
                 } else {
-                    window.location.pathname = "/admin/login"
+                    window.location.pathname = '/admin/login';
                 }
             })
             .catch(function (error) {
-                window.location.pathname = "/admin/login"
+                window.location.pathname = '/admin/login';
             });
     }
     var adminHeader = (

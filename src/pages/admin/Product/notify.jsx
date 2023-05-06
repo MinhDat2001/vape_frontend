@@ -102,6 +102,7 @@ export default function Notify({ notify, myCallBack, updateCallBack }) {
                         }
                         break;
                     case 'user':
+                        // console.log('xoa');
                         if (
                             token !== undefined ||
                             token !== null ||
