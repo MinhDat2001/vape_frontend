@@ -6,6 +6,7 @@ import { getUser } from '~/pages/Host';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
+
 function AdminLayout({ children }) {
     const navigate = useNavigate();
 
