@@ -1,8 +1,34 @@
 import React from 'react';
 import './styles.css';
-
+import { addCart } from '~/pages/Host';
+import axios from 'axios';
+const token = document.cookie
+        .split('; ')
+        .find((row) => row.startsWith('token='))
+        ?.split('=')[1];
 function ProductContentDes2(props) {
-
+    async function CallAddCart(){
+        var dataSend = {
+            productId:window.location.href.split("/")[4],
+            quantity:1
+        }
+        console.log(dataSend)
+        axios.post(addCart, dataSend, {
+                mode: 'cors',
+                headers: {
+                    token: 'Vape ' + token,
+                },
+            })
+            .then((response) => {
+                if (response.data.status === 0) {
+                    window.alert(response.data.message)
+                    console.log(response.data)
+                } else {
+                }
+            })
+            .catch(function (error) {
+            });
+    }
     return (
         <div className="mota mota2">
 
@@ -34,7 +60,7 @@ function ProductContentDes2(props) {
                 </span>
             </p>
 
-            <button className='order-btn'> Đặt hàng</button>
+            <button onClick={CallAddCart} className='order-btn'> Đặt hàng</button>
         </div>
     );
 }

@@ -5,6 +5,7 @@ import logOut from '~/static/images/log-out.png';
 import { Link, useNavigate } from 'react-router-dom';
 import { getUser } from '~/pages/Host';
 import axios from 'axios';
+import { useState, useEffect } from 'react';
 
 function Header() {
     const token = document.cookie
@@ -12,7 +13,6 @@ function Header() {
         .find((row) => row.startsWith('token='))
         ?.split('=')[1];
     if (token !== undefined || token !== null || token.trim() !== '') {
-        // console.log('token:' + token);
         window.onload = axios
             .get(getUser, {
                 mode: 'cors',
@@ -23,18 +23,23 @@ function Header() {
             .then((response) => {
                 if (response.data.status === 0) {
                     // console.log(response.data);
-                    document.getElementById('user').classList.add('display');
-                    document
-                        .getElementById('guest')
-                        .classList.remove('display');
-                    var avatar = response.data.data.avatar;
-                    if (
-                        avatar !== undefined &&
-                        avatar !== null &&
-                        avatar !== ''
-                    ) {
-                        document.getElementById('avatar').src = avatar;
+                    try {
+                        document.getElementById('user').classList.add('display');
+                        document
+                            .getElementById('guest')
+                            .classList.remove('display');
+                        var avatar = response.data.data.avatar;
+                        if (
+                            avatar !== undefined &&
+                            avatar !== null &&
+                            avatar !== ''
+                        ) {
+                            document.getElementById('avatar').src = avatar;
+                        }
+                    } catch (error) {
+                        console.log(error)
                     }
+                    
                 } else {
                     console.log('call error');
                     var path = window.location.pathname
