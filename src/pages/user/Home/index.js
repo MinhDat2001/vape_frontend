@@ -99,10 +99,12 @@ function Home() {
                         const length = response.data.data.length;
                         if (length >= 6) {
                             setProducts(
-                                response.data.data.slice(length - 6, length)
+                                response.data.data
+                                    .slice(length - 6, length)
+                                    .reverse()
                             );
                         } else {
-                            setProducts(response.data.data);
+                            setProducts(response.data.data.reverse());
                         }
                     }
                 })
@@ -129,7 +131,7 @@ function Home() {
                     </div>
                     <div className={cx(['product-list'])}>
                         <Row>
-                            {products.reverse().map((item, index) => (
+                            {products.map((item, index) => (
                                 <Col lg={2} md={4} sm={6} key={index}>
                                     <Link
                                         title={item.name}
@@ -178,7 +180,7 @@ function Home() {
                                     <Link to={'/product'}>
                                         <div className={cx(['category-card'])}>
                                             <img
-                                                src="https://i.pinimg.com/236x/f4/54/c5/f454c51311bdac71a761f60cc6085597.jpg"
+                                                src="https://www.thietkewebthuonghieu.com/wp-content/uploads/2022/04/top-5-thuong-hieu-vape-hang-dau.jpg"
                                                 alt=""
                                             />
                                             <div className={cx(['name'])}>
@@ -384,7 +386,7 @@ function Home() {
                             <Col md={6} lg={4} className="d-md-block d-sm-none">
                                 <div className={cx(['image-box'])}>
                                     <img
-                                        src="https://i.pinimg.com/236x/f4/54/c5/f454c51311bdac71a761f60cc6085597.jpg"
+                                        src="//bizweb.dktcdn.net/100/247/296/themes/876442/assets/img_banner_3.jpg?1683547398519"
                                         alt=""
                                     />
                                 </div>
