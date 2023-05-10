@@ -28,12 +28,16 @@ function Cart() {
             .then((response) => {
                 console.log(response.data);
                 setData(response.data.data);
+                let total = 0;
+                response.data.data.forEach((item) => (total += item.price));
+                setTotalPrice(total);
             })
             .catch((error) => {
                 console.log(error);
             });
     }, []);
 
+    const [totalPrice, setTotalPrice] = useState(0);
     const handlePayment = (e) => {
         const id = e.target.id;
         if (id === 'paypal') {
@@ -105,9 +109,9 @@ function Cart() {
                     >
                         <Col sm={4} className={cx(['p-0'])}>
                             <div className={cx(['total-price'])}>
-                                <span>Tổng tiền:</span>
+                                <span>Tổng tiền: </span>
                                 <span className={cx(['price'])}>
-                                    {Number(data.total).toLocaleString(
+                                    {Number(totalPrice).toLocaleString(
                                         'vi-VN',
                                         {
                                             style: 'currency',
