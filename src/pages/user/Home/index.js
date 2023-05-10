@@ -96,7 +96,14 @@ function Home() {
                 .get(GET_ALL_PRODUCT)
                 .then((response) => {
                     if (response.status === 200) {
-                        setProducts(response.data.data);
+                        const length = response.data.data.length;
+                        if (length >= 6) {
+                            setProducts(
+                                response.data.data.slice(length - 6, length)
+                            );
+                        } else {
+                            setProducts(response.data.data);
+                        }
                     }
                 })
                 .catch((error) => {
@@ -122,47 +129,35 @@ function Home() {
                     </div>
                     <div className={cx(['product-list'])}>
                         <Row>
-                            {products
-                                .slice(products.length - 6, products.length)
-                                .reverse()
-                                .map((item, index) => (
-                                    <Col lg={2} md={4} sm={6} key={index}>
-                                        <Link
-                                            title={item.name}
-                                            to={'/product/' + item.id}
-                                        >
-                                            <div className={cx(['card'])}>
-                                                <div className={cx(['top'])}>
-                                                    <Tag status={'new'} />
-                                                    <img
-                                                        src={item.avatar}
-                                                        alt=""
-                                                    />
+                            {products.reverse().map((item, index) => (
+                                <Col lg={2} md={4} sm={6} key={index}>
+                                    <Link
+                                        title={item.name}
+                                        to={'/product/' + item.id}
+                                    >
+                                        <div className={cx(['card'])}>
+                                            <div className={cx(['top'])}>
+                                                <Tag status={'new'} />
+                                                <img src={item.avatar} alt="" />
+                                            </div>
+                                            <div className={cx(['info'])}>
+                                                <div className={cx(['name'])}>
+                                                    {item.name}
                                                 </div>
-                                                <div className={cx(['info'])}>
-                                                    <div
-                                                        className={cx(['name'])}
-                                                    >
-                                                        {item.name}
-                                                    </div>
-                                                    <div
-                                                        className={cx([
-                                                            'price',
-                                                        ])}
-                                                    >
-                                                        {item.price.toLocaleString(
-                                                            'vi-VN',
-                                                            {
-                                                                style: 'currency',
-                                                                currency: 'VND',
-                                                            }
-                                                        )}
-                                                    </div>
+                                                <div className={cx(['price'])}>
+                                                    {item.price.toLocaleString(
+                                                        'vi-VN',
+                                                        {
+                                                            style: 'currency',
+                                                            currency: 'VND',
+                                                        }
+                                                    )}
                                                 </div>
                                             </div>
-                                        </Link>
-                                    </Col>
-                                ))}
+                                        </div>
+                                    </Link>
+                                </Col>
+                            ))}
                         </Row>
                     </div>
                 </Container>
