@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import './styles.css';
 
 function ProductReview({ username }) {
+    console.log(username);
     const [reviews, setReviews] = useState([
         {
             id: 1,
