@@ -39,13 +39,13 @@ export default function CartItem({ product }) {
             <Col sm={6}>
                 <div className={cx(['info'])}>
                     <img
-                        src={item.img}
+                        src={item.productImg}
                         alt="Ảnh"
                         width={'150px'}
                         height={'150px'}
                     />
                     <div className={cx(['name'])}>
-                        <p>{item.name}</p>
+                        <p>{item.productName}</p>
                         <button id="delete" onClick={handleClick}>
                             Xóa
                         </button>

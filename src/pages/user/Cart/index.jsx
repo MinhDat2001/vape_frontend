@@ -4,29 +4,34 @@ import { Container, Row, Col } from 'react-bootstrap';
 
 import styles from './css/cart.module.scss';
 import CartItem from './cart-item';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { getCart } from '~/pages/Host';
+import axios from 'axios';
 
 const cx = classNames.bind(styles);
-
 function Cart() {
-    const [data, setData] = useState({
-        listItem: [
-            {
-                img: 'https://i.pinimg.com/236x/d2/a6/18/d2a618aeee3bbf580164d25babe74a29.jpg',
-                name: 'MR JUICER - MADX BULL ( TĂNG LỰC LẠNH ) - SALT \n NICOTINE',
-                price: 120000,
-                quantity: 2,
+    const token = document.cookie
+    .split('; ')
+    .find((row) => row.startsWith('token='))
+    ?.split('=')[1];
+    const [data, setData] = useState([]);
+    useEffect(()=>{
+        axios.get(getCart, {
+            mode: 'cors',
+            headers: {
+                token: 'Vape ' + token,
             },
-            {
-                img: 'https://i.pinimg.com/236x/d2/a6/18/d2a618aeee3bbf580164d25babe74a29.jpg',
-                name: 'MR JUICER - MADX BULL ( TĂNG LỰC LẠNH ) - SALT \n NICOTINE',
-                price: 120000,
-                quantity: 2,
-            },
-        ],
-        total: 480000,
-    });
+        })
+            .then((response) => {
+                console.log(response.data);
+                setData(response.data.data)
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    },[])
+        
     return (
         <div className={cx('cart')}>
             <Container className={cx(['d-block', 'mh-0'])}>
@@ -55,7 +60,7 @@ function Cart() {
                         </Col>
                     </Row>
 
-                    {data.listItem.map((item, index) => (
+                    {data.map((item, index) => (
                         <CartItem key={index} product={item} />
                     ))}
                 </div>
