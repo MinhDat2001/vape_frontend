@@ -29,11 +29,15 @@ function ProductContentDes2(props) {
             .catch(function (error) {
             });
     }
+    const formattedPrice = Number(props.price).toLocaleString('vi-VN', {
+        style: 'currency',
+        currency: 'VND',
+    });
     return (
         <div className="mota mota2">
 
             <div className="properties">
-                <p style={{ whiteSpace: 'pre-wrap' }}> Giá: {props.price}</p>
+                <p style={{ whiteSpace: 'pre-wrap' }}> Giá: {formattedPrice}</p>
             </div>
             <div className="properties">
                 <p style={{ whiteSpace: 'pre-wrap' }}> Số lượng: {props.quantity}</p>
