@@ -12,6 +12,7 @@ const adminLogin = 'http://localhost:8088/admin/login';
 const addCart = 'http://localhost:8088/cart/add';
 const getCart = 'http://localhost:8088/cart/getAll';
 const vnpay = 'http://localhost:8088/pay';
+const paypal = 'http://localhost:8088/payment';
 
 export {
     loginHost,
@@ -28,4 +29,5 @@ export {
     addCart,
     getCart,
     vnpay,
+    paypal,
 };

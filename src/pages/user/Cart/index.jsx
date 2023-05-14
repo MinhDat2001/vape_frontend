@@ -8,7 +8,7 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { getCart } from '~/pages/Host';
 import axios from 'axios';
-import { vnpay } from '~/pages/Host';
+import { vnpay, paypal } from '~/pages/Host';
 
 const cx = classNames.bind(styles);
 function Cart() {
@@ -41,6 +41,32 @@ function Cart() {
     const handlePayment = (e) => {
         const id = e.target.id;
         if (id === 'paypal') {
+            let total = 0;
+            data.forEach((item) => (total += item.price));
+            const randomNumber = Math.floor(Math.random() * 1001);
+            const sendData1 = {
+                price: total/23000,
+                cartId: randomNumber,
+            };
+            console.log(sendData1);
+
+            axios
+                .post(paypal, sendData1, {
+                    headers: {
+                        token: 'Vape ' + token,
+                    },
+                })
+                .then((response) => {
+                    console.log(response);
+                    if(response.data.status===0)
+                        window.location.href = response.data.data;
+                    else{
+                        window.alert(response.data.data);
+                    }
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
         }
         if (id === 'vnpay') {
             let total = 0;
