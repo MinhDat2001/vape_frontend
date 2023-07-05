@@ -1,14 +1,47 @@
-import ProductContentTable from '~/pages/user/Product/product-content-table';
 import React from 'react';
 import './styles.css';
-
+import { addCart } from '~/pages/Host';
+import axios from 'axios';
+const token = document.cookie
+        .split('; ')
+        .find((row) => row.startsWith('token='))
+        ?.split('=')[1];
 function ProductContentDes2(props) {
-    const img =
-        'https://bizweb.dktcdn.net/100/247/296/files/00-a8265882-c3b4-4f21-902e-6bbd94125d5d.jpg?v=1663560415794';
-
+    async function CallAddCart(){
+        var dataSend = {
+            productId:window.location.href.split("/")[4],
+            quantity:1
+        }
+        console.log(dataSend)
+        axios.post(addCart, dataSend, {
+                mode: 'cors',
+                headers: {
+                    token: 'Vape ' + token,
+                },
+            })
+            .then((response) => {
+                if (response.data.status === 0) {
+                    window.alert(response.data.message)
+                    console.log(response.data)
+                } else {
+                }
+            })
+            .catch(function (error) {
+            });
+    }
+    const formattedPrice = Number(props.price).toLocaleString('vi-VN', {
+        style: 'currency',
+        currency: 'VND',
+    });
     return (
         <div className="mota mota2">
-            <img className="img-des" alt="" src={img} />
+
+            <div className="properties">
+                <p style={{ whiteSpace: 'pre-wrap' }}> Giá: {formattedPrice}</p>
+            </div>
+            <div className="properties">
+                <p style={{ whiteSpace: 'pre-wrap' }}> Số lượng: {props.quantity}</p>
+            </div>
 
             <div className="mota mota1">
                 <p style={{ whiteSpace: 'pre-wrap' }}>{props.data}</p>
@@ -30,7 +63,8 @@ function ProductContentDes2(props) {
                     </div>
                 </span>
             </p>
-            <ProductContentTable />
+
+            <button onClick={CallAddCart} className='order-btn'> Đặt hàng</button>
         </div>
     );
 }

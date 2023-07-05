@@ -41,11 +41,7 @@ function Home() {
         if (token !== undefined || token !== null || token.trim() !== '') {
             // call gọi categories
             axios
-                .get(GET_ALL_CATEGORY, {
-                    headers: {
-                        token: token,
-                    },
-                })
+                .get(GET_ALL_CATEGORY)
                 .then((response) => {
                     if (response.status === 200) {
                         setCategories(response.data.data);
@@ -54,12 +50,7 @@ function Home() {
                             .get(
                                 GET_CATEGORY_BY_ID +
                                     '/' +
-                                    response.data.data[0].id,
-                                {
-                                    headers: {
-                                        token: token,
-                                    },
-                                }
+                                    response.data.data[0].id
                             )
                             .then((response) => {
                                 if (response.status === 200) {
@@ -76,14 +67,7 @@ function Home() {
                                             PRODUCTS_BY_CATEGORY +
                                                 '/' +
                                                 response.data.data.id,
-                                            sendData,
-                                            {
-                                                headers: {
-                                                    token: token,
-                                                    'Content-Type':
-                                                        'application/json',
-                                                },
-                                            }
+                                            sendData
                                         )
                                         .then((response) => {
                                             if (response.status === 200) {
@@ -109,14 +93,19 @@ function Home() {
 
             // gọi products
             axios
-                .get(GET_ALL_PRODUCT, {
-                    headers: {
-                        token: token,
-                    },
-                })
+                .get(GET_ALL_PRODUCT)
                 .then((response) => {
                     if (response.status === 200) {
-                        setProducts(response.data.data);
+                        const length = response.data.data.length;
+                        if (length >= 6) {
+                            setProducts(
+                                response.data.data
+                                    .slice(length - 6, length)
+                                    .reverse()
+                            );
+                        } else {
+                            setProducts(response.data.data.reverse());
+                        }
                     }
                 })
                 .catch((error) => {
@@ -132,55 +121,45 @@ function Home() {
             <section className={cx(['section-product', 'top-seller'])}>
                 <Container className={cx(['d-block', 'mh-0'])}>
                     <div className={cx(['top'])}>
-                        <Link className={cx(['title'])}>Sản phẩm Mới</Link>
-                        <Link className={cx(['more'])}>
+                        <Link className={cx(['title'])} to="/product">
+                            Sản phẩm Mới
+                        </Link>
+                        <Link className={cx(['more'])} to="/product">
                             <span>Xem thêm</span>
                             <FontAwesomeIcon icon={faArrowRight} />
                         </Link>
                     </div>
                     <div className={cx(['product-list'])}>
                         <Row>
-                            {products
-                                .slice(products.length - 6, products.length)
-                                .reverse()
-                                .map((item, index) => (
-                                    <Col lg={2} md={4} sm={6} key={index}>
-                                        <Link
-                                            title={item.name}
-                                            to={'/product/' + item.id}
-                                        >
-                                            <div className={cx(['card'])}>
-                                                <div className={cx(['top'])}>
-                                                    <Tag status={'new'} />
-                                                    <img
-                                                        src={item.avatar}
-                                                        alt=""
-                                                    />
+                            {products.map((item, index) => (
+                                <Col lg={2} md={4} sm={6} key={index}>
+                                    <Link
+                                        title={item.name}
+                                        to={'/product/' + item.id}
+                                    >
+                                        <div className={cx(['card'])}>
+                                            <div className={cx(['top'])}>
+                                                <Tag status={'new'} />
+                                                <img src={item.avatar} alt="" />
+                                            </div>
+                                            <div className={cx(['info'])}>
+                                                <div className={cx(['name'])}>
+                                                    {item.name}
                                                 </div>
-                                                <div className={cx(['info'])}>
-                                                    <div
-                                                        className={cx(['name'])}
-                                                    >
-                                                        {item.name}
-                                                    </div>
-                                                    <div
-                                                        className={cx([
-                                                            'price',
-                                                        ])}
-                                                    >
-                                                        {item.price.toLocaleString(
-                                                            'vi-VN',
-                                                            {
-                                                                style: 'currency',
-                                                                currency: 'VND',
-                                                            }
-                                                        )}
-                                                    </div>
+                                                <div className={cx(['price'])}>
+                                                    {item.price.toLocaleString(
+                                                        'vi-VN',
+                                                        {
+                                                            style: 'currency',
+                                                            currency: 'VND',
+                                                        }
+                                                    )}
                                                 </div>
                                             </div>
-                                        </Link>
-                                    </Col>
-                                ))}
+                                        </div>
+                                    </Link>
+                                </Col>
+                            ))}
                         </Row>
                     </div>
                 </Container>
@@ -201,7 +180,7 @@ function Home() {
                                     <Link to={'/product'}>
                                         <div className={cx(['category-card'])}>
                                             <img
-                                                src="https://i.pinimg.com/236x/f4/54/c5/f454c51311bdac71a761f60cc6085597.jpg"
+                                                src="https://www.thietkewebthuonghieu.com/wp-content/uploads/2022/04/top-5-thuong-hieu-vape-hang-dau.jpg"
                                                 alt=""
                                             />
                                             <div className={cx(['name'])}>
@@ -216,7 +195,7 @@ function Home() {
                     </div>
                 </Container>
             </section>
-            <section className={cx(['section-product', 'sales'])}>
+            {/* <section className={cx(['section-product', 'sales'])}>
                 <Container className={cx(['d-block', 'mh-0'])}>
                     <div className={cx(['top'])}>
                         <Link className={cx(['title'])}>Khuyến mãi</Link>
@@ -318,7 +297,7 @@ function Home() {
                         </Row>
                     </div>
                 </Container>
-            </section>
+            </section> */}
             <section className={cx(['section-product', 'category'])}>
                 <Container className={cx(['d-block', 'mh-0'])}>
                     <div className={cx(['top'])}>
@@ -386,14 +365,14 @@ function Home() {
                                                                         ]
                                                                     )}
                                                                 >
-                                                                    {/* {item.price.toLocaleString(
+                                                                    {item.price.toLocaleString(
                                                                         'vi-VN',
                                                                         {
                                                                             style: 'currency',
                                                                             currency:
                                                                                 'VND',
                                                                         }
-                                                                    )} */}
+                                                                    )}
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -401,325 +380,13 @@ function Home() {
                                                 </Col>
                                             )
                                         )}
-                                        {/* <Col lg={3} md={6} sm={6}>
-                                            <Link
-                                                title="Naked 100 Max - WATERMELON ( Dưa
-                                                Hấu Lạnh ) - Salt Nicotine"
-                                            >
-                                                <div className={cx(['card'])}>
-                                                    <div
-                                                        className={cx(['top'])}
-                                                    >
-                                                        <Tag status={'new'} />
-                                                        <img
-                                                            src="https://i.pinimg.com/236x/f4/54/c5/f454c51311bdac71a761f60cc6085597.jpg"
-                                                            alt=""
-                                                        />
-                                                    </div>
-                                                    <div
-                                                        className={cx(['info'])}
-                                                    >
-                                                        <div
-                                                            className={cx([
-                                                                'name',
-                                                            ])}
-                                                        >
-                                                            Naked 100 Max -
-                                                            WATERMELON ( Dưa Hấu
-                                                            Lạnh ) - Salt
-                                                            Nicotine
-                                                        </div>
-                                                        <div
-                                                            className={cx([
-                                                                'price',
-                                                            ])}
-                                                        >
-                                                            340.000₫
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </Link>
-                                        </Col>
-                                        <Col lg={3} md={6} sm={6}>
-                                            <Link
-                                                title="Naked 100 Max - WATERMELON ( Dưa
-                                                Hấu Lạnh ) - Salt Nicotine"
-                                            >
-                                                <div className={cx(['card'])}>
-                                                    <div
-                                                        className={cx(['top'])}
-                                                    >
-                                                        <Tag status={'new'} />
-                                                        <img
-                                                            src="https://i.pinimg.com/236x/f4/54/c5/f454c51311bdac71a761f60cc6085597.jpg"
-                                                            alt=""
-                                                        />
-                                                    </div>
-                                                    <div
-                                                        className={cx(['info'])}
-                                                    >
-                                                        <div
-                                                            className={cx([
-                                                                'name',
-                                                            ])}
-                                                        >
-                                                            Naked 100 Max -
-                                                            WATERMELON ( Dưa Hấu
-                                                            Lạnh ) - Salt
-                                                            Nicotine
-                                                        </div>
-                                                        <div
-                                                            className={cx([
-                                                                'price',
-                                                            ])}
-                                                        >
-                                                            340.000₫
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </Link>
-                                        </Col>
-                                        <Col lg={3} md={6} sm={6}>
-                                            <Link
-                                                title="Naked 100 Max - WATERMELON ( Dưa
-                                                Hấu Lạnh ) - Salt Nicotine"
-                                            >
-                                                <div className={cx(['card'])}>
-                                                    <div
-                                                        className={cx(['top'])}
-                                                    >
-                                                        <Tag status={'new'} />
-                                                        <img
-                                                            src="https://i.pinimg.com/236x/f4/54/c5/f454c51311bdac71a761f60cc6085597.jpg"
-                                                            alt=""
-                                                        />
-                                                    </div>
-                                                    <div
-                                                        className={cx(['info'])}
-                                                    >
-                                                        <div
-                                                            className={cx([
-                                                                'name',
-                                                            ])}
-                                                        >
-                                                            Naked 100 Max -
-                                                            WATERMELON ( Dưa Hấu
-                                                            Lạnh ) - Salt
-                                                            Nicotine
-                                                        </div>
-                                                        <div
-                                                            className={cx([
-                                                                'price',
-                                                            ])}
-                                                        >
-                                                            340.000₫
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </Link>
-                                        </Col>
-                                        <Col lg={3} md={6} sm={6}>
-                                            <Link
-                                                title="Naked 100 Max - WATERMELON ( Dưa
-                                                Hấu Lạnh ) - Salt Nicotine"
-                                            >
-                                                <div className={cx(['card'])}>
-                                                    <div
-                                                        className={cx(['top'])}
-                                                    >
-                                                        <Tag status={'new'} />
-                                                        <img
-                                                            src="https://i.pinimg.com/236x/f4/54/c5/f454c51311bdac71a761f60cc6085597.jpg"
-                                                            alt=""
-                                                        />
-                                                    </div>
-                                                    <div
-                                                        className={cx(['info'])}
-                                                    >
-                                                        <div
-                                                            className={cx([
-                                                                'name',
-                                                            ])}
-                                                        >
-                                                            Naked 100 Max -
-                                                            WATERMELON ( Dưa Hấu
-                                                            Lạnh ) - Salt
-                                                            Nicotine
-                                                        </div>
-                                                        <div
-                                                            className={cx([
-                                                                'price',
-                                                            ])}
-                                                        >
-                                                            340.000₫
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </Link>
-                                        </Col>
-                                        <Col lg={3} md={6} sm={6}>
-                                            <Link
-                                                title="Naked 100 Max - WATERMELON ( Dưa
-                                                Hấu Lạnh ) - Salt Nicotine"
-                                            >
-                                                <div className={cx(['card'])}>
-                                                    <div
-                                                        className={cx(['top'])}
-                                                    >
-                                                        <Tag status={'new'} />
-                                                        <img
-                                                            src="https://i.pinimg.com/236x/f4/54/c5/f454c51311bdac71a761f60cc6085597.jpg"
-                                                            alt=""
-                                                        />
-                                                    </div>
-                                                    <div
-                                                        className={cx(['info'])}
-                                                    >
-                                                        <div
-                                                            className={cx([
-                                                                'name',
-                                                            ])}
-                                                        >
-                                                            Naked 100 Max -
-                                                            WATERMELON ( Dưa Hấu
-                                                            Lạnh ) - Salt
-                                                            Nicotine
-                                                        </div>
-                                                        <div
-                                                            className={cx([
-                                                                'price',
-                                                            ])}
-                                                        >
-                                                            340.000₫
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </Link>
-                                        </Col>
-                                        <Col lg={3} md={6} sm={6}>
-                                            <Link
-                                                title="Naked 100 Max - WATERMELON ( Dưa
-                                                Hấu Lạnh ) - Salt Nicotine"
-                                            >
-                                                <div className={cx(['card'])}>
-                                                    <div
-                                                        className={cx(['top'])}
-                                                    >
-                                                        <Tag status={'new'} />
-                                                        <img
-                                                            src="https://i.pinimg.com/236x/f4/54/c5/f454c51311bdac71a761f60cc6085597.jpg"
-                                                            alt=""
-                                                        />
-                                                    </div>
-                                                    <div
-                                                        className={cx(['info'])}
-                                                    >
-                                                        <div
-                                                            className={cx([
-                                                                'name',
-                                                            ])}
-                                                        >
-                                                            Naked 100 Max -
-                                                            WATERMELON ( Dưa Hấu
-                                                            Lạnh ) - Salt
-                                                            Nicotine
-                                                        </div>
-                                                        <div
-                                                            className={cx([
-                                                                'price',
-                                                            ])}
-                                                        >
-                                                            340.000₫
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </Link>
-                                        </Col>
-                                        <Col lg={3} md={6} sm={6}>
-                                            <Link
-                                                title="Naked 100 Max - WATERMELON ( Dưa
-                                                Hấu Lạnh ) - Salt Nicotine"
-                                            >
-                                                <div className={cx(['card'])}>
-                                                    <div
-                                                        className={cx(['top'])}
-                                                    >
-                                                        <Tag status={'new'} />
-                                                        <img
-                                                            src="https://i.pinimg.com/236x/f4/54/c5/f454c51311bdac71a761f60cc6085597.jpg"
-                                                            alt=""
-                                                        />
-                                                    </div>
-                                                    <div
-                                                        className={cx(['info'])}
-                                                    >
-                                                        <div
-                                                            className={cx([
-                                                                'name',
-                                                            ])}
-                                                        >
-                                                            Naked 100 Max -
-                                                            WATERMELON ( Dưa Hấu
-                                                            Lạnh ) - Salt
-                                                            Nicotine
-                                                        </div>
-                                                        <div
-                                                            className={cx([
-                                                                'price',
-                                                            ])}
-                                                        >
-                                                            340.000₫
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </Link>
-                                        </Col>
-                                        <Col lg={3} md={6} sm={6}>
-                                            <Link
-                                                title="Naked 100 Max - WATERMELON ( Dưa
-                                                Hấu Lạnh ) - Salt Nicotine"
-                                            >
-                                                <div className={cx(['card'])}>
-                                                    <div
-                                                        className={cx(['top'])}
-                                                    >
-                                                        <Tag status={'new'} />
-                                                        <img
-                                                            src="https://i.pinimg.com/236x/f4/54/c5/f454c51311bdac71a761f60cc6085597.jpg"
-                                                            alt=""
-                                                        />
-                                                    </div>
-                                                    <div
-                                                        className={cx(['info'])}
-                                                    >
-                                                        <div
-                                                            className={cx([
-                                                                'name',
-                                                            ])}
-                                                        >
-                                                            Naked 100 Max -
-                                                            WATERMELON ( Dưa Hấu
-                                                            Lạnh ) - Salt
-                                                            Nicotine
-                                                        </div>
-                                                        <div
-                                                            className={cx([
-                                                                'price',
-                                                            ])}
-                                                        >
-                                                            340.000₫
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </Link>
-                                        </Col> */}
                                     </Row>
                                 </div>
                             </Col>
                             <Col md={6} lg={4} className="d-md-block d-sm-none">
                                 <div className={cx(['image-box'])}>
                                     <img
-                                        src="https://i.pinimg.com/236x/f4/54/c5/f454c51311bdac71a761f60cc6085597.jpg"
+                                        src="//bizweb.dktcdn.net/100/247/296/themes/876442/assets/img_banner_3.jpg?1683547398519"
                                         alt=""
                                     />
                                 </div>

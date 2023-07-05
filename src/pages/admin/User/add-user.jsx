@@ -1,4 +1,6 @@
+import axios from 'axios';
 import classNames from 'classnames/bind';
+import { useEffect } from 'react';
 
 import { useState } from 'react';
 
@@ -9,11 +11,15 @@ const cx = classNames.bind(styles);
 const LOADING_IMG =
     'https://media3.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.gif';
 
+const host = 'https://provinces.open-api.vn/api/';
+
 function AddUser() {
     const [formData, setFormData] = useState({
-        username: '',
-        password: '',
+        email: 'hungkojno1@gmail.com',
+        password: '12345678',
         avatar: '',
+        home: '',
+        phone: '',
         roles: [],
     });
 
@@ -34,29 +40,88 @@ function AddUser() {
 
     const [inputSrc, setInputSrc] = useState('');
 
+    console.log(formData);
     const handleOnChange = (e) => {
         const targetId = e.target.id;
-        let targerValue = e.target.value;
+        let targetValue = e.target.value;
         switch (targetId) {
-            case 'username':
-                setFormData({ ...formData, username: targerValue });
+            case 'email':
+                // setFormData({ ...formData, email: targetValue });
                 break;
             case 'password':
-                setFormData({ ...formData, password: targerValue });
-                break;
-                //validate số lượng
-                if (targerValue === '') {
-                    setFormData({ ...formData, price: 0 });
-                } else {
-                    targerValue = Number.parseInt(targerValue);
-                    setFormData({ ...formData, price: targerValue });
-                }
-
+                setFormData({ ...formData, password: targetValue });
                 break;
             case 'avatar':
                 //validate ảnh
-                setInputSrc(targerValue);
-                setImageSrc(targerValue);
+                setInputSrc(targetValue);
+                setImageSrc(targetValue);
+                break;
+            case 'city':
+                const selectedOption = e.target.options[e.target.selectedIndex];
+                const code = selectedOption.getAttribute('code');
+                const value = selectedOption.value;
+                setCity({
+                    code: code,
+                    name: value,
+                });
+                if (code == 0) {
+                    setDistricts([]);
+                    setWards([]);
+                    setDistrict({ code: '0', name: '' });
+                    setWard({ code: '0', name: '' });
+                } else {
+                    axios
+                        .get(
+                            'https://provinces.open-api.vn/api/p/' +
+                                code +
+                                '?depth=2'
+                        )
+                        .then((response) => {
+                            setDistricts(response.data.districts);
+                        })
+                        .catch((error) => console.log(error));
+                }
+                break;
+            case 'district':
+                const selectedOption1 =
+                    e.target.options[e.target.selectedIndex];
+                const code1 = selectedOption1.getAttribute('code');
+                const value1 = selectedOption1.value;
+                setDistrict({
+                    code: code1,
+                    name: value1,
+                });
+                if (code1 == 0) {
+                    setWards([]);
+                    setWard({ code: '0', name: '' });
+                } else {
+                    axios
+                        .get(
+                            'https://provinces.open-api.vn/api/d/' +
+                                code1 +
+                                '?depth=2'
+                        )
+                        .then((response) => {
+                            setWards(response.data.wards);
+                        })
+                        .catch((error) => console.log(error));
+                }
+                break;
+            case 'ward':
+                const selectedOption2 =
+                    e.target.options[e.target.selectedIndex];
+                const code2 = selectedOption2.getAttribute('code');
+                const value2 = selectedOption2.value;
+                setWard({
+                    code: code2,
+                    name: value2,
+                });
+                break;
+            case 'home':
+                setFormData({ ...formData, home: targetValue });
+                break;
+            case 'phone':
+                setFormData({ ...formData, phone: targetValue });
                 break;
             default:
                 break;
@@ -109,6 +174,7 @@ function AddUser() {
     const handleSubmit = (e) => {
         if (validate()) {
             // call api
+            const sendData = { email: formData.email, name: formData.name };
         }
     };
 
@@ -125,6 +191,24 @@ function AddUser() {
         });
     };
 
+    const [cities, setCities] = useState([]);
+    const [districts, setDistricts] = useState([]);
+    const [wards, setWards] = useState([]);
+
+    const [city, setCity] = useState({ code: '', name: '' });
+    const [district, setDistrict] = useState({ code: '', name: '' });
+    const [ward, setWard] = useState({ code: '', name: '' });
+
+    // gọi tỉnh
+    useEffect(() => {
+        axios
+            .get('https://provinces.open-api.vn/api/')
+            .then((response) => {
+                setCities(response.data);
+            })
+            .catch((error) => console.log(error));
+    }, []);
+
     return (
         <div className={cx(['add-product'])}>
             <h1
@@ -136,13 +220,13 @@ function AddUser() {
             </h1>
             <div className={cx(['content'])}>
                 <div className={cx(['input-feature'])}>
-                    <div className={cx(['label'])}>Tài khoản:</div>
+                    <div className={cx(['label'])}>Email:</div>
                     <input
-                        id="username"
+                        id="email"
                         placeholder="Tài khoản"
                         type="text"
                         className={cx(['input-text'])}
-                        value={formData.username}
+                        value={formData.email}
                         onChange={handleOnChange}
                     />
                 </div>
@@ -154,6 +238,17 @@ function AddUser() {
                         type="text"
                         className={cx(['input-text'])}
                         value={formData.password}
+                        onChange={handleOnChange}
+                    />
+                </div>
+                <div className={cx(['input-feature'])}>
+                    <div className={cx(['label'])}>Số điện thoại:</div>
+                    <input
+                        id="phone"
+                        placeholder="Số điện thoại"
+                        type="text"
+                        className={cx(['input-text'])}
+                        value={formData.phone}
                         onChange={handleOnChange}
                     />
                 </div>
@@ -211,6 +306,106 @@ function AddUser() {
                         })}
                     </div>
                 </div>
+                <div className={cx(['input-feature'])}>
+                    <div className={cx(['label'])}>Tỉnh/Thành phố:</div>
+                    <select
+                        onChange={handleOnChange}
+                        id="city"
+                        className={cx(['input-text'])}
+                        value={city.name}
+                    >
+                        <option value={''} code="0">
+                            Chọn
+                        </option>
+                        {cities.map((item, index) => (
+                            <option
+                                code={item.code}
+                                key={item.codename}
+                                value={item.name}
+                            >
+                                {item.name}
+                            </option>
+                        ))}
+                    </select>
+                </div>
+                <div className={cx(['input-feature'])}>
+                    <div className={cx(['label'])}>Huyện:</div>
+                    <select
+                        onChange={handleOnChange}
+                        id="district"
+                        className={cx(['input-text'])}
+                    >
+                        {districts.length > 0 ? (
+                            districts.map((item, index) => (
+                                <option
+                                    code={item.code}
+                                    key={item.codename}
+                                    value={item.name}
+                                >
+                                    {item.name}
+                                </option>
+                            ))
+                        ) : (
+                            <option code="0" value="">
+                                Chọn
+                            </option>
+                        )}
+                    </select>
+                </div>
+                <div className={cx(['input-feature'])}>
+                    <div className={cx(['label'])}>Xã:</div>
+                    <select
+                        onChange={handleOnChange}
+                        id="ward"
+                        className={cx(['input-text'])}
+                    >
+                        {wards.length > 0 ? (
+                            wards.map((item, index) => (
+                                <option
+                                    code={item.code}
+                                    key={item.codename}
+                                    value={item.name}
+                                >
+                                    {item.name}
+                                </option>
+                            ))
+                        ) : (
+                            <option value={''} code="0">
+                                Chọn
+                            </option>
+                        )}
+                    </select>
+                </div>
+                <div className={cx(['input-feature'])}>
+                    <div className={cx(['label'])}>Địa chỉ nhà:</div>
+                    <input
+                        id="home"
+                        placeholder="Địa chỉ nhà"
+                        type="text"
+                        className={cx(['input-text'])}
+                        value={formData.home}
+                        onChange={handleOnChange}
+                    />
+                </div>
+                {/* <div className="contain">
+                    <label className="label">Tỉnh/Thành phố</label>
+                    <select onChange={callDistrict} id="city" className="input">
+                        <option>Chọn</option>
+                    </select>
+                </div>
+                <div className="contain">
+                    <label className="label">Quận/Huyện</label>
+                    <select onChange={callWard} id="district" className="input">
+                        <option>Chọn</option>
+                    </select>
+                </div>
+                <div className="contain">
+                    <label className="label">Xã/Phường</label>
+                    <select id="ward" className="input">
+                        <option>Chọn</option>
+                    </select>
+                </div> */}
+
                 {!valid.status && (
                     <div className={cx(['warning'])}>{valid.message}</div>
                 )}

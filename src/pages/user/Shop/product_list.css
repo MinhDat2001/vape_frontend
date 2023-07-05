@@ -120,9 +120,11 @@ body {
 }
 
 .paginationBox {
+    border-top: 1px solid rgb(211, 211, 211);
     margin-top: 8px;
     display: flex;
     justify-content: center;
+    padding-top: 1rem;
 }
 
 .pagination {

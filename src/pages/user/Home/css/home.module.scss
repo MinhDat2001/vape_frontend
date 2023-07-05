@@ -69,6 +69,9 @@
             }
         }
     }
+    .popular-categories {
+        background-color: #27db9c;
+    }
 }
 
 .card {
@@ -100,7 +103,9 @@
         .name {
             margin-top: 4px;
             min-height: 50px;
-            font-size: 12px;
+            font-size: 1.5rem;
+            font-weight: bold;
+            text-transform: capitalize;
             &:hover {
                 color: #f45c43;
             }
